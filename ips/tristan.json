@@ -324,6 +324,18 @@
     "Category": "Peripherals"
   },
   {
+      "Name": "SPEDE",
+      "URL": "https://github.com/soc-hub-fi/spede",
+      "License": "Apache-2.0 WITH SHL-2.1",
+      "Status": "Finished",
+      "Description": "High-speed serializer/deserializer for synchronization and conversion between serial bitstreams and bytes.",
+      "Project": "TRISTAN",
+      "WI": ["3.2.4"],
+      "Partners": ["Tampere University", "Nokia"],
+      "Comment": "",
+      "Category": "Peripherals"
+  },
+  {
     "Name": "TimeWeaver",
     "URL": "https://www.absint.com/timeweaver/",
     "License": "proprietary",
