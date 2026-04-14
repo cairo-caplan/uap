@@ -86,10 +86,10 @@
   {
     "Project": "ISOLDE",
     "Name": "Wormhole NoC",
-    "URL": "",
+    "URL": "https://gitlab.com/selene-riscv-platform/euros2pronoc/-/tree/AXI-MM-Network-Interface?ref_type=heads",
     "License": "MIT",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Completed, tested",
+    "Description": "Tile-oriented SoC design, where components located at different tiles exchange messages in a unified manner. IPs will interface to the NoC by means of a Network Interface (NI) which complies with AXI protocol. The NoC router supports 2D mesh topologies.",
     "WI": [
       "ID 2.2.02"
     ],
@@ -100,10 +100,10 @@
   {
     "Project": "ISOLDE",
     "Name": "AXI Sniffer",
-    "URL": "",
+    "URL": "https://gitlab.com/selene-riscv-platform/selene-hardware/-/tree/master/interconnect/libnoc/mem_monitor",
     "License": "MIT",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Completed, verified",
+    "Description": "Monitors the network activity in AXI interconnects. Tracks the timing contention between the different traffic sources on an AXI network for each given destination.",
     "WI": [
       "ID 2.2.03"
     ],
@@ -1269,10 +1269,10 @@
   {
     "Project": "ISOLDE",
     "Name": "Bit-accurate FPGA fault injection (BAFFI) tool",
-    "URL": "",
+    "URL": "https://gitlab.com/selene-riscv-platform/DAVOS#1-baffi-tool",
     "License": "MIT",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Completed, tested",
+    "Description": "BAFFI supports fine-grain fault injection in AMD Ultrascale+ FPGAs. Supports permanent and transient fault models suitable for verification of ASIC (RTL) and FPGA designs. Automates robustness assessment of RISCV prototypes.",
     "WI": [
       "ID 4.3.04"
     ],
