@@ -758,7 +758,7 @@
   {
     "Name": "Co-processor Generator Tool",
     "URL": "https://github.com/cpc/openasip",
-    "License": "Tool: LGPL v2.1, generated RTL: MIT",
+    "License": "Tool: LGPL v2.1",
     "Status": "Released",
     "Description": "Tool to generate CV-X-IF and RoCC compliant co-processors based on user definition of operations/instructions.",
     "Project": "TRISTAN",
