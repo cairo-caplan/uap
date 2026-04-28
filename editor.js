@@ -13,7 +13,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('editor-page');
 
-  const GITHUB_API_URL = 'https://api.github.com/repos/openhwgroup/tristan-isolde-unified-access-page/contents/ips?ref=main';
+  const GITHUB_API_URL = 'https://api.github.com/repos/openhwgroup/uap/contents/ips?ref=main';
   const CATEGORIES_URL = 'cfg/categories.json';
   const LICENSES_URL = 'cfg/licenses.json';
 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateData(index, key, value) {
     // For keys that should be arrays, split by comma
-    if (['WI', 'Partners', 'Category'].includes(key)) {
+    if (['WI', 'Partners', 'Category', 'License'].includes(key)) {
       currentData[index][key] = value.split(',').map(s => s.trim()).filter(Boolean);
     } else {
       currentData[index][key] = value;
@@ -174,17 +174,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Validation of the License field
     for (let i = 0; i < currentData.length; i++) {
       const row = currentData[i];
-      const license = (row.License || '').trim();
+      const licenseField = row.License || '';
+      const licenses = Array.isArray(licenseField) ? licenseField : [licenseField];
 
-      // Skip empty licenses (they're allowed)
-      if (!license) continue;
+      for (const license of licenses) {
+        const trimmedLicense = String(license).trim();
+        if (!trimmedLicense) continue;
 
-      // Check if license is in the allowed list
-      if (!allowedLicenses.includes(license)) {
-        alert(`Error: Invalid license value "${license}" found in row ${i + 1}.\n` +
-              `Please select a valid license from the dropdown list.\n` +
-              `Valid licenses: ${allowedLicenses.join(', ')}`);
-        return; // Stop the save process
+        // Check if license is in the allowed list
+        if (!allowedLicenses.includes(trimmedLicense)) {
+          alert(`Error: Invalid license value "${trimmedLicense}" found in row ${i + 1}.\n` +
+                `Please select a valid license from the dropdown list.\n` +
+                `Valid licenses: ${allowedLicenses.join(', ')}`);
+          return; // Stop the save process
+        }
       }
     }
 
@@ -196,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       outputOrder.forEach(key => {
         if (key !== 'Project') {
           // Ensure all keys exist, defaulting to empty string or empty array
-          if (['WI', 'Partners', 'Category'].includes(key)) {
+          if (['WI', 'Partners', 'Category', 'License'].includes(key)) {
             newRow[key] = row[key] || [];
           } else {
             newRow[key] = row[key] || '';
