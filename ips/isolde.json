@@ -1186,14 +1186,14 @@
     "Project": "ISOLDE",
     "Name": "Support for SIMD/Vector Accelerator and scratchpad memory",
     "URL": "https://github.com/alex2kameboss/MA-riscv-gnu-toolchain",
-    "License": "GPL v3.0",
+    "License": ["BSD-3-Clause", "GPL-2.0", "LGPL-2.1"],
     "Status": "Stable",
     "Description": "GCC support for IMT SIMD/Vector accelerator. Custom instructions are available through inline assembly.",
     "WI": [
       "ID 4.2.17"
     ],
     "Partners": "IMT",
-    "Comment": "GPL v3.0",
+    "Comment": "",
     "Category": "Operating systems and applications SW"
   },
   {
