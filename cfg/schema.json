@@ -30,7 +30,12 @@
       },
       "Status": { "type": "string" },
       "Description": { "type": "string" },
-      "License": { "type": "string" },
+      "License": {
+         "oneOf": [
+          { "type": "array", "items": { "type": "string" } },
+          { "type": "string" }
+        ]
+      },
       "Comment": { "type": "string" }
     },
     "additionalProperties": true

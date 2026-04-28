@@ -1024,10 +1024,10 @@ function renderRows(rows) {
           td.textContent = '';
         }
       } else {
-        td.textContent = row[col] ?? '';
+        td.textContent = Array.isArray(row[col]) ? row[col].join(', ') : (row[col] ?? '');
       }
       tr.appendChild(td);
-    });
+      });
     tbody.appendChild(tr);
   });
 }
