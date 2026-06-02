@@ -47,62 +47,85 @@
 	  </div>
 	</header>
   <main>
-    <!-- Search and Settings div -->
-    <div class="search-and-settings-container" style="position: relative;">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search all fields..."
-      />
-      <button id="settings-toggle-btn" title="Open Settings" aria-label="Open Settings Panel">⚙️</button>
-
-      <div id="settings-panel" class="floating-panel" hidden>
-        <h3>Settings</h3>
-
-        <div id="load-options" class="settings-group">
-          <h4>Data source</h4>
-          <label>
-            <input type="radio" name="load-mode" value="github" checked>
-            Load from GitHub
-          </label>
-          <label>
-            <input type="radio" name="load-mode" value="local">
-            Load from local files
-          </label>
-          <input
-            type="file"
-            id="file-input"
-            multiple
-            accept=".json"
-            style="display: none; margin-left:1em;"
-          />
-        </div>
-
-        <div class="settings-group">
-          <h4>Table View</h4>
-          <label><input type="radio" name="table-view" value="default" checked>Default</label>
-          <label><input type="radio" name="table-view" value="detailed">Detailed</label>
-        </div>
-
-        <div class="settings-group">
-          <h4>Controls</h4>
-          <button onclick="window.location.href='editor.html'">Edit table data</button>
-          <button id="export-btn" disabled>Export CSV</button>
-        </div>
-
-        <div id="status" class="settings-group">Choose a load mode to begin.</div>
-      </div>
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" data-tab="catalogue">IP Catalogue</button>
+      <button class="tab-btn" data-tab="compatibility">Compatibility Matrix</button>
     </div>
 
-    <!-- Platform Table div-->
-    <div class="table-viewport">
+    <!-- Catalogue Table div-->
+    <div id="catalogue-view" class="table-viewport">
+      <!-- Search and Settings div -->
+      <div class="search-and-settings-container">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search all fields..."
+        />
+        <button id="settings-toggle-btn" title="Open Settings" aria-label="Open Settings Panel">⚙️</button>
+
+        <div id="settings-panel" class="floating-panel" hidden>
+          <h3>Settings</h3>
+
+          <div id="load-options" class="settings-group">
+            <h4>Data source</h4>
+            <label>
+              <input type="radio" name="load-mode" value="github" checked>
+              Load from GitHub
+            </label>
+            <label>
+              <input type="radio" name="load-mode" value="local">
+              Load from local files
+            </label>
+            <input
+              type="file"
+              id="file-input"
+              multiple
+              accept=".json"
+              style="display: none; margin-left:1em;"
+            />
+          </div>
+
+          <div class="settings-group">
+            <h4>Table View</h4>
+            <label><input type="radio" name="table-view" value="default" checked>Default</label>
+            <label><input type="radio" name="table-view" value="detailed">Detailed</label>
+          </div>
+
+          <div class="settings-group">
+            <h4>Controls</h4>
+            <button onclick="window.location.href='editor.html'">Edit table data</button>
+            <button id="export-btn" disabled>Export CSV</button>
+          </div>
+
+          <div id="status" class="settings-group">Choose a load mode to begin.</div>
+        </div>
+      </div>
+
       <div class="table-container table-fixed">
         <table id="data-table">
           <thead></thead>
           <tbody></tbody>
         </table>
       </div>
-	  </div>
+    </div>
+
+    <!-- Compatibility Matrix div -->
+    <div id="compatibility-view" class="matrix-viewport" hidden>
+      <div class="matrix-container">
+        <div class="matrix-legend">
+          <span class="legend-item"><span class="color-box ct"></span> Compatible and Tested (CT)</span>
+          <span class="legend-item"><span class="color-box cnt"></span> Compatible but Not Tested (CNT)</span>
+          <span class="legend-item"><span class="color-box nc"></span> Not Compatible (NC)</span>
+        </div>
+        <table id="compatibility-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+        <p class="matrix-disclaimer">This compatibility matrix is a preview — stay tuned for upcoming changes!</p>
+      </div>
+    </div>
+
 
     <!-- Sponsors -->
     <section id="sponsors" class="sponsors">

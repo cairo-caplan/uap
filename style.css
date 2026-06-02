@@ -452,42 +452,51 @@ select {
 
 
 .search-and-settings-container {
-  width: 100vw;
   display: grid;
   grid-template-columns: 1fr auto;
   position: relative;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 10px;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;           /* pull to the left edge of the window */
-  margin-right: -50vw;          /* pull to the right edge of the window */
-  padding: 0 1.5rem;            /* same side padding as the site */
+  margin-bottom: 20px;
   box-sizing: border-box;
 }
 
 .search-and-settings-container #search-input {
   width: 100%;
-  padding: 10px;
+  padding: 12px 16px;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid #d6d9de;
+  border-radius: 10px;
   background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.search-and-settings-container #search-input:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
 }
 
 .search-and-settings-container #settings-toggle-btn {
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 50px;
-  height: 44px;
-  font-size: 24px;
+  border: 1px solid #d6d9de;
+  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.search-and-settings-container #settings-toggle-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #bcc2ca;
+  transform: translateY(-1px);
 }
 
 .search-and-settings-container .floating-panel {
@@ -849,3 +858,134 @@ code {
     color: #664d03; 
     border-radius: 4px;
 }
+
+
+/* Tabs Navigation */
+.tabs-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #d6d9de;
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  padding: 12px 24px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: #374a5e;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  margin-bottom: -1px; /* overlap border-bottom of tabs-nav */
+}
+
+.tab-btn.active {
+  background-color: #ffffff;
+  color: #1565c0;
+  border-color: #d6d9de #d6d9de #ffffff #d6d9de;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+}
+
+.tab-btn:hover:not(.active) {
+  background-color: #eef2f6;
+  color: #1b2b3a;
+}
+
+/* Matrix Styles */
+.matrix-viewport {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.matrix-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#compatibility-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+#compatibility-table th, #compatibility-table td {
+  border: 1px solid #ccc;
+  padding: 12px 8px;
+}
+
+#compatibility-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+#compatibility-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  background-color: #fafafa;
+}
+
+/* Compatibility Matrix — row/column hover highlight */
+.matrix-row-highlight {
+  background-color: #eef6ff !important;
+}
+
+.matrix-col-highlight {
+  background-color: #eef6ff !important;
+}
+
+/* Compatibility Colors */
+.cell-ct {
+  background-color: #1b5e20 !important;
+  color: #fff;
+}
+
+.cell-cnt {
+  background-color: #4caf50 !important;
+  color: #fff;
+}
+
+.cell-nc {
+  background-color: #a5d6a7 !important;
+  color: #333;
+}
+
+/* Legend */
+.matrix-legend {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+/* Disclaimer */
+.matrix-disclaimer {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-box {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #999;
+  display: inline-block;
+}
+
+.color-box.ct { background-color: #1b5e20; }
+.color-box.cnt { background-color: #4caf50; }
+.color-box.nc { background-color: #a5d6a7; }
