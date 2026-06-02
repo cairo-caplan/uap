@@ -13,7 +13,7 @@
 
 // Configuration
 const BASE_URL =
-(window.location.href).replace("index.html", "").split(/[?#]/)[0]; //local hosting
+(window.location.href).replace("unified-access.html", "").split(/[?#]/)[0]; //local hosting
 // 'https://cairo-caplan.github.io/uap';
 // 'https://api.github.com/repos/openhwgroup/uap/contents/';
 
