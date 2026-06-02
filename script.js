@@ -13,7 +13,7 @@
 
 // Configuration
 const BASE_URL =
-(window.location.href).replace("index.html", ""); //local hosting
+(window.location.href).replace("index.html", "").split(/[?#]/)[0]; //local hosting
 // 'https://cairo-caplan.github.io/uap';
 // 'https://api.github.com/repos/openhwgroup/uap/contents/';
 
@@ -60,6 +60,8 @@ let filterState = {};
 let allowedCategories = [];
 let projectsData = [];
 let visibleColumns = [];
+let dataLoaded   = false;  // flag: true once loadDataFromServer finishes
+let pendingSearch = null;  // stores search term from popstate until data is ready
 
 async function loadAllowedCategories() {
   try {
@@ -518,6 +520,14 @@ async function loadDataFromServer() {
     deriveColumns();
     buildTable();
     setInitialFilterSelections(parseFiltersFromQuery()); // Apply URL filters now
+    dataLoaded = true;
+    if (pendingSearch !== null) {
+      searchText = pendingSearch.toLowerCase();
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) searchInput.value = pendingSearch;
+      pendingSearch = null;
+      applyFilters();
+    }
     statusEl.textContent = 'GitHub data loaded.';
     srStatus.textContent = `${filteredData.length} items loaded from GitHub.`;
     exportBtn.disabled = false;
@@ -1047,11 +1057,16 @@ exportBtn.addEventListener('click', () => {
 });
 
 // Auto‐start GitHub mode on first load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // trigger the default “github” radio
   document.querySelector('input[name="load-mode"][value="github"]')
           .dispatchEvent(new Event('change'));
-});
+
+          // Setup tab navigation and load compatibility matrix
+          setupTabNavigation();
+          await loadCompatibilityMatrixData();
+          renderCompatibilityMatrix();
+          });
 
 // Settings Panel Toggle Logic
 document.addEventListener('DOMContentLoaded', () => {
@@ -1270,4 +1285,192 @@ function renderColumnToggleDropdown() {
     label.appendChild(document.createTextNode(col));
     dropdown.appendChild(label);
   });
+}
+
+
+// Compatibility Matrix section
+let cfgMatrixData = null;
+
+async function loadCompatibilityMatrixData() {
+  try {
+    const response = await fetch('cfg/compatibility-matrix.json');
+    if (!response.ok) {
+      throw new Error(`Failed to load compatibility matrix: ${response.statusText}`);
+    }
+    cfgMatrixData = await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function renderCompatibilityMatrix() {
+  const table = document.getElementById('compatibility-table');
+  if (!table || !cfgMatrixData) return;
+
+  const thead = table.querySelector('thead');
+  const tbody = table.querySelector('tbody');
+
+  thead.innerHTML = '';
+  tbody.innerHTML = '';
+
+  function addMatrixHover(cell) {
+    const colIndex = cell.cellIndex;
+    const row = cell.parentElement;
+    row.querySelectorAll('td, th').forEach(c => c.classList.add('matrix-row-highlight'));
+    const headerCell = thead.querySelectorAll('tr')[0]?.children[colIndex];
+    if (headerCell) headerCell.classList.add('matrix-col-highlight');
+    tbody.querySelectorAll('tr').forEach(tr => {
+      const cellInCol = tr.children[colIndex];
+      if (cellInCol) cellInCol.classList.add('matrix-col-highlight');
+    });
+  }
+
+  function clearMatrixHover() {
+    table.querySelectorAll('.matrix-row-highlight, .matrix-col-highlight').forEach(el => {
+      el.classList.remove('matrix-row-highlight', 'matrix-col-highlight');
+    });
+  }
+
+  // Create Header Row
+  const headerRow = document.createElement('tr');
+  const thEmpty = document.createElement('th');
+  thEmpty.textContent = 'Technical contribution per Processor family';
+  headerRow.appendChild(thEmpty);
+
+  cfgMatrixData.columns.forEach(col => {
+    const th = document.createElement('th');
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = col.name;
+    link.style.cursor = 'pointer';
+    link.style.textDecoration = 'underline';
+    link.style.color = 'inherit';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchToCatalogue(col.ipName);
+    });
+    th.appendChild(link);
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+
+  // Create Data Rows
+  cfgMatrixData.rows.forEach(row => {
+    const tr = document.createElement('tr');
+
+    const tdName = document.createElement('td');
+    const displayName = row.officialName || row.name;
+    const ipName = row.ipName || row.name;
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = displayName;
+    link.style.cursor = 'pointer';
+    link.style.textDecoration = 'underline';
+    link.style.color = '#0056b3';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchToCatalogue(ipName);
+    });
+    tdName.appendChild(link);
+    tr.appendChild(tdName);
+
+    row.values.forEach(val => {
+      const td = document.createElement('td');
+      // td.textContent = val;// Shows the text value (CT, CNT, NC)
+      if (val === 'CT') td.className = 'cell-ct';
+      else if (val === 'CNT') td.className = 'cell-cnt';
+      else if (val === 'NC') td.className = 'cell-nc';
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  table.querySelectorAll('th, td').forEach(cell => {
+    cell.addEventListener('mouseenter', () => addMatrixHover(cell));
+    cell.addEventListener('mouseleave', () => clearMatrixHover());
+  });
+  }
+
+function switchToCatalogue(ipName) {
+  history.pushState({ tab: 'catalogue', search: ipName }, '', '#catalogue');
+
+  searchText = ipName.toLowerCase();
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.value = ipName;
+  }
+
+  applyFilters();
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const catalogueView = document.getElementById('catalogue-view');
+  const compatibilityView = document.getElementById('compatibility-view');
+
+  tabBtns.forEach(b => b.classList.remove('active'));
+  tabBtns[0]?.classList.add('active');
+
+  if (catalogueView) catalogueView.hidden = false;
+  if (compatibilityView) compatibilityView.hidden = true;
+}
+
+function switchTab(tab) {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const catalogueView = document.getElementById('catalogue-view');
+  const compatibilityView = document.getElementById('compatibility-view');
+
+  tabBtns.forEach(b => b.classList.remove('active'));
+  tabBtns.forEach(b => {
+    if (b.dataset.tab === tab) b.classList.add('active');
+  });
+
+  if (tab === 'catalogue') {
+    catalogueView.hidden = false;
+    compatibilityView.hidden = true;
+  } else {
+    catalogueView.hidden = true;
+    compatibilityView.hidden = false;
+  }
+}
+
+function setupTabNavigation() {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      history.pushState({ tab }, '', '#' + tab);
+      switchTab(tab);
+    });
+  });
+
+  // Handle browser Back/Forward buttons
+  window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.tab) {
+      switchTab(event.state.tab);
+      // Restore search if going back to catalogue with a search term
+      if (event.state.search) {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = event.state.search;
+        if (dataLoaded) {
+          searchText = event.state.search.toLowerCase();
+          applyFilters();
+        } else {
+          // Defer filtering until data finishes loading
+          pendingSearch = event.state.search;
+        }
+      }
+    } else {
+      // No state (e.g., direct navigation) — default to catalogue
+      switchTab('catalogue');
+    }
+  });
+
+  // Hash-based tab initialization on page load
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'compatibility') {
+    switchTab('compatibility');
+  } else if (hash === 'catalogue') {
+    switchTab('catalogue');
+  }
 }
