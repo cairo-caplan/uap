@@ -31,7 +31,7 @@
     { "name": "Custom Instructions for Automotive Applications", "values": ["NC", "CNT", "CT", "NC", "CT", "NC"], "officialName": null, "project": "TRISTAN", "ipName": "Custom Instructions for Automotive Applications" },
     { "name": "Hypervisor extension for CVA6", "values": ["NC", "NC", "CT", "NC", "NC", "NC"], "officialName": "Hypervisor", "project": "TRISTAN", "ipName": "Hypervisor" },
     { "name": "Boundary Check extension based of CSRs", "values": ["NC", "NC", "NC", "NC", "CNT", "NC"], "officialName": null, "project": "TRISTAN", "ipName": "Boundary Check extension based of CSRs" },
-    { "name": "TSN Trace Link", "values": ["NC", "NC", "CT", "NC", "CT", "CT"], "officialName": "TSN-TraceBus", "project": "TRISTAN", "ipName": "TSN-TraceBus" },
+    { "name": "TSN Trace Link", "values": ["NC", "NC", "CT", "NC", "CT", "CT"], "officialName": "TSN-Trace-Link", "project": "TRISTAN", "ipName": "TSN-Trace-Link" },
     { "name": "GPIO Peripheral", "values": ["NC", "NC", "NC", "CNT", "NC", "CNT"], "officialName": "GPIO", "project": "TRISTAN", "ipName": "GPIO" },
     { "name": "SPI Master Peripheral", "values": ["NC", "NC", "NC", "CNT", "NC", "CNT"], "officialName": "SPI Master", "project": "TRISTAN", "ipName": "SPI Master" },
     { "name": "UART Peripheral", "values": ["NC", "NC", "NC", "CNT", "NC", "CNT"], "officialName": "UART 16750", "project": "TRISTAN", "ipName": "UART 16750" },
