@@ -108,15 +108,15 @@
     "Category": "Core"
   },
   {
-    "Name": "TraceUnit",
-    "URL": "",
-    "License": "TBD",
-    "Status": "In progress",
+    "Name": "C-Trace",
+    "URL": "https://accemic.com/c-trace/",
+    "License": "CERN-OHL-S",
+    "Status": "Done",
     "Description": "Architecture and design of RISC-V Trace IP",
     "Project": "TRISTAN",
     "WI": ["WI2.1.4", "WI2.2.1", "WI2.3.4", "WI2.5.4"],
     "Partners": ["Accemic Technologies", "Fraunhofer", "MINRES Technologies", "SYSGO"],
-    "Comment": "",
+    "Comment": "Not released yet. It will be available at https://github.com/accemic/c-trace.",
     "Category": "Core"
   },
   {
@@ -156,10 +156,10 @@
     "Category": "Core"
   },
   {
-    "Name": "TSN-TraceBus",
-    "URL": "",
-    "License": "TBD",
-    "Status": "In progress",
+    "Name": "TSN-Trace-Link",
+    "URL": "https://github.com/Fraunhofer-IPMS-DCC/Trace-Link",
+    "License": "Solderpad",
+    "Status": "Released",
     "Description": "A secured transmission trace bus with message, TSN and control flow reconstruction elements",
     "Project": "TRISTAN",
     "WI": "WI3.1.1",

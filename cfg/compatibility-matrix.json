@@ -20,7 +20,7 @@
     { "name": "Vector Co-Processor for CVA6 (RVV)", "values": ["NC", "NC", "CT", "NC", "NC", "NC"], "officialName": "RVV coprocessor for CVA6", "project": "TRISTAN", "ipName": "RVV coprocessor for CVA6" },
     { "name": "CVA6 as embedded processor", "values": ["NC", "NC", "CT", "NC", "NC", "NC"], "officialName": "CVA6", "project": "TRISTAN", "ipName": "CVA6" },
     { "name": "Application Processors for Automotive", "values": ["NC", "NC", "NC", "NC", "CNT", "NC"], "officialName": null, "project": "TRISTAN", "ipName": "Application Processors for Automotive" },
-    { "name": "Core Integration with Trace IP", "values": ["NC", "NC", "CT", "NC", "NC", "CT"], "officialName": "TraceUnit", "project": "TRISTAN", "ipName": "TraceUnit" },
+    { "name": "Core Integration with Trace IP", "values": ["NC", "NC", "CT", "NC", "NC", "CT"], "officialName": "C-Trace", "project": "TRISTAN", "ipName": "C-Trace" },
     { "name": "DSP Ext", "values": ["CT", "CT", "CT", "NC", "NC", "NC"], "officialName": null, "project": "TRISTAN", "ipName": "DSP Ext" },
     { "name": "CV-X-IF", "values": ["CT", "NC", "CT", "NC", "NC", "NC"], "officialName": null, "project": "TRISTAN", "ipName": "CV-X-IF" },
     { "name": "CSR extension for TIP", "values": ["NC", "NC", "NC", "NC", "CNT", "CT"], "officialName": null, "project": "TRISTAN", "ipName": "CSR extension for TIP" },
