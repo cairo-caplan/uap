@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let allowedCategories = [];
   let allowedLicenses = [];
   let allLicensesData = []; // Full license objects with both name and licenseId
-  const columnLabels = { "IP_CARD_URL": "IP Card" };
-const schemaColumns = ["Name", "Category", "URL", "License", "Status", "Description", "WI", "Partners", "Comment", "IP_CARD_URL"];
+  const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
+  const schemaColumns = ["Name", "Category", "URL", "License", "Status", "Description", "WI", "Partners", "Comment", "IP_CARD_URL", "IP_CARD_PDF_URL"];
 
   // --- INITIALIZATION ---
 
@@ -192,7 +192,7 @@ const schemaColumns = ["Name", "Category", "URL", "License", "Status", "Descript
       }
     }
 
-    const outputOrder = ["Name", "URL", "License", "Status", "Description", "Project", "WI", "Partners", "Comment", "Category", "IP_CARD_URL"];
+    const outputOrder = ["Name", "URL", "License", "Status", "Description", "Project", "WI", "Partners", "Comment", "Category", "IP_CARD_URL", "IP_CARD_PDF_URL"];
 
     // Add the project name to every entry
     const dataToSave = currentData.map(row => {

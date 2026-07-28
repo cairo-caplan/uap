@@ -23,7 +23,7 @@ const CATEGORIES_URL = 'cfg/categories.json';
 const PROJECTS_URL = 'cfg/projects.json';
 
 const defaultColumns = ["Name", "Category", "URL", "License", "Status", "Project", "Description"];
-const columnLabels = { "IP_CARD_URL": "IP Card" };
+const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
 let viewMode = "default";
 
 
@@ -1062,7 +1062,7 @@ function renderRows(rows) {
         } else {
           td.textContent = '';
         }
-      } else if (col === 'IP_CARD_URL') {
+      } else if (col === 'IP_CARD_URL' || col === 'IP_CARD_PDF_URL') {
         if (row[col]) {
           const a = document.createElement('a');
           a.href = row[col];
