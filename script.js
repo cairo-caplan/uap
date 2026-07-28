@@ -1,6 +1,7 @@
 /*
  *-------------------------------------------------------------------------------
  * Copyright (C) 2025 philippe
+ * Copyright (C) 2025 Eclipse Foundation
  * 
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -9,15 +10,11 @@
  * SPDX-License-Identifier: EPL-2.0
  *-------------------------------------------------------------------------------
 */
+import { makeResizable } from './shared.js';
 
 
 // Configuration
-const BASE_URL =
-(window.location.href).replace("unified-access.html", "").split(/[?#]/)[0]; //local hosting
-// 'https://cairo-caplan.github.io/uap';
-// 'https://api.github.com/repos/openhwgroup/uap/contents/';
-
-
+const BASE_URL = (window.location.href).replace("unified-access.html", "").split(/[?#]/)[0]; //local hosting
 const IPS_PATH = '/ips/';
 const CATEGORIES_URL = 'cfg/categories.json';
 const PROJECTS_URL = 'cfg/projects.json';
@@ -104,6 +101,7 @@ function findCategory(categoryString) {
 // - https://{owner}.github.io/{repo}  -> https://api.github.com/repos/{owner}/{repo}/contents/ips
 // - https://github.com/{owner}/{repo}  -> https://api.github.com/repos/{owner}/{repo}/contents/ips
 function deriveGithubApiContentsUrl(base) {
+  if (!base || typeof base !== 'string') return null;
   try {
     const u = new URL(base);
     const host = u.hostname.toLowerCase();
@@ -129,6 +127,7 @@ function deriveGithubApiContentsUrl(base) {
 
     return null;
   } catch (e) {
+    console.error('Error parsing base URL in deriveGithubApiContentsUrl:', e);
     return null;
   }
 }
@@ -295,7 +294,7 @@ fileInput.addEventListener('change', async event => {
 
 // Load Virtual Repo IPs info from server (GitHub or self hosted)
 async function loadDataFromServer() {
-  var ips_url;
+  let ips_url;
 
   // Normalize BASE_URL and avoid double-appending IPS_PATH.
   // Many callers set BASE_URL to the site root (e.g. https://.../),
@@ -339,6 +338,7 @@ async function loadDataFromServer() {
     // If the pages URL returns a non-OK status, attempt a GitHub API fallback
     // immediately rather than aborting — this handles GitHub Pages 404s or
     // directory listings that aren't machine-friendly.
+    let text = '';
     if (!resp.ok) {
       console.warn(`Primary fetch failed (${resp.status}) for ${ips_url}`);
       statusEl.textContent = `Fetch ${resp.status} from pages; trying GitHub API fallback…`;
@@ -347,8 +347,7 @@ async function loadDataFromServer() {
         const apiResp = await fetch(apiUrl);
         if (apiResp.ok) {
           // Use the API response body as the primary 'text' source below
-          const apiText = await apiResp.text();
-          var text = apiText;
+          text = await apiResp.text();
           // Indicate whether we used a derived API URL or the default fallback
           const usedDerived = !!deriveGithubApiContentsUrl(BASE_URL);
           updateFetchSourceBadge(
@@ -364,7 +363,7 @@ async function loadDataFromServer() {
       }
     } else {
       // Normal path: read the response text from the primary fetch
-      var text = await resp.text();
+      text = await resp.text();
       updateFetchSourceBadge('Pages listing');
     }
     let parsed = null;
@@ -1183,65 +1182,6 @@ window.addEventListener('message', (ev) => {
   }
 });
 
-function makeResizable(headerRow) {
-  const cols = table.querySelectorAll('col');
-  headerRow.querySelectorAll('th').forEach((th, i) => {
-    const resizer = document.createElement('div');
-    resizer.className = 'resizer';
-    th.appendChild(resizer);
-
-    // Make the resizer keyboard and pointer accessible
-    resizer.tabIndex = 0;
-    resizer.setAttribute('role', 'separator');
-    resizer.setAttribute('aria-orientation', 'horizontal');
-    const headerLabel = th.querySelector('div')?.textContent?.trim() || `column ${i+1}`;
-    resizer.setAttribute('aria-label', `Resize ${headerLabel}`);
-
-    let startX, startWidth;
-    const onPointerMove = e => {
-      const x = e.pageX ?? (e.touches && e.touches[0] && e.touches[0].pageX) ?? e.clientX;
-      const delta = x - startX;
-      cols[i].style.width = startWidth + delta + 'px';
-    };
-    const onPointerUp = e => {
-      document.removeEventListener('pointermove', onPointerMove);
-      document.removeEventListener('pointerup', onPointerUp);
-      try { resizer.releasePointerCapture && resizer.releasePointerCapture(e.pointerId); } catch(_) {}
-    };
-
-    // Pointer (mouse/touch/pen) handling
-    resizer.addEventListener('pointerdown', e => {
-      e.preventDefault();
-      startX = e.pageX || e.clientX;
-      startWidth = th.offsetWidth;
-      try { resizer.setPointerCapture && resizer.setPointerCapture(e.pointerId); } catch(_) {}
-      document.addEventListener('pointermove', onPointerMove);
-      document.addEventListener('pointerup', onPointerUp);
-    });
-
-    // Fallback mouse handling (older browsers)
-    const onMouseMove = e => onPointerMove(e);
-    const onMouseUp = e => onPointerUp(e);
-    resizer.addEventListener('mousedown', e => {
-      startX = e.pageX;
-      startWidth = th.offsetWidth;
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
-
-    // Keyboard support: Arrow keys adjust width in 10px increments
-    resizer.addEventListener('keydown', e => {
-      const cur = parseInt(getComputedStyle(cols[i]).width, 10) || th.offsetWidth;
-      if (e.key === 'ArrowLeft') {
-        cols[i].style.width = Math.max(20, cur - 10) + 'px';
-        e.preventDefault();
-      } else if (e.key === 'ArrowRight') {
-        cols[i].style.width = (cur + 10) + 'px';
-        e.preventDefault();
-      }
-    });
-  });
-}
 
 // Ensure primary columns appear first in any visibleColumns/orderings
 function reorderPrimaryFirst(arr) {

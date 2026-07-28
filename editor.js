@@ -2,14 +2,16 @@
  *-------------------------------------------------------------------------------
  * Copyright (C) 2025 philippe
  * Copyright (C) 2025 Eclipse Foundation
- * 
+ *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  *-------------------------------------------------------------------------------
  */
+import { makeResizable } from './shared.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('editor-page');
 
@@ -28,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const thead = table.querySelector('thead');
   const tbody = table.querySelector('tbody');
   const tfoot = table.querySelector('tfoot');
+  const statusEl = document.getElementById('status') || document.createElement('div');
+  if (!statusEl.id) {
+    statusEl.id = 'status';
+    document.body.appendChild(statusEl);
+  }
 
   let currentData = [];
   let allowedCategories = [];
@@ -49,22 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadCategories() {
     try {
       const response = await fetch(CATEGORIES_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       allowedCategories = await response.json();
     } catch (error) {
       console.error('Failed to load categories:', error);
-      alert('Error: Could not load categories configuration.');
+      statusEl.textContent = 'Error: Could not load categories.';
     }
   }
 
   async function loadLicenses() {
     try {
       const response = await fetch(LICENSES_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       allLicensesData = await response.json();
       // Extract licenseId values from the licenses array
       allowedLicenses = allLicensesData.map(license => license.licenseId);
     } catch (error) {
       console.error('Failed to load licenses:', error);
-      alert('Error: Could not load licenses configuration.');
+      statusEl.textContent = 'Error: Could not load licenses configuration.';
     }
   }
 
@@ -90,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadFileData(url) {
     try {
       const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       currentData = await response.json();
       if (currentData.length > 0 && currentData[0].Project) {
         projectNameInput.value = currentData[0].Project;
@@ -101,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       projectNameInput.disabled = false;
     } catch (error) {
       console.error('Failed to load or parse JSON file:', error);
-      alert('Error loading file. Please check the console for details.');
+      statusEl.textContent = 'Error loading file. Check console for details.';
     }
   }
 
@@ -147,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveFile() {
     const projectName = projectNameInput.value.trim();
     if (!projectName) {
-      alert('Please enter a Project Name before saving.');
+      statusEl.textContent = 'Please enter a Project Name before saving.';
       projectNameInput.focus();
       return;
     }
@@ -160,13 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 1. Check for empty names
       if (!name) {
-        alert(`Error: The "Name" field in row ${i + 1} cannot be empty.`);
+        statusEl.textContent = `Error: The "Name" field in row ${i + 1} cannot be empty.`;
         return; // Stop the save process
       }
 
       // 2. Check for duplicate names
       if (seenNames.has(name)) {
-        alert(`Error: Duplicate "Name" found: "${name}". All names must be unique.`);
+        statusEl.textContent = 'Error: Duplicate name found.';
         return; // Stop the save process
       }
       seenNames.add(name);
@@ -184,9 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if license is in the allowed list
         if (!allowedLicenses.includes(trimmedLicense)) {
-          alert(`Error: Invalid license value "${trimmedLicense}" found in row ${i + 1}.\n` +
-                `Please select a valid license from the dropdown list.\n` +
-                `Valid licenses: ${allowedLicenses.join(', ')}`);
+          statusEl.textContent = `Error: Invalid license value "${trimmedLicense}" found in row ${i + 1}. Please select a valid license from the dropdown list.`;
           return; // Stop the save process
         }
       }
@@ -400,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selectedUrl) {
       loadFileData(selectedUrl);
     } else {
-      alert('Please select a file to load.');
+      statusEl.textContent = 'Please select a file to load.';
     }
   });
 
@@ -424,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveBtn.disabled = false;
         projectNameInput.disabled = false;
       } catch (err) {
-        alert(`Error parsing JSON file: ${err.message}`);
+        statusEl.textContent = `Error parsing JSON file: ${err.message}`;
       }
     };
     reader.readAsText(file);
@@ -452,60 +460,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initialize();
 });
 
-function makeResizable(headerRow) {
-  const table = headerRow.closest('table');
-  let cg = table.querySelector('colgroup');
-  if (!cg) {
-    cg = document.createElement('colgroup');
-    table.insertBefore(cg, headerRow.parentElement);
-  }
-  cg.innerHTML = ''; // Clear existing colgroup
 
-  const ths = Array.from(headerRow.children);
-  ths.forEach(() => cg.appendChild(document.createElement('col')));
-  const cols = Array.from(cg.children);
-
-  ths.forEach((th, i) => {
-    if (i === ths.length - 1) return; // No resizer on the last column
-
-    const resizer = document.createElement('div');
-    resizer.className = 'resizer';
-    th.appendChild(resizer);
-
-    resizer.tabIndex = 0;
-    resizer.setAttribute('role', 'separator');
-    resizer.setAttribute('aria-label', `Resize ${th.textContent}`);
-
-    let startX, startWidth;
-    const onPointerMove = e => {
-      const x = e.pageX ?? (e.touches && e.touches[0] && e.touches[0].pageX) ?? e.clientX;
-      const delta = x - startX;
-      cols[i].style.width = startWidth + delta + 'px';
-    };
-    const onPointerUp = e => {
-      document.removeEventListener('pointermove', onPointerMove);
-      document.removeEventListener('pointerup', onPointerUp);
-      try { resizer.releasePointerCapture && resizer.releasePointerCapture(e.pointerId); } catch(_) {}
-    };
-
-    resizer.addEventListener('pointerdown', e => {
-      e.preventDefault();
-      startX = e.pageX || e.clientX;
-      startWidth = th.offsetWidth;
-      try { resizer.setPointerCapture && resizer.setPointerCapture(e.pointerId); } catch(_) {}
-      document.addEventListener('pointermove', onPointerMove);
-      document.addEventListener('pointerup', onPointerUp);
-    });
-
-    resizer.addEventListener('keydown', e => {
-      const cur = parseInt(getComputedStyle(cols[i]).width, 10) || th.offsetWidth;
-      if (e.key === 'ArrowLeft') {
-        cols[i].style.width = Math.max(20, cur - 10) + 'px';
-        e.preventDefault();
-      } else if (e.key === 'ArrowRight') {
-        cols[i].style.width = (cur + 10) + 'px';
-        e.preventDefault();
-      }
-    });
-  });
-}
