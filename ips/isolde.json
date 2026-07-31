@@ -3,7 +3,10 @@
     "Project": "ISOLDE",
     "Name": "NOEL-V processor extensions",
     "URL": "",
-    "License": ["GPL-2.0-or-later","Proprietary"],
+    "License": [
+      "GPL-2.0-or-later",
+      "Proprietary"
+    ],
     "Status": "",
     "Description": "TBD",
     "WI": [
@@ -11,9 +14,13 @@
     ],
     "Partners": "GSL",
     "Comment": "GPL. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core","Extension"],
-    "IP_CARD_URL": ""
-    },
+    "Category": [
+      "Core",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
+  },
   {
     "Project": "ISOLDE",
     "Name": "CVA6 processor extensions",
@@ -26,8 +33,12 @@
     ],
     "Partners": "TDIS",
     "Comment": "Solderpad. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core","Extension"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Core",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -41,8 +52,12 @@
     ],
     "Partners": "HM",
     "Comment": "MIT. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core","Extension"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Core",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -56,8 +71,12 @@
     ],
     "Partners": "UZL",
     "Comment": "Open Source. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core", "Tool"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Core",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -71,8 +90,11 @@
     ],
     "Partners": "IFX",
     "Comment": "Proprietary. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Tool"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -86,8 +108,11 @@
     ],
     "Partners": "TRT",
     "Comment": "Solderpad. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -101,8 +126,11 @@
     ],
     "Partners": "UPV",
     "Comment": "MIT. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["NoC"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "NoC"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -116,8 +144,13 @@
     ],
     "Partners": "UPV",
     "Comment": "MIT. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["On-Chip Debug System", "Tool", "Visualisation and Debugging" ],
-    "IP_CARD_URL": ""
+    "Category": [
+      "On-Chip Debug System",
+      "Tool",
+      "Visualisation and Debugging"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -131,8 +164,11 @@
     ],
     "Partners": "IFX",
     "Comment": "TBD. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -146,8 +182,11 @@
     ],
     "Partners": "IFX",
     "Comment": "TBD. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Peripheral"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -161,14 +200,20 @@
     ],
     "Partners": "IFX",
     "Comment": "TBD. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Peripheral"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
     "Name": "GRLIB IP library",
     "URL": "https://www.gaisler.com/getgrlib",
-    "License": ["GPL-2.0-or-later","Proprietary"],
+    "License": [
+      "GPL-2.0-or-later",
+      "Proprietary"
+    ],
     "Status": "",
     "Description": "TBD",
     "WI": [
@@ -176,8 +221,13 @@
     ],
     "Partners": "GSL",
     "Comment": "GPL. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core", "Peripheral", "Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Core",
+      "Peripheral",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -191,8 +241,11 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Extension"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -206,8 +259,11 @@
     ],
     "Partners": "TRT",
     "Comment": "Solderpad. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Extension"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -221,14 +277,21 @@
     ],
     "Partners": "FotoNation",
     "Comment": "Open Source. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Peripheral", "Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Peripheral",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
     "Name": "Extension interface for NOEL-V",
     "URL": "",
-    "License": ["GPL-2.0-or-later","Proprietary"],
+    "License": [
+      "GPL-2.0-or-later",
+      "Proprietary"
+    ],
     "Status": "",
     "Description": "TBD",
     "WI": [
@@ -236,8 +299,12 @@
     ],
     "Partners": "GSL",
     "Comment": "GPL. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Extension", "Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Extension",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -251,8 +318,12 @@
     ],
     "Partners": "TDIS",
     "Comment": "Solderpad. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Extension", "Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Extension",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -266,8 +337,12 @@
     ],
     "Partners": "ETHZ",
     "Comment": "Solderpad. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Extension", "Interface"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Extension",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -281,8 +356,11 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Software"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -296,8 +374,12 @@
     ],
     "Partners": "SYSGO",
     "Comment": "TBD. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Core", "Core Generator"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Core",
+      "Core Generator"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -311,14 +393,20 @@
     ],
     "Partners": "IFX",
     "Comment": "Proprietary. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Software"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
     "Name": "NOEL-V software tools",
     "URL": "",
-    "License": ["GPL-2.0-or-later","Proprietary"],
+    "License": [
+      "GPL-2.0-or-later",
+      "Proprietary"
+    ],
     "Status": "",
     "Description": "TBD",
     "WI": [
@@ -326,8 +414,12 @@
     ],
     "Partners": "GSL",
     "Comment": "GPL. ISOLDE Category 'Cores, interfaces, peripherals & NoCs'",
-    "Category": ["Software", "Tools"],
-    "IP_CARD_URL": ""
+    "Category": [
+      "Software",
+      "Tools"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -341,7 +433,12 @@
     ],
     "Partners": "BSC",
     "Comment": "MIT. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Peripheral","On-Chip Debug System"]
+    "Category": [
+      "Peripheral",
+      "On-Chip Debug System"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -355,7 +452,11 @@
     ],
     "Partners": "TRT",
     "Comment": "TBD. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Peripherals"]
+    "Category": [
+      "Peripherals"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -369,7 +470,13 @@
     ],
     "Partners": "NXP-AT",
     "Comment": "ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension", "On-Chip Debug System"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "On-Chip Debug System"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -383,7 +490,12 @@
     ],
     "Partners": "NXP-AT",
     "Comment": "ISOLDE Category 'Extension'",
-    "Category": ["On-Chip Debug System", "Peripheral"]
+    "Category": [
+      "On-Chip Debug System",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -397,7 +509,12 @@
     ],
     "Partners": "NXP-AT",
     "Comment": "ISOLDE Category 'Extension'",
-    "Category": ["Extension","Peripheral"]
+    "Category": [
+      "Extension",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -411,7 +528,12 @@
     ],
     "Partners": "NXP-AT",
     "Comment": "ISOLDE Category 'Extension'",
-    "Category": ["Extension","Peripheral"]
+    "Category": [
+      "Extension",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -425,8 +547,13 @@
     ],
     "Partners": "NXP-AT",
     "Comment": "ISOLDE Category 'Extension'",
-    "Category": ["Extension","Peripheral"]
-  },  
+    "Category": [
+      "Extension",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
+  },
   {
     "Project": "ISOLDE",
     "Name": "Memory subsystem support for Bytecode VMs",
@@ -439,7 +566,12 @@
     ],
     "Partners": "HM",
     "Comment": "MIT. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -453,7 +585,13 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension", "Peripheral"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -467,7 +605,12 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -481,7 +624,12 @@
     ],
     "Partners": "IFX",
     "Comment": "TBD. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -495,7 +643,12 @@
     ],
     "Partners": "SYSGO",
     "Comment": "ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -509,7 +662,12 @@
     ],
     "Partners": "UZL",
     "Comment": "Open Source. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -523,7 +681,12 @@
     ],
     "Partners": "POLIMI",
     "Comment": "Multiple. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -537,7 +700,13 @@
     ],
     "Partners": "IMT",
     "Comment": "GPL v3.0. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension","Peripheral"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "Peripheral"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -551,7 +720,13 @@
     ],
     "Partners": "BSC",
     "Comment": "ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension", "On-Chip Debug System"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "On-Chip Debug System"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -565,7 +740,13 @@
     ],
     "Partners": "OFFIS",
     "Comment": ". ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension", "On-Chip Debug System"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "On-Chip Debug System"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -579,7 +760,12 @@
     ],
     "Partners": "TRT",
     "Comment": "TBD. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Extension", "Interface"]
+    "Category": [
+      "Extension",
+      "Interface"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -593,7 +779,12 @@
     ],
     "Partners": "POLIMI",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Peripheral", "On-Chip Debug System"]
+    "Category": [
+      "Peripheral",
+      "On-Chip Debug System"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -607,7 +798,12 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -621,7 +817,12 @@
     ],
     "Partners": "POLITO",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -635,7 +836,13 @@
     ],
     "Partners": "FotoNation",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension", "AI"]
+    "Category": [
+      "Accelerator",
+      "Extension",
+      "AI"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -649,7 +856,12 @@
     ],
     "Partners": "ETHZ",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -663,7 +875,12 @@
     ],
     "Partners": "SAL",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -677,7 +894,12 @@
     ],
     "Partners": "IMT",
     "Comment": "GPL v3.0. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -691,7 +913,12 @@
     ],
     "Partners": "TUI",
     "Comment": "TBD. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -705,7 +932,12 @@
     ],
     "Partners": "BSC",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -719,7 +951,12 @@
     ],
     "Partners": "SAL",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -733,7 +970,12 @@
     ],
     "Partners": "POLIMI",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -747,7 +989,12 @@
     ],
     "Partners": "IMT",
     "Comment": "GPL v3.0. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -761,7 +1008,13 @@
     ],
     "Partners": "BEIA",
     "Comment": "GPL v3.0. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Core","Accelerator","Extension"]
+    "Category": [
+      "Core",
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -779,7 +1032,12 @@
       "NXP-CZ"
     ],
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -793,7 +1051,12 @@
     ],
     "Partners": "ACP",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -807,7 +1070,12 @@
     ],
     "Partners": "ACP",
     "Comment": "Proprietary. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -821,7 +1089,12 @@
     ],
     "Partners": "POLITO",
     "Comment": "Solderpad. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -835,7 +1108,12 @@
     ],
     "Partners": "IMT",
     "Comment": "GPL v3.0. ISOLDE Category 'Accelerators and extensions'",
-    "Category": ["Accelerator","Extension"]
+    "Category": [
+      "Accelerator",
+      "Extension"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -849,7 +1127,11 @@
     ],
     "Partners": "POLITO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -863,7 +1145,12 @@
     ],
     "Partners": "FotoNation",
     "Comment": "Multiple. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -877,7 +1164,11 @@
     ],
     "Partners": "HM",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -894,7 +1185,12 @@
       "SYSGO"
     ],
     "Comment": "Open Source. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -908,7 +1204,11 @@
     ],
     "Partners": "TASI",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -922,7 +1222,11 @@
     ],
     "Partners": "UPB",
     "Comment": "Multiple. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -936,7 +1240,12 @@
     ],
     "Partners": "SYSGO",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -950,7 +1259,12 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -964,7 +1278,12 @@
     ],
     "Partners": "TUI",
     "Comment": "Open Source. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -978,7 +1297,12 @@
     ],
     "Partners": "SYSGO",
     "Comment": "Public domain (CC0) for the Vivado/Lauterbach debugger configuration code contained therein.. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -992,7 +1316,12 @@
     ],
     "Partners": "POLITO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1006,7 +1335,12 @@
     ],
     "Partners": "BYK",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1020,7 +1354,11 @@
     ],
     "Partners": "FZI",
     "Comment": "TBD. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1034,7 +1372,11 @@
     ],
     "Partners": "POLIMI",
     "Comment": "MIT. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1048,7 +1390,11 @@
     ],
     "Partners": "FotoNation",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1062,7 +1408,12 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1076,7 +1427,12 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1090,7 +1446,12 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1104,7 +1465,12 @@
     ],
     "Partners": "UNIBO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1118,63 +1484,89 @@
     ],
     "Partners": "NXP-RO",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
-    "Name": "LLVM and debugger support for Forward-edge CFI",
+    "Name": "LLVM support for Forward-edge CFI",
     "URL": "",
     "License": "Proprietary",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Verified",
+    "Description": "LLVM extension to enable code generation for FCFI (ID 3.1.05)",
     "WI": [
       "ID 4.2.11"
     ],
     "Partners": "NXP-AT",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software",
+      "Compiler"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
-    "Name": "LLVM and debugger support for backward-edge CFI",
+    "Name": "LLVM support for backward-edge CFI",
     "URL": "",
     "License": "Proprietary",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Verified",
+    "Description": "LLVM extension to enable code generation for BCFI (ID 3.1.02)",
     "WI": [
       "ID 4.2.12"
     ],
     "Partners": "NXP-AT",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software",
+      "Compiler"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
-    "Name": "LLVM and debugger support for cryptographically tagged memory",
+    "Name": "LLVM support for cryptographically tagged memory",
     "URL": "",
     "License": "Proprietary",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Verified",
+    "Description": "LLVM and newlib extensions to enable code generation for CTM (ID 3.1.03)",
     "WI": [
       "ID 4.2.13"
     ],
     "Partners": "NXP-AT",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software",
+      "Compiler"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
-    "Name": "Debugger support for enclave memory isolation",
+    "Name": "Debugger support for Forward-edge CFI and backward-edge CFI",
     "URL": "",
     "License": "Proprietary",
-    "Status": "",
-    "Description": "TBD",
+    "Status": "Verified",
+    "Description": "Debugger extension to support changing register values in a stack frame for stack unwinding, making use of a GDB upstream extension of the python API",
     "WI": [
       "ID 4.2.14"
     ],
     "Partners": "NXP-AT",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software",
+      "On-Chip Debug System",
+      "Visualisation and Debugging"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1188,7 +1580,11 @@
     ],
     "Partners": "SAL",
     "Comment": "Multiple. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1202,13 +1598,22 @@
     ],
     "Partners": "INTEL",
     "Comment": ". ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
     "Name": "Support for SIMD/Vector Accelerator and scratchpad memory",
     "URL": "https://github.com/alex2kameboss/MA-riscv-gnu-toolchain",
-    "License": ["BSD-3-Clause", "GPL-2.0", "LGPL-2.1"],
+    "License": [
+      "BSD-3-Clause",
+      "GPL-2.0",
+      "LGPL-2.1"
+    ],
     "Status": "Stable",
     "Description": "GCC support for IMT SIMD/Vector accelerator. Custom instructions are available through inline assembly.",
     "WI": [
@@ -1216,7 +1621,12 @@
     ],
     "Partners": "IMT",
     "Comment": ". ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1230,7 +1640,11 @@
     ],
     "Partners": "NXP-CZ",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1244,7 +1658,11 @@
     ],
     "Partners": "UPB",
     "Comment": "Multiple. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1258,7 +1676,11 @@
     ],
     "Partners": "POLITO",
     "Comment": "Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1272,7 +1694,11 @@
     ],
     "Partners": "OFFIS",
     "Comment": ". ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1286,7 +1712,11 @@
     ],
     "Partners": "SILVACO",
     "Comment": ". ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software"]
+    "Category": [
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1300,7 +1730,12 @@
     ],
     "Partners": "UPV",
     "Comment": "MIT. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1314,7 +1749,12 @@
     ],
     "Partners": "FZI",
     "Comment": "TBD. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1328,13 +1768,21 @@
     ],
     "Partners": "FotoNation",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
     "Name": "Verilator-based Fault-Injection Framework",
     "URL": "",
-    "License": ["LGPL-3.0","Apache-2.0"],
+    "License": [
+      "LGPL-3.0",
+      "Apache-2.0"
+    ],
     "Status": "",
     "Description": "TBD",
     "WI": [
@@ -1342,7 +1790,12 @@
     ],
     "Partners": "HM",
     "Comment": "LGPL 3.0, Apache V2.0. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1359,7 +1812,12 @@
       "HM"
     ],
     "Comment": "Open Source. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1373,7 +1831,12 @@
     ],
     "Partners": "RAPITA",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1387,7 +1850,12 @@
     ],
     "Partners": [],
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Software","Tool"]
+    "Category": [
+      "Software",
+      "Tool"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1401,7 +1869,12 @@
     ],
     "Partners": "UZL",
     "Comment": "Open Source. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1415,7 +1888,12 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -1429,6 +1907,11 @@
     ],
     "Partners": "FENTISS",
     "Comment": "Proprietary. ISOLDE Category 'Operating systems and applications SW'",
-    "Category": ["Operating System","Software"]
+    "Category": [
+      "Operating System",
+      "Software"
+    ],
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   }
 ]
