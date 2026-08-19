@@ -64,9 +64,40 @@ def validate_file(path, schema):
         except ValueError:
             return False
 
-    # Create a format checker and extend it with our custom check for "uri"
+    # Shared helper for the IP Card URL formats.
+    # Accepts a valid URI, an empty string, or a relative path into the
+    # ip_cards/ directory (the only allowed local location) whose extension
+    # is one of allowed_exts (lowercase, e.g. '.json').
+    def make_ip_card_checker(allowed_exts):
+        def check(instance):
+            if not isinstance(instance, str):
+                return True
+            if instance == "":
+                return True
+            # Accept any valid URI (has a scheme, or a dotted netloc)
+            try:
+                result = urlparse(instance)
+                if result.scheme:
+                    return True
+                result_with_scheme = urlparse('//' + instance)
+                if result_with_scheme.netloc and '.' in result_with_scheme.netloc:
+                    return True
+            except ValueError:
+                pass
+            # Accept relative paths that point into ip_cards/ with an allowed extension
+            normalized = instance.replace('\\', '/').lower()
+            if normalized.startswith('ip_cards/') and len(normalized) > len('ip_cards/'):
+                filename = normalized.rsplit('/', 1)[1]
+                ext = Path(filename).suffix
+                return ext in allowed_exts
+            return False
+        return check
+
+    # Create a format checker and extend it with our custom checks
     format_checker = jsonschema.FormatChecker()
     format_checker.checks("uri", raises=(ValueError,))(is_uri_or_empty)
+    format_checker.checks("ip_card_json", raises=(ValueError,))(make_ip_card_checker({'.json', '.jsonc'}))
+    format_checker.checks("ip_card_pdf", raises=(ValueError,))(make_ip_card_checker({'.pdf'}))
     # use jsonschema validator (Draft7) which is declared in schema
     resolver = jsonschema.RefResolver(base_uri=f'file://{SCHEMA_PATH}', referrer=schema)
     validator = jsonschema.Draft7Validator(schema, resolver=resolver, format_checker=format_checker)

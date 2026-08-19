@@ -22,7 +22,7 @@ const IPS_PATH = '/ips/';
 const CATEGORIES_URL = 'cfg/categories.json';
 const PROJECTS_URL = 'cfg/projects.json';
 
-const defaultColumns = ["Name", "Category", "URL", "License", "Status", "Project", "Description"];
+const defaultColumns = ["Name", "Category", "URL", "License", "Status", "IP_CARD_URL", "IP_CARD_PDF_URL", "Project", "Description"];
 const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
 let viewMode = "default";
 

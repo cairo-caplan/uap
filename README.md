@@ -33,6 +33,8 @@ Additional features — such as KPI-based adoption monitoring, extended interope
 
 The platform acts as a **static unified access page**, pointing to repositories hosted on the **OpenHW Foundation GitHub**, automatically mirrored to a European-hosted **GitLab** instance and to other public forges as applicable, or maintained as private assets. It provides documentation, status information, and an evolving structure designed to better support integration across toolchains, accelerators, and infrastructure components.
 
+The repository includes a dedicated `/ip_cards` directory intended to host optional IP Cards for those IPs that provide such documentation. This hosting option is provided for IP owners who prefer centralised publication within the UAP, rather than maintaining the material on their own premises.
+
 Our ambition is to progressively transform this platform into a sustainable, interoperable, and community-oriented resource for the broader **RISC-V ecosystem** — while transparently reflecting the incremental progress being made.
 
 ---
