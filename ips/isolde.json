@@ -1364,21 +1364,25 @@
   },
   {
     "Project": "ISOLDE",
-    "Name": "Model-based generation framework for hardware safety pattern",
-    "URL": "",
-    "License": "Others",
-    "Status": "",
-    "Description": "TBD",
+    "Name": "safety-gen",
+    "URL": "https://github.com/fzi-forschungszentrum-informatik/safety-gen",
+    "License": [
+      "Apache-2.0",
+      "LLVM-exception"
+    ],
+    "Status": "Released",
+    "Description": "CIRCT/MLIR toolkit that automates the insertion of safety patterns into an existing SoC design.",
     "WI": [
       "ID 4.2.03"
     ],
     "Partners": "FZI",
-    "Comment": "TBD. ISOLDE Category 'Operating systems and applications SW'",
+    "Comment": "Apache V2.0 with LLVM Exceptions. ISOLDE Category 'Operating systems and applications SW'",
     "Category": [
-      "Software"
+      "Software",
+      "Tool"
     ],
-    "IP_CARD_URL": "",
-    "IP_CARD_PDF_URL": ""
+    "IP_CARD_URL": "https://github.com/fzi-forschungszentrum-informatik/safety-gen/blob/main/ip-card/safety-gen.json",
+    "IP_CARD_PDF_URL": "https://github.com/fzi-forschungszentrum-informatik/safety-gen/blob/main/ip-card/safety-gen.pdf"
   },
   {
     "Project": "ISOLDE",
@@ -1759,22 +1763,25 @@
   },
   {
     "Project": "ISOLDE",
-    "Name": "Simulation-based HW/SW co-verification approach",
-    "URL": "",
-    "License": "Others",
-    "Status": "",
-    "Description": "TBD",
+    "Name": "cosim-gen",
+    "URL": "https://github.com/fzi-forschungszentrum-informatik/cosim-gen",
+    "License": [
+      "Apache-2.0",
+      "LLVM-exception"
+    ],
+    "Status": "Released",
+    "Description": "Generates a QEMU/RTL co-simulation from an RTL design and its device tree, allowing users to freely configure which components run in RTL while the remaining platform runs in QEMU.",
     "WI": [
       "ID 4.3.05"
     ],
     "Partners": "FZI",
-    "Comment": "TBD. ISOLDE Category 'Operating systems and applications SW'",
+    "Comment": "Apache V2.0 with LLVM Exceptions. ISOLDE Category 'Operating systems and applications SW'",
     "Category": [
       "Software",
       "Tool"
     ],
-    "IP_CARD_URL": "",
-    "IP_CARD_PDF_URL": ""
+    "IP_CARD_URL": "https://github.com/fzi-forschungszentrum-informatik/cosim-gen/blob/main/ip-card/cosim-gen.json",
+    "IP_CARD_PDF_URL": "https://github.com/fzi-forschungszentrum-informatik/cosim-gen/blob/main/ip-card/cosim-gen.pdf"
   },
   {
     "Project": "ISOLDE",
