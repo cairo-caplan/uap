@@ -23,10 +23,9 @@ const PROJECTS_URL = 'cfg/projects.json';
 // (see scripts/fetch_repo_stats.py).
 const REPO_STATS_URL = 'cfg/repo-stats.json';
 
-// Name of the synthetic column rendering pre-computed repository statistics.
 const REPO_STATS_COLUMN = 'Repo Stats';
-
-const defaultColumns = ["Name", "Category", "URL", "License", "Status", REPO_STATS_COLUMN, "Project", "Description"];
+const defaultColumns = ["Name", "Category", "URL", "License", "Status", "IP_CARD_URL", "IP_CARD_PDF_URL", REPO_STATS_COLUMN, "Project", "Description"];
+const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
 let viewMode = "default";
 
 
@@ -429,6 +428,7 @@ fileInput.addEventListener('change', async event => {
     masterData.sort((a, b) => String(a.Name ?? '').localeCompare(String(b.Name ?? '')));
     filteredData = [...masterData];
     deriveColumns();
+    applyFilters();
     buildTable();
     setInitialFilterSelections(parseFiltersFromQuery()); // Apply URL filters now
   statusEl.textContent = 'Local files loaded.';
@@ -663,6 +663,7 @@ async function loadDataFromServer() {
     masterData.sort((a, b) => String(a.Name ?? '').localeCompare(String(b.Name ?? '')));
     filteredData = [...masterData];
     deriveColumns();
+    applyFilters();
     buildTable();
     setInitialFilterSelections(parseFiltersFromQuery()); // Apply URL filters now
     dataLoaded = true;
@@ -747,7 +748,7 @@ function buildTable() {
 
     const headerBtn = document.createElement('button');
     // text content is just the column name; caret is provided via CSS ::after
-    headerBtn.textContent = col;
+    headerBtn.textContent = columnLabels[col] || col;
     headerBtn.type = 'button';
     headerBtn.className = 'header-filter-btn';
     // Accessibility: indicate this button opens a popup and manage expanded state
@@ -965,6 +966,25 @@ function buildTable() {
   renderRows(filteredData);
 }
 
+// Returns a numeric score representing the completeness of a row, where lower is better
+function getCompletenessScore(row) {
+  const allFields = [...new Set(masterData.flatMap(Object.keys))];
+  let emptyCount = 0;
+
+  for (const field of allFields) {
+    const value = row[field];
+    if (value == null || value === '') {
+      emptyCount++;
+    } else if (Array.isArray(value) && value.length === 0) {
+      emptyCount++;
+    } else if (String(value).trim().toUpperCase() === 'TBD') {
+      emptyCount++;
+    }
+  }
+
+  return emptyCount;
+}
+
 // Update applyFilters for OR logic
 function applyFilters(initialState = null) {
   if (initialState) {
@@ -1006,6 +1026,13 @@ function applyFilters(initialState = null) {
       })
     )
   );
+
+  // Sort by completeness
+  filteredData.sort((a, b) => {
+    const scoreA = getCompletenessScore(a);
+    const scoreB = getCompletenessScore(b);
+    return scoreA - scoreB;
+  });
 
   // Announce filter results to assistive tech
   try {
@@ -1413,6 +1440,17 @@ function renderRows(rows) {
         }
       } else if (col === 'URL') {
         // Keep URL rendering for cases where URL is visible (fallback)
+        if (row[col]) {
+          const a = document.createElement('a');
+          a.href = row[col];
+          a.textContent = row[col];
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          td.appendChild(a);
+        } else {
+          td.textContent = '';
+        }
+      } else if (col === 'IP_CARD_URL' || col === 'IP_CARD_PDF_URL') {
         if (row[col]) {
           const a = document.createElement('a');
           a.href = row[col];

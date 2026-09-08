@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let allowedCategories = [];
   let allowedLicenses = [];
   let allLicensesData = []; // Full license objects with both name and licenseId
-  const schemaColumns = ["Name", "Category", "URL", "License", "Status", "Description", "WI", "Partners", "Comment"];
+  const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
+  const schemaColumns = ["Name", "Category", "URL", "License", "Status", "Description", "WI", "Partners", "Comment", "IP_CARD_URL", "IP_CARD_PDF_URL"];
 
   // --- INITIALIZATION ---
 
@@ -291,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    const outputOrder = ["Name", "URL", "License", "Status", "Description", "Project", "WI", "Partners", "Comment", "Category"];
+    const outputOrder = ["Name", "URL", "License", "Status", "Description", "Project", "WI", "Partners", "Comment", "Category", "IP_CARD_URL", "IP_CARD_PDF_URL"];
 
     // Add the project name to every entry
     const dataToSave = currentData.map(row => {
@@ -314,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${projectName}.json`;
+    a.download = `${projectName.toLowerCase()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -336,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     schemaColumns.forEach(col => {
       const th = document.createElement('th');
-      th.textContent = col;
+      th.textContent = columnLabels[col] || col;
       headerRow.appendChild(th);
     });
     thead.appendChild(headerRow);
