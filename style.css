@@ -226,6 +226,23 @@ main {
   overflow-wrap: anywhere;
 }
 
+/* IP Card link icons (JSON / PDF) */
+#data-table td .ip-card-link {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+#data-table td .ip-card-link i {
+  font-size: 1.5rem;
+  color: #1e88e5;
+  transition: color 120ms ease;
+}
+
+#data-table td .ip-card-link:hover i {
+  color: #455a64;
+}
+
 /* Column resizer handle */
 .resizer {
   position: absolute;

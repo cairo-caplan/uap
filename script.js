@@ -19,13 +19,12 @@ const BASE_URL =
 const IPS_PATH = '/ips/';
 const CATEGORIES_URL = 'cfg/categories.json';
 const PROJECTS_URL = 'cfg/projects.json';
-// Pre-computed repository statistics for GitHub and GitLab hosts
-// (see scripts/fetch_repo_stats.py).
 const REPO_STATS_URL = 'cfg/repo-stats.json';
 
 const REPO_STATS_COLUMN = 'Repo Stats';
-const defaultColumns = ["Name", "Category", "URL", "License", "Status", "IP_CARD_URL", "IP_CARD_PDF_URL", REPO_STATS_COLUMN, "Project", "Description"];
-const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF" };
+const IP_CARD_COLUMN = 'IP Card';
+const defaultColumns = ["Name", "Category", "URL", "License", "Status", IP_CARD_COLUMN, REPO_STATS_COLUMN, "Project", "Description"];
+const columnLabels = { "IP_CARD_URL": "IP Card", "IP_CARD_PDF_URL": "IP Card PDF", [IP_CARD_COLUMN]: "IP Card" };
 let viewMode = "default";
 
 
@@ -711,7 +710,8 @@ function buildTable() {
     'License': '170px',
     'Status': '170px',
     'Repo Stats': '200px',
-  };
+    'IP Card': '110px',
+    };
 
   visibleColumns.forEach(col => {
     const colEl = document.createElement('col');
@@ -722,7 +722,7 @@ function buildTable() {
 
   const headerRow = document.createElement('tr');
   // Columns whose cells are not simple values: no per-value filter dropdown.
-  const SKIP_DROPDOWN = new Set(['Description', 'Comment', 'Repo Stats']);
+  const SKIP_DROPDOWN = new Set(['Description', 'Comment', 'Repo Stats', IP_CARD_COLUMN]);
 
   visibleColumns.forEach((col, i) => {
     const th = document.createElement('th');
@@ -1023,7 +1023,8 @@ function applyFilters(initialState = null) {
           return cell.some(v => String(v).toLowerCase().includes(searchText));
         }
         return String(cell).toLowerCase().includes(searchText);
-      })
+      }) ||
+      [row['IP_CARD_URL'], row['IP_CARD_PDF_URL']].some(v => v && String(v).toLowerCase().includes(searchText))
     )
   );
 
@@ -1450,17 +1451,30 @@ function renderRows(rows) {
         } else {
           td.textContent = '';
         }
-      } else if (col === 'IP_CARD_URL' || col === 'IP_CARD_PDF_URL') {
-        if (row[col]) {
-          const a = document.createElement('a');
-          a.href = row[col];
-          a.textContent = row[col];
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          td.appendChild(a);
-        } else {
-          td.textContent = '';
-        }
+      } else if (col === IP_CARD_COLUMN) {
+        const iconSpecs = [
+          { key: 'IP_CARD_URL',       cls: 'fas fa-file-code', title: 'Open IP Card (JSON)', aria: 'IP Card JSON' },
+          { key: 'IP_CARD_PDF_URL',   cls: 'fas fa-file-pdf',  title: 'Open IP Card (PDF)',  aria: 'IP Card PDF'  }
+        ];
+        td.style.whiteSpace = 'nowrap';
+        iconSpecs.forEach(spec => {
+          if (row[spec.key]) {
+            const a = document.createElement('a');
+            a.href = row[spec.key];
+            a.className = 'ip-card-link';
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.title = spec.title;
+            a.setAttribute('aria-label', spec.aria);
+
+            const icon = document.createElement('i');
+            icon.className = spec.cls;
+            icon.setAttribute('aria-hidden', 'true');
+            a.appendChild(icon);
+
+            td.appendChild(a);
+          }
+        });
       } else if (col === REPO_STATS_COLUMN) {
         renderRepoStatsCell(td, row);
       } else {
@@ -1495,9 +1509,12 @@ function cellToCsv(col, row) {
       parts.unshift(`repos=${stats.repos.map(r => r.key).join(' ')}`);
     }
     return parts.join('; ');
-  }
-  return (row[col] || '').toString();
-}
+    }
+    if (col === IP_CARD_COLUMN) {
+    return [row['IP_CARD_URL'], row['IP_CARD_PDF_URL']].filter(Boolean).join('; ');
+    }
+    return (row[col] || '').toString();
+    }
 
 // CSV export
 exportBtn.addEventListener('click', () => {
@@ -1697,17 +1714,21 @@ function deriveColumns() {
   if (raw.includes('Category')) ordered.push('Category');
   if (raw.includes('License'))  ordered.push('License');
   if (raw.includes('Status'))  ordered.push('Status');
+  // Synthetic IP Card column: rendered from IP_CARD_URL/IP_CARD_PDF_URL raw
+  // fields, which are otherwise not shown directly. Placed right after Status.
+  if (raw.includes('IP_CARD_URL') || raw.includes('IP_CARD_PDF_URL')) ordered.push(IP_CARD_COLUMN);
   // Synthetic column: not a key of the IP JSON objects, rendered from the
-  // pre-computed repository statistics cache. Placed right after Status.
+  // pre-computed repository statistics cache. Placed after Status/IP Card.
   const ensureRepoStats = () => {
     if (!ordered.includes(REPO_STATS_COLUMN)) ordered.push(REPO_STATS_COLUMN);
   };
-if (raw.includes('Description'))  ordered.push('Description');
-ensureRepoStats();
-raw.forEach(c => {
-  if (!['Name', 'Category', 'License', 'Status', 'Description', 'Project'].includes(c)) ordered.push(c);
-});
-ensureRepoStats();
+  if (raw.includes('Description'))  ordered.push('Description');
+  ensureRepoStats();
+  raw.forEach(c => {
+  if (!['Name', 'Category', 'License', 'Status', 'Description', 'Project'].includes(c) &&
+      c !== 'IP_CARD_URL' && c !== 'IP_CARD_PDF_URL') ordered.push(c);
+  });
+  ensureRepoStats();
   if (raw.includes('Project'))  ordered.push('Project'); // ALWAYS LAST
   columns = ordered;
   updateVisibleColumns();
