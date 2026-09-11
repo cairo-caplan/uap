@@ -106,9 +106,14 @@ repository root. There is nothing to build or compile. Two things to confirm:
   as JSON at runtime.
 - Serve the directory **listings** for `ips/` if you want the platform to auto-discover
   the IP data files via a same-origin directory listing. If directory listings are
-  disabled, the application falls back to the GitHub/GitLab API derived from the current
+  disabled, the application falls back to the GitHub API derived from the current
   location where applicable; serving the directory listing is the simplest approach for a
   self-hosted deployment.
+<!-- - Serve the directory **listings** for `ips/` if you want the platform to auto-discover
+  the IP data files via a same-origin directory listing. If directory listings are
+  disabled, the application falls back to the GitHub/GitLab API derived from the current
+  location where applicable; serving the directory listing is the simplest approach for a
+  self-hosted deployment. -->
 
 ---
 
@@ -160,5 +165,5 @@ runs.
 | Hosting option | Mechanism | URL pattern |
 |----------------|-----------|-------------|
 | GitHub Pages | Settings => Pages, deploy from default branch `/ (root)` | `https://openhwgroup.github.io/uap/unified-access.html` |
-| GitLab Pages (`gitlab.eclipse.org`) | `.gitlab-ci.yml` `pages` job on default branch | Pages base URL + full project path (depends on instance having Pages enabled) |
+<!-- | GitLab Pages (`gitlab.eclipse.org`) | `.gitlab-ci.yml` `pages` job on default branch | Pages base URL + full project path (depends on instance having Pages enabled) | -->
 | Self-hosted | `scripts/serve.sh`, `python3 -m http.server`, or `npx serve .` | `http(s)://your-host/unified-access.html` |
