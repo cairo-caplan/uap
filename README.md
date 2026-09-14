@@ -33,11 +33,25 @@ Additional features — such as KPI-based adoption monitoring, extended interope
 
 The platform acts as a **static unified access page**, pointing to repositories hosted on the **OpenHW Foundation GitHub**, automatically mirrored to a European-hosted **GitLab** instance and to other public forges as applicable, or maintained as private assets. It provides documentation, status information, and an evolving structure designed to better support integration across toolchains, accelerators, and infrastructure components.
 
+The repository includes a dedicated `/ip_cards` directory intended to host optional IP Cards for those IPs that provide such documentation. This hosting option is provided for IP owners who prefer centralised publication within the UAP, rather than maintaining the material on their own premises.
+
 Our ambition is to progressively transform this platform into a sustainable, interoperable, and community-oriented resource for the broader **RISC-V ecosystem** — while transparently reflecting the incremental progress being made.
 
 ---
 
 <h2 align="center"> <a href="https://openhwgroup.github.io/uap/unified-access.html">🚀 Access the Platform</a></h2>
+
+---
+
+<h2 align="center">Deployment</h2>
+
+The platform is a pure static website (no build step, no backend) and can be deployed to any of these hosts:
+
+- **GitHub Pages** — the primary host, served from the repository root (`https://openhwgroup.github.io/uap/unified-access.html`).
+<!-- - **GitLab Pages on the Eclipse Foundation GitLab** (`gitlab.eclipse.org`) — deployed automatically by the `.gitlab-ci.yml` `pages` job on the default branch; location-flexible so it works in any group or backup project. -->
+- **Self-hosted** — serve the repository root with `scripts/serve.sh` (or `python3 -m http.server 8080`) or `npx serve .`.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full instructions, including required CI/CD variables.
 
 ---
 
