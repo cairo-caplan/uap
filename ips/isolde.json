@@ -313,9 +313,9 @@
     "Project": "ISOLDE",
     "Name": "Interface between CVA6 and Vector accelerator",
     "URL": "https://github.com/pulp-platform/ara/tree/f06204b",
-    "License": "SHL-2.1",
-    "Status": "Prototype. To be updated with the final release of CV-X-IF in CVA6",
-    "Description": "Prototype of CV-X-IF between CVA6 and RVV 1.0 vector processor, used for evaluation",
+    "License": "SHL-0.51",
+    "Status": "CV-X-IF implementation in the VPU",
+    "Description": "CV-X-IF communication interface between CVA6 and the RVV 1.0 vector processor. More details and IP card in the VPU entry.",
     "WI": [
       "ID 2.3.05"
     ],
@@ -795,7 +795,7 @@
     "Project": "ISOLDE",
     "Name": "Vector Processing Unit (with multi-precision capabilities) (VPU)",
     "URL": "https://github.com/pulp-platform/ara",
-    "License": "SHL-2.1",
+    "License": "SHL-0.51",
     "Status": "Optimization, verification, and feature addition in progress",
     "Description": "RISC-V V 1.0 modular vector accelerator with multi-precision capabilities",
     "WI": [
@@ -807,8 +807,8 @@
       "Accelerator",
       "Extension"
     ],
-    "IP_CARD_URL": "",
-    "IP_CARD_PDF_URL": ""
+    "IP_CARD_URL": "https://github.com/pulp-platform/ara/blob/mp/pulp-v2-os-fpga/docs/ip_cards/ara_ipcard.json",
+    "IP_CARD_PDF_URL": "https://github.com/pulp-platform/ara/blob/mp/pulp-v2-os-fpga/docs/ip_cards/ara_ipcard.pdf"
   },
   {
     "Project": "ISOLDE",
