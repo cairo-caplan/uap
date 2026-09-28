@@ -112,6 +112,10 @@
     "aliases": ["NoC"]
   },
   {
+    "name": "Digital Signal Processing",
+    "aliases": ["DSP"]
+  },
+  {
     "name": "Others",
     "aliases": [""]
   }

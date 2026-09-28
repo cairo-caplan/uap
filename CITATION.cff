@@ -10,9 +10,9 @@ authors:
 identifiers:
   - type: url
     value: >-
-      https://github.com/openhwgroup/uap
+      https://github.com/openhwfoundation/uap
 repository-code: >-
-  https://github.com/openhwgroup/uap
+  https://github.com/openhwfoundation/uap
 url: 'https://tristan-project.eu/uap'
 abstract: >-
   It provides references and descriptions of all the TRISTAN
