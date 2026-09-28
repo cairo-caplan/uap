@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "py: validate ips strict",
+      "type": "shell",
+      "command": "python3 -m pip install --quiet jsonschema && python3 scripts/validate_ips.py --strict"
+    },
+    {
+      "label": "py: repo stats dry-run",
+      "type": "shell",
+      "command": "python3 scripts/fetch_repo_stats.py --dry-run"
+    },
+    {
+      "label": "py: fetch repo stats",
+      "type": "shell",
+      "command": "python3 scripts/fetch_repo_stats.py"
+    },
+    {
+      "label": "js: syntax check",
+      "type": "shell",
+      "command": "node --check script.js && node --check editor.js && echo JS_OK"
+    }
+  ]
+}

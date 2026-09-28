@@ -22,13 +22,13 @@ configuration of the application code is needed.
 
 **Enable / configure:**
 
-1. Open the repository on GitHub (`openhwgroup/uap`).
+1. Open the repository on GitHub (`openhwfoundation/uap`).
 2. Go to **Settings => Pages**.
 3. Under **Build and deployment => Source**, select **Deploy from a branch**.
 4. Set the branch to the default branch (e.g. `main`) and the folder to **`/ (root)`**.
 5. Save. GitHub serves the repository root directly.
 
-**Live URL:** <https://openhwgroup.github.io/uap/unified-access.html>
+**Live URL:** <https://openhwfoundation.github.io/uap/unified-access.html>
 
 Because there is no build step, GitHub Pages serves the files exactly as committed.
 The IP catalogue data under `ips/` and configuration under `cfg/` are loaded by the
@@ -164,6 +164,6 @@ runs.
 
 | Hosting option | Mechanism | URL pattern |
 |----------------|-----------|-------------|
-| GitHub Pages | Settings => Pages, deploy from default branch `/ (root)` | `https://openhwgroup.github.io/uap/unified-access.html` |
+| GitHub Pages | Settings => Pages, deploy from default branch `/ (root)` | `https://openhwfoundation.github.io/uap/unified-access.html` |
 <!-- | GitLab Pages (`gitlab.eclipse.org`) | `.gitlab-ci.yml` `pages` job on default branch | Pages base URL + full project path (depends on instance having Pages enabled) | -->
 | Self-hosted | `scripts/serve.sh`, `python3 -m http.server`, or `npx serve .` | `http(s)://your-host/unified-access.html` |
