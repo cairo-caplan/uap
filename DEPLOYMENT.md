@@ -1,4 +1,4 @@
-# Deploying the Unified RISC-V Access Platform (UAP)
+# Deploying the Unified RISC-V IP Access Platform (UAP)
 
 The UAP is a **pure static website**. There is no build step and no backend. The
 JavaScript application (`script.js`, `editor.js`) is **host-agnostic**: it derives its

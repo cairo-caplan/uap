@@ -14,9 +14,9 @@
 </p>
 
 
-<h1 align="center">Unified RISC-V Access Platform (UAP)</h1>
+<h1 align="center">Unified RISC-V IP Access Platform (UAP)</h1>
 
-Welcome to the European **Unified RISC-V Access Platform (UAP)** a structured and expandable entry point designed to catalogue, document, and promote the IP assets initially developed in various European research projects such as <strong><a href="https://tristan-project.eu/">TRISTAN</a></strong>, <strong><a href="https://isolde-project.eu/">ISOLDE</a></strong>, and many others, with a specific focus on **RISC-V**.
+Welcome to the European **Unified RISC-V IP Access Platform (UAP)** a structured and expandable entry point designed to catalogue, document, and promote the IP assets initially developed in various European research projects such as <strong><a href="https://tristan-project.eu/">TRISTAN</a></strong>, <strong><a href="https://isolde-project.eu/">ISOLDE</a></strong>, and many others, with a specific focus on **RISC-V**.
 
 This platform consolidates hardware and software components and offers a coherent view of their maturity, usability, licensing, and integration workflows.
 
