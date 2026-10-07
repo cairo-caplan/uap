@@ -2,7 +2,7 @@
   {
     "Project": "ISOLDE",
     "Name": "NOEL-V processor extensions",
-    "URL": "https://www.gaisler.com/getgrlibhttps://www.gaisler.com/getgrlib",
+    "URL": "https://www.gaisler.com/getgrlib",
     "License": [
       "GPL-2.0",
       "Proprietary"
@@ -226,8 +226,8 @@
       "Peripheral",
       "Interface"
     ],
-    "IP_CARD_URL": "N/A",
-    "IP_CARD_PDF_URL": "N/A"
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -287,8 +287,8 @@
       "Extension",
       "Interface"
     ],
-    "IP_CARD_URL": "N/A",
-    "IP_CARD_PDF_URL": "N/A"
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
@@ -383,8 +383,8 @@
       "Software",
       "Tools"
     ],
-    "IP_CARD_URL": "N/A",
-    "IP_CARD_PDF_URL": "N/A"
+    "IP_CARD_URL": "",
+    "IP_CARD_PDF_URL": ""
   },
   {
     "Project": "ISOLDE",
