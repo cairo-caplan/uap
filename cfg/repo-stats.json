@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T16:38:32Z",
+  "generated_at": "2026-10-19T14:28:56Z",
   "source": "GitHub REST API + GitLab REST API (pre-computed)",
   "repos": {
     "github.com/absint/compcert": {
@@ -265,8 +265,8 @@
       "default_branch": "main",
       "pushed_at": "2026-06-10T08:24:44Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:37:22Z",
-      "etag": "\"332040793e7f58e3081e1e76dbf50ad38cb934fcf12e2d27986bb9a67a33a85f\""
+      "fetched_at": "2026-10-19T14:28:53Z",
+      "etag": "\"8f5dba064062f51260c3f8c9d4ec78545a22a3c801e48f97da3c795a911ae98e\""
     },
     "github.com/edge-group-polito/pca": {
       "repo": "github.com/edge-group-polito/PCA",
@@ -805,8 +805,8 @@
       "provider": "github",
       "host": "github.com",
       "html_url": "https://github.com/openhwfoundation/core-v-verif",
-      "stars": 728,
-      "forks": 326,
+      "stars": 731,
+      "forks": 330,
       "watchers": 50,
       "open_issues": 160,
       "commits": 4656,
@@ -816,46 +816,46 @@
       "default_branch": "master",
       "pushed_at": "2026-09-14T13:34:44Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:36:56Z",
-      "etag": "\"3bc666a8bfe601d63188d7eedc3c7b99355ca555a1ecf00f0729ed2d68a22608\""
+      "fetched_at": "2026-10-19T14:28:47Z",
+      "etag": "\"5adea441a2fd3878f51425daa0604ed2d7a314500de1acf4ef946f035ff79457\""
     },
     "github.com/openhwfoundation/cv-hpdcache": {
       "repo": "github.com/openhwfoundation/cv-hpdcache",
       "provider": "github",
       "host": "github.com",
       "html_url": "https://github.com/openhwfoundation/cv-hpdcache",
-      "stars": 120,
-      "forks": 57,
+      "stars": 121,
+      "forks": 58,
       "watchers": 14,
       "open_issues": 7,
-      "commits": 396,
-      "contributors": 19,
+      "commits": 402,
+      "contributors": 20,
       "language": "SystemVerilog",
       "license_spdx_id": "NOASSERTION",
       "default_branch": "master",
-      "pushed_at": "2026-09-12T12:22:03Z",
+      "pushed_at": "2026-10-16T16:24:35Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:37:11Z",
-      "etag": "\"3e0cb0a2c0d544eca198854e57db268502dcac79bd2b5f890585191f12b577b9\""
+      "fetched_at": "2026-10-19T14:28:50Z",
+      "etag": "\"7e068f640947c7674c8b5484bec9e591b4bca3a5109f69b929ae4ab78f2e2be7\""
     },
     "github.com/openhwfoundation/cva6": {
       "repo": "github.com/openhwfoundation/cva6",
       "provider": "github",
       "host": "github.com",
       "html_url": "https://github.com/openhwfoundation/cva6",
-      "stars": 3156,
-      "forks": 1036,
-      "watchers": 93,
-      "open_issues": 287,
+      "stars": 3164,
+      "forks": 1040,
+      "watchers": 92,
+      "open_issues": 298,
       "commits": 7576,
-      "contributors": 248,
+      "contributors": 249,
       "language": "Assembly",
       "license_spdx_id": "NOASSERTION",
       "default_branch": "master",
-      "pushed_at": "2026-10-12T16:36:31Z",
+      "pushed_at": "2026-10-19T14:12:25Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:36:51Z",
-      "etag": "\"c52a6fa02a179885731516f2246d494f4d232214b9fdac26e59ed88058b5a9af\""
+      "fetched_at": "2026-10-19T14:28:44Z",
+      "etag": "\"6734da512e01ae4a1da488b94da1063fcd330877a982ca88780708a20604ee0c\""
     },
     "github.com/openhwfoundation/cve2": {
       "repo": "github.com/openhwfoundation/cve2",
@@ -863,7 +863,7 @@
       "host": "github.com",
       "html_url": "https://github.com/openhwfoundation/cve2",
       "stars": 72,
-      "forks": 47,
+      "forks": 48,
       "watchers": 7,
       "open_issues": 172,
       "commits": 2363,
@@ -873,8 +873,8 @@
       "default_branch": "main",
       "pushed_at": "2026-10-09T17:02:04Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:36:45Z",
-      "etag": "\"cef1579bd19b22c65dcb136b2ce7cf4244e66e7af8fafa6e8f4ec154279183fa\""
+      "fetched_at": "2026-10-19T14:28:41Z",
+      "etag": "\"d3f74d79b42935ffc06bb82005d090602cf8ac5d95b6fe417c59ff08f7f6bb43\""
     },
     "github.com/openhwfoundation/meta-cva6-yocto": {
       "repo": "github.com/openhwfoundation/meta-cva6-yocto",
@@ -892,8 +892,8 @@
       "default_branch": "main",
       "pushed_at": "2026-01-26T11:47:10Z",
       "archived": false,
-      "fetched_at": "2026-10-12T16:37:49Z",
-      "etag": "\"7bc17c0b1ba8d0149263e053f5edb2aae611ad0b73fd4bc0aba2c0cab39acc79\""
+      "fetched_at": "2026-10-19T14:28:56Z",
+      "etag": "\"200b8df1b93960503cd0d6d89e4bb934de6768fa0d86f1214181c1a5b346117b\""
     },
     "github.com/pulp-platform/ara": {
       "repo": "github.com/pulp-platform/ara",
@@ -1427,6 +1427,25 @@
       "fetched_at": "2026-10-12T16:37:46Z",
       "etag": "\"bfe87f0e5ed426e67705e687fa0824c6afa76139cb493dba456ce5e433b1b841\""
     },
+    "gitlab.com/catalin.ciobanu/polymem_system_verilog": {
+      "repo": "gitlab.com/catalin.ciobanu/PolyMem_System_Verilog",
+      "provider": "gitlab",
+      "host": "gitlab.com",
+      "html_url": "https://gitlab.com/catalin.ciobanu/PolyMem_System_Verilog",
+      "stars": 0,
+      "forks": 0,
+      "watchers": null,
+      "open_issues": 0,
+      "commits": 1,
+      "contributors": 1,
+      "language": null,
+      "license_spdx_id": null,
+      "default_branch": "master",
+      "pushed_at": "2026-05-11T07:38:37.044Z",
+      "archived": false,
+      "fetched_at": "2026-10-19T14:28:38Z",
+      "etag": "W/\"c104bd61adc49980eee4423ecd08c220\""
+    },
     "gitlab.com/selene-riscv-platform/davos": {
       "repo": "gitlab.com/selene-riscv-platform/DAVOS",
       "provider": "gitlab",
@@ -1487,7 +1506,6 @@
   },
   "errors": {
     "github.com/hash2100/isolde-workbench": "HTTP 404",
-    "github.com/orgs/cea-list": "HTTP 404",
-    "gitlab.com/catalin.ciobanu/polymem_system_verilog": "HTTP 404"
+    "github.com/orgs/cea-list": "HTTP 404"
   }
 }
