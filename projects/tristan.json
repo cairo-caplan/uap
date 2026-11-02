@@ -1,0 +1,707 @@
+{
+  "Id": "tristan",
+  "Name": "TRISTAN",
+  "Tasks": [
+    {
+      "TaskId": "tristan-wi2.2.5",
+      "WI": ["WI2.2.5", "WI2.2.8", "WI2.5.8"],
+      "Title": "CVE2",
+      "IPs": ["cve2"],
+      "Partners": ["NXP", "Synthara", "Politecnico di Torino", "OpenHW Foundation"],
+      "Comment": "CV32E20 configuration"
+    },
+    {
+      "TaskId": "tristan-wi2.3.2",
+      "WI": "WI2.3.2",
+      "Title": "RVB / RVP Standard Extensions support for CV32E40P core",
+      "Description": "Development of light-weight RISC-V Instruction Set Architecture (ISA) extensions to improve the energy efficiency of low-bit-width mixed-precision integer arithmetic",
+      "IPs": ["cv32e40p"],
+      "Partners": ["CEA"],
+      "ForkURL": "https://github.com/MPEZZIN/cv32e40p"
+    },
+    {
+      "TaskId": "tristan-wi2.3.3",
+      "WI": "WI2.3.3",
+      "Title": "Extensions to the micro-architecture of CV32E40P core",
+      "IPs": ["cv32e40p"],
+      "Partners": ["University of Bologna"],
+      "Comment": "Canonical URL of the IP covers the development work."
+    },
+    {
+      "TaskId": "tristan-wi2.3.5",
+      "WI": "WI2.3.5",
+      "Title": "VSRV: Simple 32-bit RISC-V Linux-Capable Core",
+      "Description": "32-bit compact RISC-V processor that runs off-the-shelf protocols under latest linux kernel",
+      "IPs": ["vsrv"],
+      "Partners": ["VLSI Solution"],
+      "Comment": "VSRV1 Released"
+    },
+    {
+      "TaskId": "tristan-wi2.4.1-2.4.3",
+      "WI": ["WI2.4.1", "WI2.4.2", "WI2.4.3", "WI2.4.5"],
+      "Title": "CVA6",
+      "Description": "A configurable family of RISC-V application/embedded cores targetting FPGA and ASIC technologies",
+      "IPs": ["cva6"],
+      "Partners": ["Thales", "SYSGO", "TU Darmstadt", "Bosch"],
+      "Comment": "CV32A60X configuration"
+    },
+    {
+      "TaskId": "tristan-wi2.4.4",
+      "WI": "WI2.4.4",
+      "Title": "RVV coprocessor for CVA6",
+      "Description": "RVV (vector) co-processor for CVA6 with support for low precision integer arithmetic (down to 8-bit vector data types) and multi-precision floating-point operations",
+      "IPs": ["ara"],
+      "Partners": ["ETH Zürich", "University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi2.1.1",
+      "WI": "WI2.1.1",
+      "Title": "Timing Channel Protection",
+      "Description": "Increasing the security features of CVA6. In particular, it provides support for timing channel protection in CVA6",
+      "IPs": ["cva6-timing-channel"],
+      "Partners": ["ETH Zürich"],
+      "ForkURL": "https://github.com/pulp-platform/cva6",
+      "Comment": "Development work lives in the pulp-platform CVA6 fork, not the canonical OpenHW repository."
+    },
+    {
+      "TaskId": "tristan-wi2.4.1",
+      "WI": "WI2.4.1",
+      "Title": "UVM env and testbench for the CVA6 core",
+      "Description": "UVM environment for the verification of RISC-V cores, supporting a thorough verification of the CVA6 (and other) cores to reach TRL-5",
+      "IPs": ["core-v-verif"],
+      "Partners": ["Thales", "ETH Zürich"],
+      "ForkURL": "https://github.com/openhwfoundation/core-v-verif/tree/60e57248c48b0f8f90cf52af20aecc5c16e9d6d8",
+      "Comment": "Finished as the CV32A60X configuration of the CVA6 has reached TRL-5, completing the objective of the WI"
+    },
+    {
+      "TaskId": "tristan-wi2.5.11",
+      "WI": "WI2.5.11",
+      "Title": "Compression and decompression of digital waveforms",
+      "Description": "Custom instructions for CV32E40X / CV32A60X cores to improve the performance of real-time compression and decompression of digital waveforms.",
+      "IPs": ["tristan-waveform-compression"],
+      "Partners": ["Semify"],
+      "ForkURL": "https://github.com/semify-eda/tristan/tree/main",
+      "Branch": "main"
+    },
+    {
+      "TaskId": "tristan-wi2.1.4",
+      "WI": ["WI2.1.4", "WI2.2.1", "WI2.3.4", "WI2.5.4"],
+      "Title": "C-Trace",
+      "Description": "Architecture and design of RISC-V Trace IP",
+      "IPs": ["c-trace"],
+      "Partners": ["Accemic Technologies", "Fraunhofer", "MINRES Technologies", "SYSGO"],
+      "Comment": "Not released yet. It will be available at https://github.com/accemic/c-trace."
+    },
+    {
+      "TaskId": "tristan-wi2.5.10",
+      "WI": "WI2.5.10",
+      "Title": "Hypervisor",
+      "Description": "Hypervisor support for CVA6 complying with the RISC-V hypervisor extension specifications",
+      "IPs": ["riscv-hypervisor"],
+      "Partners": ["ETH Zürich", "SYSGO"]
+    },
+    {
+      "TaskId": "tristan-wi2.5.1",
+      "WI": "WI2.5.1",
+      "Title": "Riviera: RISC-V ISA Extensions for NFC Applications",
+      "Description": "CV-X-IF compliant RISC-V Co-processor for a NFC Receiver decoder custom DSP acceleration",
+      "IPs": ["riviera"],
+      "Partners": ["NXP Austria", "Politecnico di Torino", "Technical University of Graz"],
+      "ForkURL": "https://github.com/NXP-AT-RIVIERA/Riviera_core/tree/main",
+      "Branch": "main",
+      "Status": "Design and Verification completed"
+    },
+    {
+      "TaskId": "tristan-wi2.4.2",
+      "WI": ["WI2.4.2", "WI2.4.3"],
+      "Title": "SCAIE-V custom instruction interface for CVA6",
+      "Description": "SCAIE-V is a portable and scalable hardware interface for easily adding custom instructions to processors ranging from microcontrollers to application-level cores",
+      "IPs": ["scaie-v"],
+      "Partners": ["TU Darmstadt"]
+    },
+    {
+      "TaskId": "tristan-wi3.1.1",
+      "WI": "WI3.1.1",
+      "Title": "TSN-Trace-Link",
+      "Description": "A secured transmission trace bus with message, TSN and control flow reconstruction elements",
+      "IPs": ["tsn-trace-link"],
+      "Partners": ["Accemic Technologies", "Bosch", "Fraunhofer", "SYSGO"]
+    },
+    {
+      "TaskId": "tristan-wi3.1.3-gpio",
+      "WI": "WI3.1.3",
+      "Title": "GPIO",
+      "Description": "A simple GPIO interface controlled via an APB bus",
+      "IPs": ["gpio"],
+      "Partners": ["CEA"],
+      "Status": "Finished",
+      "Comment": "TRISTAN objectives achieved. Release of the latest version ongoing."
+    },
+    {
+      "TaskId": "tristan-wi3.1.3-uart",
+      "WI": "WI3.1.3",
+      "Title": "UART 16750",
+      "Description": "A UART interface controlled via an APB bus",
+      "IPs": ["uart-16750"],
+      "Partners": ["CEA"],
+      "Status": "Finished",
+      "Comment": "TRISTAN objectives achieved. Release of the latest version ongoing."
+    },
+    {
+      "TaskId": "tristan-wi3.1.3-spi",
+      "WI": "WI3.1.3",
+      "Title": "SPI Master",
+      "Description": "An SPI master that is controlled via an AXI bus",
+      "IPs": ["spi-master"],
+      "Partners": ["CEA"],
+      "Status": "Finished",
+      "Comment": "TRISTAN objectives achieved. Release of the latest version ongoing."
+    },
+    {
+      "TaskId": "tristan-wi3.1.5-hpdcache",
+      "WI": "WI3.1.5",
+      "Title": "HPDcache",
+      "Description": "An open-source High-Performance, Multi-requester, Out-of-Order L1 Data Cache for RISC-V cores and accelerators.",
+      "IPs": ["hpdcache"],
+      "Partners": ["CEA"],
+      "Status": "Finished"
+    },
+    {
+      "TaskId": "tristan-wi3.1.7",
+      "WI": "WI3.1.7",
+      "Title": "CLIC",
+      "Description": "Core Local Interrupt Controller (CLIC) is an interrupt controller for RISC-V cores with pre-emptive, low-latency, vectored, priority/level based interrupts.",
+      "IPs": ["clic"],
+      "Partners": ["ETH"]
+    },
+    {
+      "TaskId": "tristan-wi3.1.5-axillc",
+      "WI": "WI3.1.5",
+      "Title": "AXI LLC",
+      "Description": "A parameterizable and runtime-configurable AXI4-compliant last-level cache (LLC)",
+      "IPs": ["axi-llc"],
+      "Partners": ["ETH"]
+    },
+    {
+      "TaskId": "tristan-wi3.2.1",
+      "WI": "WI3.2.1",
+      "Title": "AXI",
+      "Description": "AXI SystemVerilog synthesizable IP modules and verification infrastructure for high-performance on-chip communication",
+      "IPs": ["axi"],
+      "Partners": ["ETH"]
+    },
+    {
+      "TaskId": "tristan-wi3.2.6",
+      "WI": "WI3.2.6",
+      "Title": "OBI interconnect",
+      "Description": "OBI Components: AHB2OBI Bridge, OBI2AHB Bridge, OBI2APB Bridge, OBI2OBI Bridge, OBI XBAR Bridge",
+      "IPs": ["obi-interconnect"],
+      "Partners": ["CEA"],
+      "Status": "Finished",
+      "Comment": "TRISTAN objectives achieved. Release of the latest version ongoing."
+    },
+    {
+      "TaskId": "tristan-wi3.4.5",
+      "WI": "WI3.4.5",
+      "Title": "eFPGA",
+      "Description": "An embedded FPGA IP to offload certain processor tasks and improve overall system performance",
+      "IPs": ["efpga"],
+      "Partners": ["YONGATEK"]
+    },
+    {
+      "TaskId": "tristan-wi3.4.4",
+      "WI": "WI3.4.4",
+      "Title": "Keccak Accelerator for Post-Quantum Encryption",
+      "Description": "Post-Quantum Cryptographic Accelerator",
+      "IPs": ["keccak"],
+      "Partners": ["Technische Universität München", "Politecnico di Torino"],
+      "Status": "Finished",
+      "Comment": "The repo contains both the standalone Keccak IP and the CVA6 integrated version"
+    },
+    {
+      "TaskId": "tristan-wi3.1.4",
+      "WI": "WI3.1.4",
+      "Title": "Low-power IO DMA",
+      "Description": "A Low Power IO DMA controller with multi-bank memory access and performance enhancements",
+      "IPs": ["udma-core"],
+      "Partners": ["University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi3.2.2",
+      "WI": "WI3.2.2",
+      "Title": "Heterogeneous Cluster Interconnect (HCI)",
+      "Description": "Heterogeneous Cluster Interconnect to bind special-purpose HW accelerators with general-purpose cluster cores",
+      "IPs": ["hci"],
+      "Partners": ["University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi3.4.1",
+      "WI": "WI3.4.1",
+      "Title": "Reduced-Precision Matrix Multiplication Engine",
+      "Description": "Low-Power Floating-Point Accelerator",
+      "IPs": ["redmule"],
+      "Partners": ["University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi3.2.4",
+      "WI": ["3.2.4"],
+      "Title": "SPEDE",
+      "Description": "High-speed serializer/deserializer for synchronization and conversion between serial bitstreams and bytes.",
+      "IPs": ["spede"],
+      "Partners": ["Tampere University", "Nokia"],
+      "Status": "Finished",
+      "Comment": "PROVISIONAL: WI given as '3.2.4' in the source data (missing 'WI' prefix)."
+    },
+    {
+      "TaskId": "tristan-wi4.1.1",
+      "WI": ["WI4.1.1", "WI5.1.1"],
+      "Title": "Renode",
+      "Description": "Renode is a development framework created by Antmicro, that accelerates hardware product development by letting users simulate complete, complex hardware systems - including both the CPU, peripherals, sensors, environment and wired or wireless medium between nodes. Renode supports hundreds of embedded platforms and comes with a range of developer-oriented features such as state saving and replaying, advanced hooks and events, comprehensive tracing, multi-core debugging, etc.",
+      "IPs": ["renode"],
+      "Partners": ["Antmicro"],
+      "Comment": "Used by: Tampere University, Nokia, Cargotec"
+    },
+    {
+      "TaskId": "tristan-wi4.1.5",
+      "WI": "WI4.1.5",
+      "Title": "TimeWeaver",
+      "Description": "TimeWeaver is a hybrid measurement-based timing analysis tool to determine the WCET of safety-critical embedded software. As part of TRISTAN, it has been ported to include support for RISC-V processors using the TRISTAN trace IP.",
+      "IPs": ["timeweaver"],
+      "Partners": ["AbsInt"],
+      "Comment": "Preview versions available on request (support@absint.com) as part of the first complete software package (deliverable D4.2)"
+    },
+    {
+      "TaskId": "tristan-wi4.2.1-adl",
+      "WI": ["WI4.2.1", "WI4.2.3"],
+      "Title": "LLVM TD from ADL",
+      "Description": "Generate LLVM target description file for RV32 architectures and corresponding instruction encoding, instruction scheduling model, assembler relocation tests automatically generated from an architectural description language (ADL).",
+      "IPs": ["tools-adl"],
+      "Partners": ["NXP"],
+      "Comment": "Design and verification in progress. For the CVA6 TIP implementation part of it, a pull request has been issued, but further integration with work from Uni Bologna is needed."
+    },
+    {
+      "TaskId": "tristan-wi4.2.1-pulp-gcc",
+      "WI": "WI4.2.1",
+      "Title": "GCC Toolchain for mixed-precision ISA extensions",
+      "Description": "Support of the VPFloat ISA into GCC/Binutils",
+      "IPs": ["pulp-riscv-gnu-toolchain"],
+      "Partners": ["University of Bologna"],
+      "ForkURL": "https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/tree/float8-support",
+      "Branch": "float8-support"
+    },
+    {
+      "TaskId": "tristan-wi4.2.1-corev-gcc",
+      "WI": "WI4.2.1",
+      "Title": "COREV GCC",
+      "Description": "The CORE-V GCC repository provides a fork of the GNU Compiler Collection (GCC) tailored for the CORE-V family of open-source RISC-V processor cores. It includes custom enhancements and optimizations to support CORE-V-specific architectural features and instructions. The fork provides the compiler backend support for the low-precision and mixed-precision extensions designed in TRISTAN.",
+      "IPs": ["corev-gcc"],
+      "Partners": ["University of Bologna"],
+      "ForkURL": "https://github.com/EEESlab/corev-gcc/tree/tristan-dev",
+      "Branch": "tristan-dev"
+    },
+    {
+      "TaskId": "tristan-wi4.2.1-corev-binutils",
+      "WI": "WI4.2.1",
+      "Title": "COREV Binutils",
+      "Description": "The CORE-V binutils repository contains a customized version of the GNU binutils suite designed for the CORE-V family of RISC-V processor cores. It includes tools like the assembler, linker, and related utilities, enhanced to support CORE-V-specific instruction sets and architectural extensions. The fork adds the binary support required to assemble the low-precision and mixed-precision instructions in the TRISTAN extensions.",
+      "IPs": ["corev-binutils-gdb"],
+      "Partners": ["University of Bologna"],
+      "ForkURL": "https://github.com/EEESlab/corev-binutils-gdb/tree/tristan-dev",
+      "Branch": "tristan-dev"
+    },
+    {
+      "TaskId": "tristan-wi4.2.1-vxp-binutils",
+      "WI": "WI4.2.1",
+      "Title": "GCC/Binutils for VPFloat ISA",
+      "Description": "TimeWeaver is a hybrid measurement-based timing analysis tool to determine the WCET of safety-critical embedded software. As part of TRISTAN, it has been ported to include support for RISC-V processors using the TRISTAN trace IP.",
+      "IPs": ["vxp-binutils"],
+      "Partners": ["CEA"],
+      "Comment": "PROVISIONAL: the source Description repeats the TimeWeaver text (copy-paste error in the source data)."
+    },
+    {
+      "TaskId": "tristan-wi3.4.2",
+      "WI": ["WI3.4.2", "WI4.2.1", "WI4.2.6", "WI4.4.1"],
+      "Title": "VxP Tools and Libraries",
+      "Description": "A subset of the GNU binutils v2.34 and v2.38 has been enhanced to support encoding/decoding of the RISC-V ISA extension for VXP.",
+      "IPs": ["vxp"],
+      "Partners": ["CEA"]
+    },
+    {
+      "TaskId": "tristan-wi4.2.4",
+      "WI": "WI4.2.4",
+      "Title": "CompCert",
+      "Description": "CompCert is a formally-verified optimizing C compiler. As part of TRISTAN, it is extended to support the HSI (hardware-supported instrumentation) interface of the TRISTAN trace IP.",
+      "IPs": ["compcert"],
+      "Partners": ["AbsInt"]
+    },
+    {
+      "TaskId": "tristan-wi4.2.6",
+      "WI": "WI4.2.6",
+      "Title": "Support of VPFloat datatypes in the C language",
+      "Description": "The VPSDK (Variable Precision Software Development Kit) is a C/C++ library developed by CEA, offering software interfaces for variable precision computations. It includes VPFloat for scalar values, VBLAS for inear algebra routines, and VPSolver for computation kernels, enabling precise numerical calculations across arious applications.",
+      "IPs": ["vxp-devkit"],
+      "Partners": ["CEA"]
+    },
+    {
+      "TaskId": "tristan-wi4.3.1",
+      "WI": "WI4.3.1",
+      "Title": "Zephyr",
+      "Description": "The Zephyr Project is a scalable real-time operating system (RTOS) supporting multiple hardware architectures, optimized for resource constrained devices, and built with security in mind.",
+      "IPs": ["zephyr"],
+      "Partners": ["Antmicro"],
+      "Comment": "ANT developed improvements to the Zephyr RTOS, improving its support for RISC-V, enhancing integration with debugging tools and improving SMP support."
+    },
+    {
+      "TaskId": "tristan-wi4.3.3-pikeos",
+      "WI": "WI4.3.3",
+      "Title": "PikeOS CVA-6 support",
+      "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We plan to support CVA-6 for PikeOS.",
+      "IPs": ["pikeos"],
+      "Partners": ["SYSGO"]
+    },
+    {
+      "TaskId": "tristan-wi4.3.3-yocto",
+      "WI": "WI4.3.3",
+      "Title": "Yocto for CVA6",
+      "Description": "A linux image for a CVA6-based embedded processor",
+      "IPs": ["meta-cva6-yocto"],
+      "Partners": ["Thales"]
+    },
+    {
+      "TaskId": "tristan-wi4.3.3-eclipse-demo",
+      "WI": "WI4.3.3",
+      "Title": "Setting up Yocto and baremetal debug on CVA6",
+      "Description": "Guidance to set up baremetal and Linux-based debug on CVA6",
+      "IPs": ["cva6-eclipse-demo"],
+      "Partners": ["Thales"]
+    },
+    {
+      "TaskId": "tristan-wi4.3.2",
+      "WI": "WI4.3.2",
+      "Title": "ELinOS embedded Linux for RISC-V",
+      "Description": "ELinOS is an Embedded Linux distribution and industrial grade Linux with the user-friendly CODEO IDE to build state-of-the-art embedded solutions in a time-saving and cost-efficient manner; also dedicated support from SYSGO is available. ELinOS has strong focus on Security with container support and services, providing drivers, connectivity stacks, real-time extensions and support for industrial hardware (e.g. since long ARM, x86, PowerPC, and, since 2024, RISC-V).",
+      "IPs": ["elinos"],
+      "Partners": ["SYSGO"],
+      "Comment": "Has been released on 14 April 2024, see also press release."
+    },
+    {
+      "TaskId": "tristan-wi4.3.3-debug",
+      "WI": "WI4.3.3",
+      "Title": "Debug support for CVA6",
+      "Description": "This tutorial was developed to help developers debug CVA6, either in bare-metal or under Linux",
+      "IPs": ["cva6-eclipse-demo"],
+      "Partners": ["Thales"],
+      "Comment": "Same repository as the Yocto/baremetal setup task; keep as a separate Work Item."
+    },
+    {
+      "TaskId": "tristan-wi4.3.4",
+      "WI": "WI 4.3.4",
+      "Title": "Cloud Connector",
+      "Description": "Cloud Connector is a software module that runs on JamaicaAMS and is used to exchange data with the cloud (customized aicas EDG) via the MQTT protocol. It is compatible with the OSGi specification and leverages the realtime capabilities of JamaicaAMS. It was newly developed by aicas for this project.",
+      "IPs": ["tristan-cloud-connector"],
+      "Partners": ["aicas"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.1-depthwise",
+      "WI": "WI4.4.1",
+      "Title": "Depthwise separable convolution fusion",
+      "Description": "Kernels for GAP8 implementing the layer fusion of depthwise convolution and pointwise convolutions.",
+      "IPs": ["depthwise-separable-fusion"],
+      "Partners": ["Politecnico di Torino", "University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.1-pulp-nn-sparse",
+      "WI": "WI4.4.1",
+      "Title": "Pulp-NN-sparse",
+      "Description": "Kernels for weight sparsity",
+      "IPs": ["pulp-nn-sparse"],
+      "Partners": ["Politecnico di Torino", "University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.1-riscv-nn",
+      "WI": "WI4.4.1",
+      "Title": "CMSIS-like Open-Source AI, DSP and compute (e.g. BLAS) libraries",
+      "Description": "A set of extensions to the open-source PULP-NN library for accelerating AI workloads on RISC-V-based platforms (mainly but not limited to multi-core clusters). Extensions include kernels for fused depthwise-separable convolutions, attention layers, and N:M sparsity.",
+      "IPs": ["riscv-nn"],
+      "Partners": ["Infineon Technologies", "Politecnico di Torino", "University of Bologna", "CEA"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.1-runtime",
+      "WI": "WI4.4.1",
+      "Title": "RISC-V Runtime",
+      "Description": "A SDK that uses the MPFR as its backend has been delivered to experiment with variable precision in applications.",
+      "IPs": ["riscv-runtime"],
+      "Partners": ["CEA"],
+      "Comment": "PROVISIONAL: source URL points to the VxP devkit repository."
+    },
+    {
+      "TaskId": "tristan-wi4.4.4-plinio-stack",
+      "WI": "WI4.4.4",
+      "Title": "End-to-end stack for ML software development on embedded RISC-V platforms",
+      "Description": "A PyTorch-based library for implementing hardware-aware optimizations of AI models (NAS, pruning, quantization) with lightweight algorithms, and enable their subsequent compilation and deployment onto RISC-V targets.",
+      "IPs": ["plinio"],
+      "Partners": ["Politecnico di Torino", "University of Bologna"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.2",
+      "WI": ["WI4.4.2"],
+      "Title": "Keelhaul",
+      "Description": "Tool to generate executable, memory-mapped I/O verification test cases from IP-XACT or CMSIS-SVD files.",
+      "IPs": ["keelhaul"],
+      "Partners": ["Tampere University"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.3",
+      "WI": "WI 4.4.3",
+      "Title": "RISC-V support for RTIC",
+      "Description": "RTIC is a framework used to deploy hard real-time applications scheduled under Stack Resource Policy. The framework finds utility in safety-critical systems where bounded real-time task latency needs to be guaranteed on lightweight embedded systems.",
+      "IPs": ["rtic"],
+      "Partners": ["Tampere University"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.4-plinio",
+      "WI": "WI4.4.4",
+      "Title": "Plinio",
+      "Description": "A PyTorch-based library for implementing hardware-aware optimizations of AI models (NAS, pruning, quantization) with lightweight algorithms, and enable their subsequent compilation and deployment onto RISC-V targets.",
+      "IPs": ["plinio"],
+      "Partners": ["Politecnico di Torino"],
+      "Comment": "Duplicate of the End-to-end stack task; consider merging (see docs/migration-map.md)."
+    },
+    {
+      "TaskId": "tristan-wi4.4.4-match",
+      "WI": "WI4.4.4",
+      "Title": "MATCH",
+      "Description": "A TVM-based AI compiler for hardware-aware deployment of AI models onto heterogeneous RISC-V targets.",
+      "IPs": ["match"],
+      "Partners": ["Politecnico di Torino"]
+    },
+    {
+      "TaskId": "tristan-wi4.4.4-kenning",
+      "WI": "WI4.4.4",
+      "Title": "Kenning",
+      "Description": "Kenning, developed and maintained by Antmicro, is an open-source ML framework for creating deployment flows and runtimes for Deep Neural Network applications across a broad spectrum of target hardware. Kenning offers an API for deploying deep learning applications on edge devices by leveraging various model training and compilation frameworks. The framework can be used to build larger, portable edge AI applications.",
+      "IPs": ["kenning"],
+      "Partners": ["Antmicro"]
+    },
+    {
+      "TaskId": "tristan-wi6.1.4",
+      "WI": "WI 6.1.4",
+      "Title": "Device Client",
+      "Description": "Device Client is a group of software modules that run on JamaicaAMS. It securely connects to the Cloud (aicas EDP) to get device status and configuration information, and operates the configuration and OSGi bundle lifecycle on RISC-V devices. It contains several components that were customized for this project.",
+      "IPs": ["tristan-device-client"],
+      "Partners": ["aicas"]
+    },
+    {
+      "TaskId": "tristan-wi5.1.2",
+      "WI": "WI5.1.2",
+      "Title": "ETISS",
+      "Description": "Extendible Translating Instruction Set Simulator",
+      "IPs": ["etiss"],
+      "Partners": ["Technische Universität München"],
+      "Comment": "Used by: Infineon"
+    },
+    {
+      "TaskId": "tristan-wi5.1.4-scc",
+      "WI": "WI5.1.4",
+      "Title": "SCC",
+      "Description": "SystemC Components",
+      "IPs": ["systemc-components"],
+      "Partners": ["MINRES Technologies"],
+      "Comment": "Used by: Bosch, CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.1.4-pysysc",
+      "WI": "WI5.1.4",
+      "Title": "PySysC",
+      "Description": "Python bindings for SystemC",
+      "IPs": ["pysysc"],
+      "Partners": ["MINRES Technologies"],
+      "Comment": "Used by: Bosch, CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.1.4-coredsl",
+      "WI": "WI5.1.4",
+      "Title": "Core DSL",
+      "Description": "Language to describe ISAs for ISS generation and HLS of RTL implementation",
+      "IPs": ["coredsl"],
+      "Partners": ["MINRES Technologies"],
+      "Comment": "Used by: Bosch, CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.1.4-dbtrise",
+      "WI": ["WI5.1.4", "WI5.3.2"],
+      "Title": "DBT-RISE & DBT-RISE-RISCV",
+      "Description": "Dynamic Binary Translation - Retargetable ISS Environment. Application of CoreDSL & DBT-RISE for RISCV",
+      "IPs": ["dbt-rise-riscv"],
+      "Partners": ["MINRES Technologies"],
+      "Comment": "Used by: Bosch, CEA, ACC"
+    },
+    {
+      "TaskId": "tristan-wi5.2.1",
+      "WI": "WI5.2.1",
+      "Title": "Verilator",
+      "Description": "RTL verification (simulation, formal). Co-simulation with Renode",
+      "IPs": ["verilator"],
+      "Partners": ["Antmicro"],
+      "Comment": "Used by: CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.2.2",
+      "WI": "WI5.2.2",
+      "Title": "Questa Verify Property App",
+      "Description": "Formal verification solutions for RISC-V (OneSpin)",
+      "IPs": ["questa-verify-property"],
+      "Partners": ["Siemens EDA"],
+      "Comment": "Used by: Thales SA"
+    },
+    {
+      "TaskId": "tristan-wi5.2.5-yosys",
+      "WI": "WI5.2.5",
+      "Title": "Yosys",
+      "Description": "Open Synthesis Suite",
+      "IPs": ["yosys"],
+      "Partners": ["TBD"],
+      "Comment": "Used by: CEA. PROVISIONAL: Partners is literally 'TBD' in the source data."
+    },
+    {
+      "TaskId": "tristan-wi5.2.7",
+      "WI": "WI5.2.7",
+      "Title": "Catapult",
+      "Description": "High-Level Synthesis and verification suite",
+      "IPs": ["catapult"],
+      "Partners": ["Siemens EDA"],
+      "Comment": "Used by: Siemens-AT"
+    },
+    {
+      "TaskId": "tristan-wi5.2.9",
+      "WI": ["WI5.2.9", "WI5.3.3"],
+      "Title": "Kactus2",
+      "Description": "IP-XACT/Kactus2 generator for the Renode simulator platform",
+      "IPs": ["kactus2"],
+      "Partners": ["MINRES Technologies", "Tampere University"],
+      "Comment": "Used by: Tampere University, Nokia, Cargotec"
+    },
+    {
+      "TaskId": "tristan-wi5.1.3-studio",
+      "WI": "WI5.1.3",
+      "Title": "Codasip Studio",
+      "Description": "Tool suite to develop/customize RISC-V IPs",
+      "IPs": ["codasip-studio"],
+      "Partners": ["Codasip"],
+      "Comment": "Used by: Bosch, MINRES Technologies"
+    },
+    {
+      "TaskId": "tristan-wi5.1.5",
+      "WI": "WI5.1.5",
+      "Title": "GVSOC",
+      "Description": "RISC-V Platform Simulator",
+      "IPs": ["gvsoc"],
+      "Partners": ["University of Bologna"],
+      "ForkURL": "https://github.com/EEESlab/gvsoc/tree/tristan-dev",
+      "Branch": "tristan-dev",
+      "Comment": "Used by: Politecnico di Torino"
+    },
+    {
+      "TaskId": "tristan-wi5.1.6",
+      "WI": "WI5.1.6",
+      "Title": "Messy",
+      "Description": "Multi-layer Extra-functional Simulator using SYstemC",
+      "IPs": ["messy"],
+      "Partners": ["Politecnico di Torino"],
+      "Comment": "Used by: University of Bologna"
+    },
+    {
+      "TaskId": "tristan-wi5.1.7",
+      "WI": "WI5.1.7",
+      "Title": "Spike",
+      "Description": "RISC-V ISA simulator",
+      "IPs": ["riscv-isa-sim"],
+      "Partners": ["OpenHW Foundation"],
+      "Comment": "Used by: Thales, Synthara"
+    },
+    {
+      "TaskId": "tristan-wi5.1.8",
+      "WI": "WI5.1.8",
+      "Title": "VPTOOL",
+      "Description": "Graphical editor of a Design Verification Plan",
+      "IPs": ["vptool"],
+      "Partners": ["OpenHW Foundation"],
+      "ForkURL": "https://github.com/openhwfoundation/core-v-verif/tree/master/tools/vptool",
+      "Branch": "master",
+      "Comment": "Used by: Thales, Siemens-AT"
+    },
+    {
+      "TaskId": "tristan-wi5.3.1",
+      "WI": "WI5.3.1",
+      "Title": "SoCSmith",
+      "Description": "Automated composition and optimization of compute-intensive SoCs from abstract high-level descriptions",
+      "IPs": ["socsmith"],
+      "Partners": ["Technische Universität Darmstadt"],
+      "Comment": "Documentation currently being written, release planned later in 2026. Used by: MINRES Technologies, Tampere University"
+    },
+    {
+      "TaskId": "tristan-wi3.1.5-corev-verif",
+      "WI": "WI3.1.5",
+      "Title": "CORE-V-VERIF",
+      "Description": "UVM functional verification environment for the OpenHW CORE-V family of RISC-V cores.",
+      "IPs": ["core-v-verif"],
+      "Partners": ["OpenHW Foundation"],
+      "Comment": "Used by: CEA"
+    },
+    {
+      "TaskId": "tristan-wi2.5.6",
+      "WI": "WI2.5.6",
+      "Title": "Co-processor Generator Tool",
+      "Description": "Tool to generate CV-X-IF and RoCC compliant co-processors based on user definition of operations/instructions.",
+      "IPs": ["openasip"],
+      "Partners": ["Tampere University"],
+      "Comment": "Used by: Tampere University"
+    },
+    {
+      "TaskId": "tristan-wi5.1.3-sunrise",
+      "WI": "WI5.1.3",
+      "Title": "SUNRISE",
+      "Description": "Scalable UNified Restful Infrasructure for System Evaluation.",
+      "IPs": ["sunrise"],
+      "Partners": ["Bosch"],
+      "Comment": "Used by: Bosch, Codasip, MINRES Technologies"
+    },
+    {
+      "TaskId": "tristan-wi5.3.6-kmleon",
+      "WI": ["WI5.3.1", "WI5.3.6"],
+      "Title": "kMLeon",
+      "Description": "ML-based tool for the automatic generation of extra-functional models (e.g. performance, power).",
+      "IPs": ["k-mleon"],
+      "Partners": ["CEA"],
+      "Comment": "Used by: CEA. PROVISIONAL: no URL in the source data."
+    },
+    {
+      "TaskId": "tristan-wi5.3.6-uarchifi",
+      "WI": ["WI5.2.5", "WI5.3.6"],
+      "Title": "uArchiFI",
+      "Description": "Formal tool for analyzing the robustness of embedded systems against fault injection attacks by combining the RTL of a processor, the binary of a software, and an attacker model.",
+      "IPs": ["uarchifi"],
+      "Partners": ["CEA"],
+      "Comment": "Used by: CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.3.6-kfrp",
+      "WI": ["WI5.2.5", "WI5.3.6"],
+      "Title": "k-FRP",
+      "Description": "Formal tool for analyzing the robustness of HW countermeasures to secure embedded systems against fault injection attacks. Optional step within µArchiFI",
+      "IPs": ["k-frp"],
+      "Partners": ["CEA", "TU Graz"],
+      "Comment": "Used by: CEA"
+    },
+    {
+      "TaskId": "tristan-wi5.2.8",
+      "WI": "WI5.2.8",
+      "Title": "CV-VeriGen",
+      "Description": "UVM SystemVerilog RISC-V CPU model for functional verification of custom ISA (support for CV-X-IF)",
+      "IPs": ["cv-verigen"],
+      "Partners": ["Synthara"],
+      "ForkURL": "https://github.com/synthara/core-v-verif-v2",
+      "Comment": "Used by: Synthara"
+    }
+  ]
+}

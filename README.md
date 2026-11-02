@@ -35,6 +35,15 @@ The platform acts as a **static unified access page**, pointing to repositories 
 
 The repository includes a dedicated `/ip_cards` directory intended to host optional IP Cards for those IPs that provide such documentation. This hosting option is provided for IP owners who prefer centralised publication within the UAP, rather than maintaining the material on their own premises.
 
+<h2 align="center">Data model</h2>
+
+The catalogue is organised around two kinds of documents, both plain JSON:
+
+- **IPs** (`ips/<id>.json`, one file per IP) — independent assets with an `Id`, `Name`, `Owners`, canonical `URL`, `License`, `Status`, `Category` and `Description`. An IP outlives the projects that touched it and may legitimately have no project work attached.
+- **Tasks** (`projects/<project>.json`, one file per research project) — each Task (≡ Work Item) carries a `WI`, `Title`, `Partners`, optional fork/branch URL, and references one or more IPs. Tasks live only in their project file.
+
+The website loads a single generated aggregate, [`cfg/catalog.json`](./cfg/catalog.json) (built by `scripts/build_catalog.py` and committed by CI — GitHub Pages runs no build), so the page makes one data request instead of one per IP. See [`docs/migration-map.md`](./docs/migration-map.md) for the entry-by-entry migration record and open review items, and the diagrams under [`docs/diagrams/`](./docs/diagrams) (domain model, architecture, contribution workflow).
+
 Our ambition is to progressively transform this platform into a sustainable, interoperable, and community-oriented resource for the broader **RISC-V ecosystem**, while transparently reflecting the incremental progress being made.
 
 ---

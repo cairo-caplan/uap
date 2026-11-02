@@ -1,0 +1,1 @@
+{"Id": "llvm-mlir-sal", "Name": "LLVM/MLIR extensions for PQC and CNN accelerators by SAL", "Owners": ["SAL"], "URL": "", "License": "Others", "Status": "TBD", "Category": ["Software"], "Description": "TBD (migrated from ISOLDE WI ID 4.2.15).", "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown."}

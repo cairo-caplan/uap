@@ -1,0 +1,1 @@
+{"Id": "cva6-split-lockstep", "Name": "IP-CVA6-SplitLockStep", "Owners": ["Universita di Bologna"], "URL": "", "License": "SHL-2.1", "Status": "TBD", "Category": ["Core", "Hardware"], "Description": "Develop dual-core split-lockstep extensions for automotive control processor based on CVA6 (32-bit).", "Comment": "PROVISIONAL (RIGOLETTO T3.1); canonical URL unknown."}

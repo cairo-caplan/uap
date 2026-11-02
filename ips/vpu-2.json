@@ -1,0 +1,1 @@
+{"Id": "vpu-2", "Name": "ML-AI-Acc-VPU#2", "Owners": ["Barcelona Supercomputing Center"], "URL": "", "License": "Proprietary", "Status": "TBD", "Category": ["Vector Processor Unit", "Accelerator", "Hardware"], "Description": "Wide VPU compatible with BsC OoO Core, digital, 22nm, 1.4GHz.", "Comment": "PROVISIONAL (RIGOLETTO T2.3)."}

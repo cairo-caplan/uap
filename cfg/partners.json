@@ -1,165 +1,206 @@
 [
   {
+    "id": "absint",
     "name": "AbsInt Angewandte Informatik GmbH",
     "aliases": ["AbsInt", "ABS"]
   },
   {
+    "id": "accemic",
     "name": "Accemic Technologies",
     "aliases": ["ACCT"]
   },
   {
+    "id": "acp",
     "name": "ACP",
     "aliases": []
   },
   {
+    "id": "aicas",
     "name": "aicas GmbH",
     "aliases": ["AIC", "aicas"]
   },
   {
+    "id": "alm",
     "name": "ALM",
     "aliases": []
   },
   {
+    "id": "antmicro",
     "name": "Antmicro SP Zoo",
     "aliases": ["ANTM", "Antmicro"]
   },
   {
+    "id": "arcelik",
     "name": "ARCELIK",
     "aliases": []
   },
   {
+    "id": "bca",
     "name": "BCA",
     "aliases": []
   },
   {
+    "id": "beia",
     "name": "BEIA",
     "aliases": []
   },
   {
+    "id": "bosch-fr",
     "name": "Robert Bosch France SAS",
     "aliases": ["BOSCH-FR"]
   },
   {
+    "id": "bosch",
     "name": "Robert Bosch GmbH",
     "aliases": ["Bosch", "BOSCH-DE"]
   },
   {
+    "id": "bsc",
     "name": "Barcelona Supercomputing Center",
     "aliases": ["BSC", "Centro Nacional de Supercomputacion"]
   },
   {
+    "id": "but",
     "name": "BUT",
     "aliases": []
   },
   {
+    "id": "byk",
     "name": "BYK",
     "aliases": []
   },
   {
+    "id": "cea",
     "name": "Commissariat a l’Energie Atomique et aux Energies Alternatives",
     "aliases": ["CEA"]
   },
   {
+    "id": "codasip",
     "name": "Codasip GmbH",
     "aliases": ["CODA", "Codasip"]
   },
   {
+    "id": "cons",
     "name": "CONS",
     "aliases": []
   },
   {
+    "id": "csem",
     "name": "CSEM",
     "aliases": []
   },
   {
+    "id": "ethz",
     "name": "ETH Zürich",
     "aliases": ["ETHZ", "ETH", "ETH Zurich"]
   },
   {
+    "id": "exapsys",
     "name": "EXASCALE PERFORMANCE SYSTEMS - EXAPSYS IKE",
     "aliases": ["EXA"]
   },
   {
+    "id": "fentiss",
     "name": "FENTISS",
     "aliases": []
   },
   {
+    "id": "forth",
     "name": "FORTH",
     "aliases": []
   },
   {
+    "id": "fotonation",
     "name": "FotoNation",
     "aliases": []
   },
   {
+    "id": "fraunhofer",
     "name": "Fraunhofer Gesellschaft zur Förderung der angewandten Forschung e.V.",
     "aliases": ["FRAUN", "Fraunhofer"]
   },
   {
+    "id": "fzi",
     "name": "FZI",
     "aliases": []
   },
   {
+    "id": "gsl",
     "name": "GSL",
     "aliases": []
   },
   {
+    "id": "hm",
     "name": "HM",
     "aliases": []
   },
   {
+    "id": "infineon",
     "name": "Infineon Technologies AG",
     "aliases": ["IFX", "Infineon Technologies"]
   },
   {
+    "id": "imec",
     "name": "Interuniversitair Micro-electronica Centrum",
     "aliases": ["IMEC"]
   },
   {
+    "id": "imt",
     "name": "IMT",
     "aliases": []
   },
   {
+    "id": "intel",
     "name": "INTEL",
     "aliases": []
   },
   {
+    "id": "klepsydra",
     "name": "Klepsydra",
     "aliases": []
   },
   {
+    "id": "lund",
     "name": "LUND",
     "aliases": []
   },
   {
+    "id": "minres",
     "name": "MINRES Technologies GmbH",
     "aliases": ["MNRS", "MINRES", "MINRES Technologies"]
   },
   {
+    "id": "nxp-de",
     "name": "NXP Semiconductors Germany GmbH",
     "aliases": ["NXP", "NXP-DE"]
-  }
+  },
   {
+    "id": "nxp-at",
     "name": "NXP Semiconductors Austria GmbH & Co. KG",
     "aliases": ["NXP-AT", "NXP Austria"]
   },
   {
+    "id": "nxp-cz",
     "name": "NXP-CZ",
     "aliases": []
   },
   {
+    "id": "nxp-ro",
     "name": "NXP Semiconductors Romania SRL",
     "aliases": ["NXP-RO"]
   },
   {
+    "id": "nxp-fr",
     "name": "NXP Semiconductors France",
     "aliases": ["NXP-FR"]
   },
   {
+    "id": "offis",
     "name": "OFFIS",
     "aliases": []
   },
   {
+    "id": "openhw",
     "name": "OpenHW Foundation",
     "aliases": [
       "OpenHW",
@@ -171,153 +212,284 @@
     ]
   },
   {
+    "id": "others",
     "name": "Others",
     "aliases": [
-      ""
+      "",
+      "Open-Source"
     ]
-  },
+    },
   {
+    "id": "paderborn",
     "name": "Paderborn University / Heinz Nixdorf Institut",
     "aliases": []
   },
   {
+    "id": "polito",
     "name": "Politecnico di Torino",
-    "aliases": ["POLITO"]
+    "aliases": ["POLITO"],
+    "comment": "The source data listed 'Politecnico di Torino' twice — once with alias POLIMI (which actually denotes Milano); the duplicate was removed and POLIMI moved to the Politecnico di Milano entry below."
   },
   {
-    "name": "Politecnico di Torino",
-    "aliases": ["POLIMI"]
+    "id": "polimi",
+    "name": "Politecnico di Milano",
+    "aliases": ["POLIMI"],
+    "comment": "Added: the source data used the alias POLIMI while naming the institution 'Politecnico di Torino' — the alias was likely a typo in the source. Check with the data owners which institute was meant for entries citing POLIMI."
   },
   {
+    "id": "rapita",
     "name": "RAPITA",
     "aliases": []
   },
   {
+    "id": "rptu",
     "name": "RPTU",
     "aliases": []
   },
   {
+    "id": "sal",
     "name": "SAL",
     "aliases": []
   },
   {
+    "id": "semify",
     "name": "Semify e.U.",
     "aliases": ["Semify", "SEM"]
   },
   {
+    "id": "siemens-eda",
     "name": "Siemens Electronic Design Automation LTd.",
     "aliases": ["SIEM-IL", "Siemens EDA"]
   },
   {
+    "id": "siemens-at",
     "name": "Siemens Aktiengesellschaft Österreich",
     "aliases": ["SIEM-AT"]
   },
   {
+    "id": "silvaco",
     "name": "SILVACO",
     "aliases": []
   },
   {
+    "id": "sml",
     "name": "SML",
     "aliases": []
   },
   {
+    "id": "syn",
     "name": "SYN",
     "aliases": []
   },
   {
+    "id": "sysgo",
     "name": "SYSGO GmbH",
     "aliases": ["SYSGO"]
   },
   {
+    "id": "synthara",
     "name": "Synthara AG",
     "aliases": ["SYNT", "Synthara"]
   },
   {
+    "id": "tampere",
     "name": "Tampere University",
     "aliases": ["TAU"]
   },
   {
+    "id": "tasi",
     "name": "TASI",
     "aliases": []
   },
   {
+    "id": "tbd",
     "name": "TBD",
     "aliases": []
   },
   {
+    "id": "tcd-at",
+    "name": "TU Wien (CDL Labor, Design of Cyber-Physical Systems)",
+    "aliases": ["TUV", "Technical University of Vienna"],
+    "comment": "Added for the RIGOLETTO 'ML-AI-Acc-VPU#6_FZI' entry (partner alias TUV)."
+  },
+  {
+    "id": "tdis",
     "name": "TDIS",
     "aliases": []
   },
   {
+    "id": "tu-graz",
     "name": "Technische Universität Graz",
     "aliases": ["TU Graz", "Technical University of Graz"]
   },
   {
+    "id": "tum",
     "name": "Technical University of Munich",
     "aliases": []
   },
   {
+    "id": "tu-darmstadt",
     "name": "Technische Universität Darmstadt",
     "aliases": ["TU Darmstadt", "TUDA"]
   },
   {
+    "id": "tum-ada",
     "name": "Technische Universität München",
-    "aliases": ["TUM"]
+    "aliases": ["TUM", "Technical University of Munich"],
+    "comment": "Merged with 'Technical University of Munich' (same institution, two entries in the source data)."
   },
   {
+    "id": "thales-dis",
     "name": "Thales DIS France SAS",
     "aliases": ["TDIS"]
   },
   {
+    "id": "thales",
     "name": "Thales SA",
     "aliases": ["TRT", "Thales"]
   },
   {
+    "id": "tuc",
     "name": "TUC",
     "aliases": []
   },
   {
+    "id": "tui",
     "name": "TUI",
     "aliases": []
   },
   {
+    "id": "unibo",
     "name": "Universita di Bologna",
     "aliases": ["UNIBO", "University of Bologna"]
   },
   {
+    "id": "upb",
     "name": "UPB",
     "aliases": []
   },
   {
+    "id": "upm",
+    "name": "Universidad Politécnica de Madrid",
+    "aliases": ["UPM"],
+    "comment": "Added for RIGOLETTO entries citing partner 'UPM'."
+  },
+  {
+    "id": "upv",
     "name": "UPV",
     "aliases": []
   },
   {
+    "id": "uzl",
     "name": "UZL",
     "aliases": []
   },
   {
+    "id": "vlsi",
     "name": "VLSI Solution",
     "aliases": ["VLSI"]
   },
   {
+    "id": "yongatek",
     "name": "Yonga Teknoloji Mikroelektronik Arastirma Gelistirme Tic.",
     "aliases": ["YNGA", "Yonga Technologies", "Yongatek"]
   },
   {
+    "id": "zhaw",
     "name": "ZHAW",
     "aliases": []
   },
   {
+    "id": "st",
     "name": "ST Microelectronics SRL",
     "aliases": ["ST-IT"]
   },
   {
+    "id": "nokia",
     "name": "Nokia OYJ",
     "aliases": ["NOKIA", "Nokia"]
   },
   {
+    "id": "cargotec",
     "name": "Cargotec Oyj",
     "aliases": ["CGT", "Cargotec"]
+  },
+  {
+    "id": "dtu",
+    "name": "Technical University of Denmark",
+    "aliases": ["DTU"],
+    "comment": "Added for RIGOLETTO entries citing partner 'DTU'."
+  },
+  {
+    "id": "kit",
+    "name": "Karlsruhe Institute of Technology",
+    "aliases": ["KIT"],
+    "comment": "Added for the RIGOLETTO 'ML-AI-Acc-Cu#2' entry (partner 'KIT')."
+  },
+  {
+    "id": "nion",
+    "name": "NION",
+    "aliases": [],
+    "comment": "Added for RIGOLETTO entries citing partner 'NION'."
+  },
+  {
+    "id": "unirm",
+    "name": "University of Rome (Tor Vergata)",
+    "aliases": ["UNIRM"],
+    "comment": "Added for the RIGOLETTO 'IP-FastContextSwitchCVA6' entry (partner 'UNIRM')."
+  },
+  {
+    "id": "vortex",
+    "name": "VORTEX",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'IP-RT-Monitor' entry (partner 'VORTEX')."
+  },
+  {
+    "id": "cortus",
+    "name": "CORTUS",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'IP-rvhs' entry (partner 'CORTUS')."
+  },
+  {
+    "id": "uminho",
+    "name": "Universidade do Minho",
+    "aliases": ["UMINHO", "University of Minho"],
+    "comment": "Added for the RIGOLETTO 'IP-Virt-IPs-Ctrl-Proc' entry (partner 'UMINHO')."
+  },
+  {
+    "id": "seda-uk",
+    "name": "Siemens EDA (UK)",
+    "aliases": ["SEDA-UK", "Siemens EDA (SEDA-UK)"],
+    "comment": "Added for the RIGOLETTO Embedded Analytics entries (partner 'SEDA-UK')."
+  },
+  {
+    "id": "cern",
+    "name": "CERN",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'SoCMAKE' and 'PixESL' entries (partner 'CERN')."
+  },
+  {
+    "id": "syo",
+    "name": "SYO",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'RV32-Compliance' entry (partner 'SYO')."
+  },
+  {
+    "id": "hua",
+    "name": "University of West Bohemia",
+    "aliases": ["HUA"],
+    "comment": "Added for the RIGOLETTO 'ML-AI-Acc-VPU#4' entry (partner 'HUA')."
+  },
+  {
+    "id": "anadelta",
+    "name": "ANADELTA",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'ML-AI-Acc-VPU#4' entry (partner 'ANADELTA')."
+  },
+  {
+    "id": "com",
+    "name": "COM",
+    "aliases": [],
+    "comment": "Added for the RIGOLETTO 'IP-10M-MACsec' and 'IP-Root-Of-Trust' entries (partner 'COM')."
   }
 ]

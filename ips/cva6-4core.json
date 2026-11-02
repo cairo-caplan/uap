@@ -1,0 +1,1 @@
+{"Id": "cva6-4core", "Name": "RISC-V Main Processor Complex", "Owners": ["Open-Source"], "URL": "", "License": "Others", "Status": "Work in progress", "Category": ["Hardware", "RISC-V Processing System"], "Description": "A four-core CVA6 ISA RISC-V implementation.", "Comment": "PROVISIONAL (REBECCA); canonical URL unknown. Related base IP: ips/cva6.json."}

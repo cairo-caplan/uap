@@ -1,0 +1,1 @@
+{"Id": "udma-core", "Name": "Low-power IO DMA", "Owners": ["Universita di Bologna"], "URL": "https://github.com/pulp-platform/udma_core", "DefaultBranch": "main", "License": "SHL-0.51", "Status": "Released", "Description": "A Low Power IO DMA controller with multi-bank memory access and performance enhancements.", "Comment": "TRISTAN WI3.1.4.", "Category": ["Peripherals"]}

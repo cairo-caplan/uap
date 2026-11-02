@@ -1,0 +1,38 @@
+name: Rebuild catalogue aggregate
+
+on:
+  schedule:
+    # Weekly, Monday 03:00 UTC (before the repo-stats job at 07:00)
+    - cron: '0 3 * * 1'
+  # Manual trigger; also run after merging data changes so GitHub Pages (which
+  # runs no build and serves the committed cfg/catalog.json) stays current.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Build cfg/catalog.json from ips/ + projects/
+        run: |
+          python3 scripts/build_catalog.py
+      - name: Commit aggregate if changed
+        # 41898282+github-actions[bot] is the official no-reply email address of the GitHub Actions bot
+        run: |
+          if ! git diff --exit-code cfg/catalog.json; then
+            git add cfg/catalog.json
+            git -c user.name='github-actions[bot]' \
+                -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+                commit -m "chore: rebuild catalogue [skip ci]"
+            git pull --rebase
+            git push
+          else
+            echo "cfg/catalog.json unchanged"
+          fi

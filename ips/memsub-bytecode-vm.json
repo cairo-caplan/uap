@@ -1,0 +1,1 @@
+{"Id": "memsub-bytecode-vm", "Name": "Memory subsystem support for Bytecode VMs", "Owners": ["HM"], "URL": "", "License": "MIT", "Status": "TBD", "Category": ["Accelerator", "Extension"], "Description": "TBD (migrated from ISOLDE WI ID 3.1.08).", "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown."}

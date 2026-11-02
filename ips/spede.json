@@ -1,0 +1,1 @@
+{"Id": "spede", "Name": "SPEDE", "Owners": ["Tampere University"], "URL": "https://github.com/soc-hub-fi/spede", "DefaultBranch": "main", "License": "SHL-2.1", "Status": "Finished", "Description": "High-speed serializer/deserializer for synchronization and conversion between serial bitstreams and bytes.", "Comment": "TRISTAN WI3.2.4 with Nokia.", "Category": ["Peripherals"]}

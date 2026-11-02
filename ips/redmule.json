@@ -1,0 +1,1 @@
+{"Id": "redmule", "Name": "Reduced-Precision Matrix Multiplication Engine", "Owners": ["Universita di Bologna"], "URL": "https://github.com/pulp-platform/redmule", "DefaultBranch": "main", "License": "SHL-0.51", "Status": "Released", "Description": "Low-Power Floating-Point Accelerator.", "Comment": "TRISTAN WI3.4.1.", "Category": ["Peripherals"]}

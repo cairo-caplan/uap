@@ -1,0 +1,1 @@
+{"Id": "yosys", "Name": "Yosys", "Owners": ["TBD"], "URL": "https://github.com/YosysHQ/yosys", "DefaultBranch": "main", "License": "ISC", "Status": "Released", "Category": ["Tools"], "Description": "Open Synthesis Suite.", "Comment": "TRISTAN WI5.2.5; used by CEA. Owner listed as 'TBD' in the source data."}

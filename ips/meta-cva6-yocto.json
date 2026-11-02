@@ -1,0 +1,1 @@
+{"Id": "meta-cva6-yocto", "Name": "Yocto for CVA6", "Owners": ["Thales SA"], "URL": "https://github.com/openhwfoundation/meta-cva6-yocto", "DefaultBranch": "main", "License": "MIT", "Status": "Released", "Category": ["Software"], "Description": "A linux image for a CVA6-based embedded processor.", "Comment": "TRISTAN WI4.3.3."}

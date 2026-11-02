@@ -1,0 +1,1 @@
+{"Id": "rvhs", "Name": "IP-rvhs", "Owners": ["Cortus"], "URL": "", "License": "Proprietary", "Status": "TBD", "Category": ["Core", "Hardware"], "Description": "Implementation of 4 way issue, high frequency out-of-order processor core.", "Comment": "PROVISIONAL (RIGOLETTO T3.2); canonical URL unknown."}

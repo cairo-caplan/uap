@@ -1,0 +1,1 @@
+{"Id": "cluster-5-nmc", "Name": "ML-AI-Acc-Cu#5.2", "Owners": ["Universidad Politécnica de Madrid"], "URL": "", "License": "Others", "Status": "TBD", "Category": ["Artificial Intelligence", "Accelerator", "Hardware"], "Description": "Tightly Coupled Near Memory Computing (NMC) Accelerator, reconfigurable. Integrated with CVA6.", "Comment": "PROVISIONAL (RIGOLETTO T2.3/T3.3)."}

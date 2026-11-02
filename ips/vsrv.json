@@ -1,0 +1,1 @@
+{"Id": "vsrv", "Name": "VSRV: Simple 32-bit RISC-V Linux-Capable Core", "Owners": ["VLSI Solution"], "URL": "https://www.vlsi.fi/en/vsrv.html", "License": "SHL-2.1", "Status": "Released", "Category": ["Core"], "Description": "32-bit compact RISC-V processor that runs off-the-shelf protocols under latest linux kernel.", "Comment": "VSRV1 Released (TRISTAN WI2.3.5)."}

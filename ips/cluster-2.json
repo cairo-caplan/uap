@@ -1,0 +1,1 @@
+{"Id": "cluster-2", "Name": "ML-AI-Acc-Cu#2", "Owners": ["Karlsruhe Institute of Technology"], "URL": "", "License": "MIT", "Status": "TBD", "Category": ["Artificial Intelligence", "Accelerator", "Hardware"], "Description": "Systolic array int8, planned to extend data types (e.g., bfloat16). FleXNNgine.", "Comment": "PROVISIONAL (RIGOLETTO T2.3/T3.3)."}

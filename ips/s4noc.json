@@ -1,0 +1,1 @@
+{"Id": "s4noc", "Name": "S4NoC", "Owners": ["Technical University of Denmark"], "URL": "", "License": "BSD-3-Clause", "Status": "TBD", "Category": ["Network-on-Chip", "Hardware"], "Description": "Time-predictable network-on-chip for message passing.", "Comment": "PROVISIONAL (RIGOLETTO T2.4); canonical URL unknown. Related task on RT scratchpad: ips/s4noc-rt-scratchpad.json."}

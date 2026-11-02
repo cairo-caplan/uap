@@ -14,7 +14,9 @@
 
 """
 Pre-compute public repository statistics for every GitHub and GitLab URL found
-in the `ips/*.json` catalogue files, and write them to `cfg/repo-stats.json`.
+in the `ips/*.json` IP documents (canonical `URL` / `DefaultBranch`) and the
+`projects/*.json` task documents (per-task `ForkURL` / `Branch`), and write
+them to `cfg/repo-stats.json`.
 
 The platform page (unified-access.html) only fetches that JSON cache, so site
 visitors never contact the GitHub or GitLab APIs and no authentication is
@@ -384,35 +386,61 @@ def provider_for_key(key):
     return "gitlab"
 
 
-def collect_repo_refs(ips_dir, providers):
-    """Walk ips/*.json and return the ordered, de-duplicated list of keys."""
+def _entry_url_values(entry):
+    """Collect the URL-bearing fields of one catalogue entry.
+
+    IP documents carry `URL` (+ `DefaultBranch`); project task entries carry
+    `ForkURL` (+ `Branch`). Both are scanned so every canonical and fork URL
+    referenced by the catalogue ends up in the cache.
+    """
+    values = []
+    for field in ("URL", "ForkURL"):
+        raw = entry.get(field, "")
+        if isinstance(raw, list):
+            values.extend(v for v in raw if isinstance(v, str))
+        elif isinstance(raw, str):
+            values.append(raw)
+    return values
+
+
+def collect_repo_refs(ips_dir, projects_dir, providers):
+    """Walk ips/*.json (single objects) and projects/*.json (task arrays)
+    and return the ordered, de-duplicated list of repo keys."""
     keys = []
     seen = set()
-    for path in sorted(Path(ips_dir).glob("*.json")):
-        try:
-            with open(path, "r", encoding="utf-8") as fh:
-                data = json.load(fh)
-        except (OSError, json.JSONDecodeError) as exc:
-            print(f"warning: skipping {path.name}: {exc}", file=sys.stderr)
+
+    def add_from(entry):
+        if not isinstance(entry, dict):
+            return
+        for value in _entry_url_values(entry):
+            for provider in providers:
+                for key in provider.parse_repos(value):
+                    # Keys are lowercase; dedupe case-insensitively.
+                    if key.lower() not in seen:
+                        seen.add(key.lower())
+                        keys.append(key)
+
+    directories = [Path(ips_dir), Path(projects_dir)]
+    for directory in directories:
+        if not directory.is_dir():
             continue
-        if not isinstance(data, list):
-            continue
-        for entry in data:
-            if not isinstance(entry, dict):
+        for path in sorted(directory.glob("*.json")):
+            try:
+                with open(path, "r", encoding="utf-8") as fh:
+                    data = json.load(fh)
+            except (OSError, json.JSONDecodeError) as exc:
+                print(f"warning: skipping {path.name}: {exc}", file=sys.stderr)
                 continue
-            # URL may be a string or (defensively) a list of strings.
-            raw_values = entry.get("URL", "")
-            if isinstance(raw_values, list):
-                values = raw_values
-            else:
-                values = [raw_values]
-            for value in values:
-                for provider in providers:
-                    for key in provider.parse_repos(value):
-                        # Keys are lowercase; dedupe case-insensitively.
-                        if key.lower() not in seen:
-                            seen.add(key.lower())
-                            keys.append(key)
+            if isinstance(data, list):  # legacy project-shaped files
+                for entry in data:
+                    add_from(entry)
+            elif isinstance(data, dict):
+                tasks = data.get("Tasks")
+                if isinstance(tasks, list):
+                    for task in tasks:
+                        add_from(task)
+                else:
+                    add_from(data)
     return keys
 
 
@@ -563,7 +591,12 @@ def main():
     parser.add_argument(
         "--ips-dir",
         default=str(ROOT / "ips"),
-        help="Directory containing the ips/*.json catalogue files.",
+        help="Directory containing the ips/*.json IP documents.",
+    )
+    parser.add_argument(
+        "--projects-dir",
+        default=str(ROOT / "projects"),
+        help="Directory containing the projects/*.json task documents.",
     )
     parser.add_argument(
         "--out",
@@ -616,8 +649,10 @@ def main():
     providers = {provider.name: provider for provider in
                  (GithubProvider(), GitlabProvider())}
 
-    keys = collect_repo_refs(ips_dir, [providers["github"], providers["gitlab"]])
-    print(f"Found {len(keys)} unique repositories in {ips_dir}/*.json")
+    keys = collect_repo_refs(
+        ips_dir, Path(args.projects_dir), [providers["github"], providers["gitlab"]]
+    )
+    print(f"Found {len(keys)} unique repositories in {ips_dir} + {args.projects_dir}")
     for key in keys:
         print(f"  {key}")
 

@@ -1,0 +1,1 @@
+{"Id": "booting-devices", "Name": "Booting Devices", "Owners": ["EXASCALE PERFORMANCE SYSTEMS - EXAPSYS IKE"], "URL": "", "License": "Others", "Status": "TBD", "Category": ["Hardware"], "Description": "Support for BootROM as well as BootRAM for SD and/or JTAG boot.", "Comment": "PROVISIONAL (REBECCA); canonical URL unknown."}

@@ -1,0 +1,1 @@
+{"Id": "match", "Name": "MATCH", "Owners": ["Politecnico di Torino"], "URL": "https://github.com/eml-eda/match", "DefaultBranch": "main", "License": "Apache-2.0", "Status": "Released", "Category": ["Tools"], "Description": "A TVM-based AI compiler for hardware-aware deployment of AI models onto heterogeneous RISC-V targets.", "Comment": "TRISTAN WI4.4.4."}

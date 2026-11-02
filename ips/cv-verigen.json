@@ -1,0 +1,1 @@
+{"Id": "cv-verigen", "Name": "CV-VeriGen", "Owners": ["Synthara AG"], "URL": "https://github.com/synthara/core-v-verif-v2", "DefaultBranch": "main", "License": "SHL-2.0", "Status": "Released", "Category": ["Tools"], "Description": "UVM SystemVerilog RISC-V CPU model for functional verification of custom ISA (support for CV-X-IF).", "Comment": "TRISTAN WI5.2.8; used by Synthara."}

@@ -1,0 +1,1 @@
+{"Id": "wildcat-core", "Name": "Wildcat", "Owners": ["Technical University of Denmark"], "URL": "", "License": "BSD-2-Clause", "Status": "TBD", "Category": ["Core", "Hardware"], "Description": "Another RISC-V core optimized for real-time systems.", "Comment": "PROVISIONAL (RIGOLETTO T2.4); canonical URL unknown."}

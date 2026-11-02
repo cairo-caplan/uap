@@ -1,0 +1,1 @@
+{"Id": "cve2", "Name": "CVE2", "Owners": ["OpenHW Foundation"], "URL": "https://github.com/openhwfoundation/cve2", "DefaultBranch": "main", "License": "Apache-2.0", "Status": "Released", "Category": ["Core"], "Description": "A single-issue 2-stage pipeline embedded class of RISC-V CPUs (CV32E20 configuration).", "Comment": "CV32E20 configuration."}

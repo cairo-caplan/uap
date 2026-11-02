@@ -1,0 +1,1 @@
+{"Id": "aiml-simulator", "Name": "Software simulator for the AI/ML Accelerator", "Owners": ["FotoNation"], "URL": "", "License": "Proprietary", "Status": "Completed, tested", "Category": ["Software", "Tool"], "Description": "Functionally exact simulator for AI/ML accelerator.", "Comment": "ISOLDE WI ID 4.3.06; IP card on bitbucket."}

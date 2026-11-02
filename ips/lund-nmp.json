@@ -1,0 +1,1 @@
+{"Id": "lund-nmp", "Name": "Near-memory Processing (NMP) Accelerator", "Owners": ["LUND"], "URL": "", "License": "Others", "Status": "TBD", "Category": ["Hardware", "Accelerators on ASIC"], "Description": "Co-processor inside the REBECCA chiplet.", "Comment": "PROVISIONAL (REBECCA); canonical URL unknown."}

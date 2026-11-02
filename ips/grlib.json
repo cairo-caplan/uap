@@ -1,0 +1,1 @@
+{"Id": "grlib", "Name": "GRLIB IP library", "Owners": ["GSL"], "URL": "https://www.gaisler.com/getgrlib", "License": ["GPL-2.0-or-later", "Proprietary"], "Status": "TBD", "Category": ["Core", "Peripheral", "Interface"], "Description": "TBD (migrated from ISOLDE WI ID 2.2.07).", "Comment": "PROVISIONAL: owners derived from the ISOLDE partner."}

@@ -1,0 +1,1 @@
+{"Id": "keelhaul", "Name": "Keelhaul", "Owners": ["Tampere University"], "URL": "https://github.com/soc-hub-fi/keelhaul", "DefaultBranch": "main", "License": "Apache-2.0", "Status": "Released", "Category": ["Tools"], "Description": "Tool to generate executable, memory-mapped I/O verification test cases from IP-XACT or CMSIS-SVD files.", "Comment": "TRISTAN WI4.4.2."}

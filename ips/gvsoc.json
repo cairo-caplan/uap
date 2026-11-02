@@ -1,0 +1,1 @@
+{"Id": "gvsoc", "Name": "GVSOC", "Owners": ["Universita di Bologna"], "URL": "https://github.com/EEESlab/gvsoc", "DefaultBranch": "tristan-dev", "License": "Apache-2.0", "Status": "Released", "Category": ["Tools"], "Description": "RISC-V Platform Simulator.", "Comment": "TRISTAN WI5.1.5; used by Politecnico di Torino."}

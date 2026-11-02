@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UAP project document (one file under projects/ holds the Tasks of one project)",
+  "description": "Project files hold project-related work: each Task (Work Item) belongs to this project and references one or more independent IPs by their Id. The project itself is described by the document root (Id/Name), so Tasks carry no Project field.",
+  "type": "object",
+  "required": ["Id", "Name", "Tasks"],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "description": "Slug identifier; must match the file name under projects/ and an entry in cfg/projects.json."
+    },
+    "Name": { "type": "string", "minLength": 1 },
+    "Tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["TaskId", "WI", "Title", "IPs", "Partners"],
+        "properties": {
+          "TaskId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-zA-Z0-9._-]*$",
+            "description": "Identifier of this task, unique within the project file (and conventionally prefixed with the project id)."
+          },
+          "WI": {
+            "oneOf": [
+              { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+              { "type": "string", "minLength": 1 }
+            ]
+          },
+          "Title": { "type": "string", "minLength": 1 },
+          "IPs": {
+            "description": "References to IP Ids (documents under ips/); one or more.",
+            "oneOf": [
+              { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+              { "type": "string", "minLength": 1 }
+            ]
+          },
+          "Partners": {
+            "description": "Organizations working on this task (references into cfg/partners.json, matched by name or alias). At least one required.",
+            "oneOf": [
+              { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+              { "type": "string", "minLength": 1 }
+            ]
+          },
+          "ForkURL": {
+            "type": "string",
+            "format": "uri-or-empty",
+            "description": "Fork or branch URL for this task's work, if it differs from the IP canonical URL."
+          },
+          "Branch": { "type": "string" },
+          "Status": { "type": "string" },
+          "Description": { "type": "string" },
+          "Comment": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,1 @@
+{"Id": "systemc-components", "Name": "SCC", "Owners": ["MINRES Technologies GmbH"], "URL": "https://github.com/Minres/SystemC-Components", "DefaultBranch": "master", "License": "Apache-2.0", "Status": "Released", "Category": ["Tools"], "Description": "SystemC Components.", "Comment": "TRISTAN WI5.1.4; used by Bosch and CEA."}

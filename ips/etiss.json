@@ -1,0 +1,1 @@
+{"Id": "etiss", "Name": "ETISS", "Owners": ["Technische Universität München"], "URL": "https://github.com/tum-ei-eda/etiss", "DefaultBranch": "master", "License": "BSD-3-Clause", "Status": "Released", "Category": ["Tools"], "Description": "Extendible Translating Instruction Set Simulator.", "Comment": "TRISTAN WI5.1.2; used by Infineon."}

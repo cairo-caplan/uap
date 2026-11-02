@@ -1,10 +1,10 @@
 # Deploying the Unified RISC-V IP Access Platform (UAP)
 
 The UAP is a **pure static website**. There is no build step and no backend. The
-JavaScript application (`script.js`, `editor.js`) is **host-agnostic**: it derives its
-data sources from `window.location.href` and uses relative asset paths throughout the
-HTML/CSS, so it can be served from any of the three options below with **no code
-changes**.
+JavaScript application (`script.js`, `editor.js`) is **host-agnostic**: all data
+sources (`cfg/catalog.json`, the `cfg/` registries, `cfg/repo-stats.json`) are
+fetched with relative paths from the same origin, so it can be served from any of
+the three options below with **no code changes**.
 
 This guide covers:
 
@@ -31,8 +31,12 @@ configuration of the application code is needed.
 **Live URL:** <https://openhwfoundation.github.io/uap/unified-access.html>
 
 Because there is no build step, GitHub Pages serves the files exactly as committed.
-The IP catalogue data under `ips/` and configuration under `cfg/` are loaded by the
-browser at runtime from the same origin.
+The runtime data is the committed **`cfg/catalog.json`** aggregate (plus the `cfg/`
+registries and `cfg/repo-stats.json`), loaded by the browser at runtime from the same
+origin. The editable sources (`ips/*.json`, `projects/*.json`) are never fetched by
+the site — after data changes, regenerate the aggregate (`python3
+scripts/build_catalog.py`, done automatically by the `build-catalog.yml` workflow /
+the `build_catalog` GitLab job) and commit it, ideally in the same PR.
 
 ---
 
@@ -104,11 +108,9 @@ repository root. There is nothing to build or compile. Two things to confirm:
   servers do this by default; if not, add an explicit mapping (e.g. Nginx's `mime.types`,
   Apache's `AddType application/json .json`). The catalogue and config files are fetched
   as JSON at runtime.
-- Serve the directory **listings** for `ips/` if you want the platform to auto-discover
-  the IP data files via a same-origin directory listing. If directory listings are
-  disabled, the application falls back to the GitHub API derived from the current
-  location where applicable; serving the directory listing is the simplest approach for a
-  self-hosted deployment.
+- Serve the directory **listings** if you want humans to browse `ips/` and
+  `projects/` conveniently — the application itself no longer needs them: it loads
+  only `cfg/catalog.json`, which is a committed file served like any other.
 <!-- - Serve the directory **listings** for `ips/` if you want the platform to auto-discover
   the IP data files via a same-origin directory listing. If directory listings are
   disabled, the application falls back to the GitHub/GitLab API derived from the current
@@ -119,10 +121,15 @@ repository root. There is nothing to build or compile. Two things to confirm:
 
 ## CI/CD Variables
 
-The scheduled **repository statistics** job (`repo_stats` on GitLab CI /
-`repo-stats.yml` on GitHub Actions) refreshes `cfg/repo-stats.json` and commits it back
-to the repository. It reads public GitHub/GitLab APIs (tokens raise rate limits) and then
-pushes the updated cache file, so a write-capable token is required for the commit-back.
+Two scheduled jobs commit generated files back to the repository:
+
+- **repository statistics** (`repo_stats` / `repo-stats.yml`) refreshes
+  `cfg/repo-stats.json`;
+- **catalogue build** (`build_catalog` / `build-catalog.yml`) regenerates
+  `cfg/catalog.json` from `ips/` + `projects/`.
+
+Both read public GitHub/GitLab APIs (tokens raise rate limits) and then push the
+updated file, so a write-capable token is required for the commit-back.
 
 | Variable | Platform | Required? | Purpose |
 |----------|----------|-----------|---------|

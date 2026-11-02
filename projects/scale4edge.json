@@ -1,0 +1,48 @@
+{
+  "Id": "scale4edge",
+  "Name": "Scale4Edge",
+  "Tasks": [
+    {
+      "TaskId": "scale4edge-upec",
+      "WI": "TBD",
+      "Title": "UPEC: Formal Security Verification",
+      "Description": "Unique Program Execution Checking (UPEC) is a method for formally verifying the security of hardware at the RTL. UPEC checks whether confidential data in the system can be stolen by an attacker (user program) for any programs that can be executed on the hardware. UPEC detects all confidentiality violations that are made possible by so-called transient execution side channels of the microarchitecture. In Phase 1 of Scale4Edge, the security analysis focuses on cores ranging from smaller in-order cores to larger out-of-order processors; in Phase 2, UPEC will be extended to entire SoCs.",
+      "IPs": ["upec"],
+      "Partners": ["RPTU"],
+      "ForkURL": "https://github.com/RPTU-EIS",
+      "Status": "Date of Availability 2025-04-27",
+      "Comment": "Available at https://github.com/RPTU-EIS/symbolic-pmp and https://github.com/RPTU-EIS/upec-boom-verification-suite. Contact: Wolfgang Kunz, RPTU Kaiserslautern-Landau (wolfgang.kunz@rptu.de). PROVISIONAL: the source data carried no WI id; the source URL was the org URL https://github.com/RPTU-EIS."
+    },
+    {
+      "TaskId": "scale4edge-moonlight",
+      "WI": "TBD",
+      "Title": "Moonlight",
+      "Description": "Moonlight is a subsystem around a TGC core developed by MINRES. The Good Core (TGC) is a highly flexible, scalable and expandable RISC-V processor core and the TGC variant to be used in the subsystem is configurable. Moonlight contains a configurable APB3 subsystem with a customizable number of different peripherals, e.g., GPIO, UART, Timer, SPI, I2S Receiver, DMA.",
+      "IPs": ["moonlight"],
+      "Partners": ["MINRES"],
+      "ForkURL": "https://scale4edge-new.edacentrum.de/node/112",
+      "Status": "Date of Availability 2025-07-31",
+      "Comment": "License: send an email to eyck@minres.com. PROVISIONAL: the source URL is the project page, not a repository."
+    },
+    {
+      "TaskId": "scale4edge-qta",
+      "WI": "TBD",
+      "Title": "QTA - QEMU Timing Analyzer",
+      "Description": "The QEMU Timing Analyzer (QTA) is a QEMU plugin which extends QEMU for the time annotated execution of binary programs. QTA has been tested only for RISC-V and TriCore. As the implementation extends QEMU through TCG plugin API it should be compatible with any other ISA and all future QEMU versions. QTA comes with a frontend that can import output files from AbsInt aiT WCET analysis.",
+      "IPs": ["qta"],
+      "Partners": ["Paderborn University / Heinz Nixdorf Institut"],
+      "Status": "Date of Availability 2023-08-31",
+      "Comment": "Source code at https://github.com/hni-sct/qemu-qta. Contact: Wolfgang Mueller (wolfgang@acm.org). PROVISIONAL: no WI in the source data."
+    },
+    {
+      "TaskId": "scale4edge-muriscv-nn",
+      "WI": "TBD",
+      "Title": "muRISCV-NN",
+      "Description": "An open-source compute library for embedded and microcontroller class systems, providing a vendor-agnostic HW/SW interface between industry-standard deep learning libraries and ultra-low-power compute platforms. Forked from ARM's CMSIS-NN and bit-accurate to it, usable as a drop-in replacement; optimized scalar kernels in plain C plus hand-optimized kernels for the V or P extensions; integration support with TensorFlow Lite for Microcontrollers and microTVM.",
+      "IPs": ["muriscv-nn"],
+      "Partners": ["Technical University of Munich"],
+      "Status": "Date of Availability 2022-06-01",
+      "Comment": "Contact: Philipp van Kempen, TUM (philipp.van-kempen@tum.de). PROVISIONAL: no WI in the source data."
+    }
+  ]
+}

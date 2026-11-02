@@ -1,0 +1,1 @@
+{"Id": "macsec", "Name": "IP-10M-MACsec", "Owners": ["COM"], "URL": "", "License": "Proprietary", "Status": "TBD", "Category": ["Hardware", "Others"], "Description": "Implement 10 megabit capable MACsec IP in accordance with IEEE 802.1AE.", "Comment": "PROVISIONAL (RIGOLETTO T3.1); canonical URL unknown."}

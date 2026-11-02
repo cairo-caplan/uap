@@ -1,0 +1,1 @@
+{"Id": "riscv-isa-sim", "Name": "Spike", "Owners": ["OpenHW Foundation"], "URL": "https://github.com/riscv-software-src/riscv-isa-sim", "DefaultBranch": "master", "License": "BSD-3-Clause", "Status": "Released", "Category": ["Tools"], "Description": "RISC-V ISA simulator.", "Comment": "TRISTAN WI5.1.7; used by Thales and Synthara."}

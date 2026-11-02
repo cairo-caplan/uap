@@ -1,0 +1,1 @@
+{"Id": "fft", "Name": "Fast Fourier Transform Algorithms for SIMD and Vector Accelerators (FFT)", "Owners": ["IMT"], "URL": "", "License": "GPL-3.0", "Status": "TBD", "Category": ["Accelerator", "Extension"], "Description": "TBD (migrated from ISOLDE WI ID 3.6.05).", "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown."}

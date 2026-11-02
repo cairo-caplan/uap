@@ -1,0 +1,1 @@
+{"Id": "axi", "Name": "AXI", "Owners": ["ETH Zürich"], "URL": "https://github.com/pulp-platform/axi", "DefaultBranch": "main", "License": "SHL-0.51", "Status": "Released", "Description": "AXI SystemVerilog synthesizable IP modules and verification infrastructure for high-performance on-chip communication.", "Comment": "TRISTAN WI3.2.1.", "Category": ["Peripherals"]}

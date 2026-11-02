@@ -1,0 +1,1 @@
+{"Id": "sec", "Name": "Secured RISC-V Processor with Cryptographic Accelerators (SEC)", "Owners": ["BEIA"], "URL": "", "License": "GPL-3.0", "Status": "TBD", "Category": ["Core", "Accelerator", "Extension"], "Description": "TBD (migrated from ISOLDE WI ID 3.5.05).", "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown."}

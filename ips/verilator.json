@@ -1,0 +1,1 @@
+{"Id": "verilator", "Name": "Verilator", "Owners": ["Antmicro SP Zoo"], "URL": "https://www.veripool.org/verilator/", "License": "LGPL-3.0", "Status": "Released", "Category": ["Tools"], "Description": "RTL verification (simulation, formal). Co-simulation with Renode.", "Comment": "TRISTAN WI5.2.1; used by CEA."}

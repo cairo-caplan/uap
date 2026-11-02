@@ -1,12 +1,24 @@
-name: Validate ips JSON
+name: Validate UAP data JSON
 
 on:
   push:
     paths:
       - 'ips/**'
+      - 'projects/**'
+      - 'cfg/schema*.json'
+      - 'cfg/partners.json'
+      - 'cfg/projects.json'
+      - 'scripts/**'
+      - 'cfg/catalog.json'
   pull_request:
     paths:
       - 'ips/**'
+      - 'projects/**'
+      - 'cfg/schema*.json'
+      - 'cfg/partners.json'
+      - 'cfg/projects.json'
+      - 'scripts/**'
+      - 'cfg/catalog.json'
 
 jobs:
   validate:
@@ -21,6 +33,9 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip3 install jsonschema
-      - name: Validate ips JSON files
+      - name: Validate ips/ and projects/ JSON files
         run: |
           python3 scripts/validate_ips.py --strict
+      - name: Check catalogue aggregate is up to date
+        run: |
+          python3 scripts/build_catalog.py --check

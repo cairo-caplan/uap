@@ -1,0 +1,1 @@
+{"Id": "io-coherency", "Name": "I/O Coherency", "Owners": ["Open-Source"], "URL": "", "License": "Others", "Status": "TBD", "Category": ["Hardware"], "Description": "Coherent data for ASIC accelerators accessing L2 cache.", "Comment": "PROVISIONAL (REBECCA); canonical URL unknown."}

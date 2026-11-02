@@ -23,7 +23,9 @@ pages:
     - mkdir -p public
     # Copy only what the static site needs at runtime. `|| true` so a glob that
     # matches nothing never aborts the deploy (e.g. if *.css is ever empty).
-    - cp -r -- *.html *.css *.js images ips cfg public/ || true
+    # `ip_cards` must be included: IP-card links point into it relatively.
+    # `projects` is part of the editable data sources served from the repo.
+    - cp -r -- *.html *.css *.js images ips projects ip_cards cfg public/ || true
   artifacts:
     paths:
       - public
@@ -36,11 +38,45 @@ validate_ips:
   script:
     - pip install --quiet jsonschema
     - python3 scripts/validate_ips.py --strict
+    # The committed aggregate must be in sync with ips/ + projects/.
+    - python3 scripts/build_catalog.py --check
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes: [ 'ips/**/*' ]
+      changes: [ 'ips/**/*', 'projects/**/*', 'cfg/schema*.json', 'cfg/partners.json', 'cfg/projects.json', 'scripts/*', 'cfg/catalog.json' ]
     - if: '$CI_COMMIT_BRANCH'
-      changes: [ 'ips/**/*' ]
+      changes: [ 'ips/**/*', 'projects/**/*', 'cfg/schema*.json', 'cfg/partners.json', 'cfg/projects.json', 'scripts/*', 'cfg/catalog.json' ]
+
+build_catalog:
+  stage: scheduled
+  image: python:3.10-slim
+  variables:
+    GIT_DEPTH: "0"   # full clone so commit-back never hits a shallow/non-fast-forward push
+  # GitHub Pages runs no build: the runtime loads the committed cfg/catalog.json,
+  # so this job regenerates it from ips/ + projects/ and commits it back
+  # (scheduled and on demand).
+  script:
+    - |
+      if [ -z "$UAP_PUSH_TOKEN" ]; then
+        echo "ERROR: UAP_PUSH_TOKEN CI/CD variable is not set; cannot commit the catalogue back. Aborting." >&2
+        exit 1
+      fi
+    - python3 scripts/build_catalog.py
+    - |
+      if ! git diff --exit-code cfg/catalog.json; then
+        git add cfg/catalog.json
+        git -c user.name='uap-ci' -c user.email='ci@uap.local' \
+            commit -m "chore: rebuild catalogue [skip ci]"
+        git remote set-url origin \
+          "https://oauth2:${UAP_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+        git push origin "HEAD:${CI_COMMIT_BRANCH}"
+      else
+        echo "cfg/catalog.json unchanged"
+      fi
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'   # manual "Run pipeline"
+  # Required masked CI/CD variable: UAP_PUSH_TOKEN (Project Access Token with
+  # write_repository scope) for commit-back.
 
 repo_stats:
   stage: scheduled

@@ -1,0 +1,1 @@
+{"Id": "rocketchip", "Name": "IP-RocketChip", "Owners": ["FZI"], "URL": "", "License": "BSD-3-Clause", "Status": "TBD", "Category": ["Core", "Hardware"], "Description": "Safety-hardened flexible SoC-generator based on Chisel, with tracing capabilities.", "Comment": "PROVISIONAL (RIGOLETTO T3.4); canonical URL unknown."}

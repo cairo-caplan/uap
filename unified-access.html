@@ -19,6 +19,10 @@
   <!-- Common stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Favicon (relative: the site may be served from a /sub-path on Pages) -->
+  <link rel="icon" type="image/png" href="images/logo_unified-riscv.png" />
+  <link rel="apple-touch-icon" href="images/logo_unified-riscv.png" />
+
   <!-- Font Awesome for footer icons -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
@@ -47,15 +51,24 @@
     </div>
   </header>
   <main>
-    <!-- Tabs Navigation -->
-    <div class="tabs-nav">
-      <button class="tab-btn active" data-tab="catalogue">IP Catalogue</button>
-      <button class="tab-btn" data-tab="compatibility">Compatibility Matrix</button>
+    <!-- Top bar: primary dataset switcher + secondary matrix control -->
+    <div class="top-bar">
+      <div class="view-switcher" role="group" aria-label="Switch dataset">
+        <button type="button" class="view-switch-btn active" data-view="ip" aria-pressed="true">
+          <i class="fas fa-microchip" aria-hidden="true"></i><span>IPs</span>
+        </button>
+        <button type="button" class="view-switch-btn" data-view="project" aria-pressed="false">
+          <span class="view-switch-emoji" aria-hidden="true">🇪🇺</span><span>Projects</span>
+        </button>
+      </div>
+      <button type="button" class="tab-btn matrix-toggle" data-tab="compatibility">
+        <i class="fas fa-table" aria-hidden="true"></i><span>Compatibility Matrix</span>
+      </button>
     </div>
 
-    <!-- Catalogue table -->
+    <!-- Catalogue -->
     <div id="catalogue-view" class="table-viewport">
-      <!-- Search and Settings div -->
+      <!-- Search / settings toolbar -->
       <div class="search-and-settings-container">
         <input
           type="text"
@@ -70,8 +83,8 @@
           <div id="load-options" class="settings-group">
             <h4>Data source</h4>
             <label>
-              <input type="radio" name="load-mode" value="github" checked>
-              Load from GitHub
+              <input type="radio" name="load-mode" value="server" checked>
+              Load catalogue (server)
             </label>
             <label>
               <input type="radio" name="load-mode" value="local">
@@ -87,28 +100,37 @@
           </div>
 
           <div class="settings-group">
-            <h4>Table View</h4>
-            <label><input type="radio" name="table-view" value="default" checked>Default</label>
-            <label><input type="radio" name="table-view" value="detailed">Detailed</label>
-          </div>
-
-          <div class="settings-group">
             <h4>Controls</h4>
             <button onclick="window.location.href='editor.html'">Edit table data</button>
             <button id="export-btn" disabled>Export CSV</button>
           </div>
 
-          <div id="status" class="settings-group">Choose a load mode to begin.</div>
+          <div id="status" class="settings-group">Loading the catalogue…</div>
         </div>
       </div>
 
-      <div class="table-container table-fixed">
-        <table id="data-table">
-          <thead></thead>
-          <tbody></tbody>
-        </table>
-      </div>
+      <!-- Persistent chip filter bar (populated by script.js) -->
+      <div class="filter-bar" id="filter-bar" aria-label="Filters"></div>
+
+      <!-- Active filter chips (populated by script.js) -->
+      <div class="active-filters" id="active-filters" hidden></div>
+
+      <!-- Card list (populated by script.js) -->
+      <div id="card-grid" class="card-grid" role="list" aria-label="Catalogue results"></div>
     </div>
+
+    <!-- Detail drawer (populated by script.js) -->
+    <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+    <aside id="detail-drawer" class="detail-drawer" hidden aria-modal="true" role="dialog" aria-labelledby="drawer-title" aria-hidden="true">
+      <header class="drawer-header">
+        <div class="drawer-title-wrap">
+          <span class="drawer-kind" id="drawer-kind"></span>
+          <h2 id="drawer-title" class="drawer-title"></h2>
+        </div>
+        <button type="button" class="drawer-close" aria-label="Close details">&times;</button>
+      </header>
+      <div class="drawer-body" id="drawer-body"></div>
+    </aside>
 
     <!-- Compatibility Matrix div -->
     <div id="compatibility-view" class="matrix-viewport" hidden>

@@ -20,6 +20,10 @@
   <!-- Common stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Favicon (relative: the site may be served from a /sub-path on Pages) -->
+  <link rel="icon" type="image/png" href="images/logo_unified-riscv.png" />
+  <link rel="apple-touch-icon" href="images/logo_unified-riscv.png" />
+
   <!-- Font Awesome for footer icons -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -52,10 +56,10 @@
     <section class="hero">
       <img src="images/logo_unified-riscv.png" alt="Unified RISC-V Logo" />
       <h1>Unified RISC-V IP Access Platform</h1>
-      <h2>Virtual Repository table editor</h2>
+      <h2>IP &amp; project data editor</h2>
     </section>
     <section>
-      <p>Use this page to create or edit a Project file (JSON) from the Virtual Repository of the UAP.</p>
+      <p>Create or edit an <strong>IP file</strong> (single record, saved to <code>ips/&lt;Id&gt;.json</code>) or a <strong>project file</strong> (one row per Task, saved to <code>projects/&lt;Id&gt;.json</code>) of the UAP data sources.</p>
       <p>
         You can submit your changes as a GitHub Pull Request to the
         <a href="https://github.com/openhwfoundation/uap/"
@@ -66,8 +70,15 @@
       </p>
 
       <div class="editor-controls">
+        <label>Document kind:</label>
+        <label><input type="radio" name="doc-kind" value="ip" checked> IP file (ips/)</label>
+        <label><input type="radio" name="doc-kind" value="project"> Project file (projects/)</label>
+        <span id="id-hint" style="margin-left:1em;color:#666;"></span>
+      </div>
+
+      <div class="editor-controls">
         <select id="file-selector">
-          <option value="">Select file from GitHub</option>
+          <option value="">Select file from repository</option>
         </select>
         <button id="load-file-btn">Load</button>
         <span>&nbsp;or&nbsp;</span>
@@ -78,8 +89,8 @@
       </div>
 
       <div class="editor-controls">
-        <label for="project-name-input">Project Name:</label>
-        <input type="text" id="project-name-input" placeholder="e.g., TRISTAN" disabled />
+        <span id="project-row"><label for="project-select">Project:</label>
+        <select id="project-select"></select></span>
         <button id="save-json-btn" disabled>Save to JSON File</button>
       </div>
     </section>

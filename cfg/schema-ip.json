@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UAP IP document (one file under ips/ describes exactly one IP)",
+  "description": "An IP is an independent asset, decoupled from EU research projects. Its Owners are organizations from cfg/partners.json; project-related work lives in per-project Task files under projects/.",
+  "type": "object",
+  "required": ["Id", "Name", "Owners", "Category"],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "description": "Slug identifier; should match the file name under ips/."
+    },
+    "Name": { "type": "string", "minLength": 1 },
+    "Owners": {
+      "description": "Organizations owning this IP (references into cfg/partners.json, matched by name or alias; 'TBD' allowed until owners are assigned). At least one entry required.",
+      "oneOf": [
+        { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "URL": {
+      "type": "string",
+      "format": "uri-or-empty",
+      "description": "Canonical repository/asset URL; empty when unknown."
+    },
+    "DefaultBranch": { "type": "string" },
+    "License": {
+      "oneOf": [
+        { "type": "array", "items": { "type": "string" } },
+        { "type": "string" }
+      ]
+    },
+    "Status": { "type": "string" },
+    "Category": {
+      "description": "One or more category names from cfg/categories.json (matched by name or alias).",
+      "oneOf": [
+        { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "Description": { "type": "string" },
+    "IP_CARD_URL": { "type": "string", "format": "ip_card_json" },
+    "IP_CARD_PDF_URL": { "type": "string", "format": "ip_card_pdf" },
+    "Comment": { "type": "string" }
+  },
+  "additionalProperties": true
+}

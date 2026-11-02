@@ -1,0 +1,1 @@
+{"Id": "aiml-compiler", "Name": "AI/ML Accelerator Compiler Toolchain", "Owners": ["FotoNation"], "URL": "", "License": "Proprietary", "Status": "Available", "Category": ["Software"], "Description": "ONNX compiler; produces binary code for AI/ML accelerator.", "Comment": "ISOLDE WI ID 4.2.05; IP card on bitbucket."}

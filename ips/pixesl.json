@@ -1,0 +1,1 @@
+{"Id": "pixesl", "Name": "PixESL", "Owners": ["CERN"], "URL": "", "License": "LGPL-3.0", "Status": "TBD", "Category": ["Others"], "Description": "PixESL, a virtual prototyping framework for pixel detectors based on C++/SystemC. It offers a platform for describing detector ASICs at a high level of abstraction.", "Comment": "PROVISIONAL (RIGOLETTO T3.3); canonical URL unknown."}
