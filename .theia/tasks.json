@@ -7,6 +7,32 @@
       "command": "python3 -m pip install --quiet jsonschema && python3 scripts/validate_ips.py --strict"
     },
     {
+      "label": "py: serve (background)",
+      "command": "(pgrep -f 'http.server 9000' >/dev/null && echo 'server already running') || (nohup python3 -m http.server 9000 >/tmp/uap-serve.log 2>&1 & disown; sleep 1; echo 'server started on :9000')",
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "label": "py: build catalog",
+      "command": "python3 scripts/build_catalog.py",
+      "type": "shell"
+    },
+    {
+      "label": "py: check catalog",
+      "command": "python3 scripts/build_catalog.py --check",
+      "type": "shell"
+    },
+    {
+      "label": "py: gen diagrams",
+      "command": "python3 scripts/gen_diagrams.py && python3 scripts/check_diagrams.py",
+      "type": "shell"
+    },
+    {
+      "label": "py: gen migration map",
+      "command": "python3 scripts/gen_migration_map.py",
+      "type": "shell"
+    },
+    {
       "label": "py: repo stats dry-run",
       "type": "shell",
       "command": "python3 scripts/fetch_repo_stats.py --dry-run"
