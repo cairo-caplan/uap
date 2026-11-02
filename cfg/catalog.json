@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T14:04:56Z",
+  "generated_at": "2026-11-02T18:27:42Z",
   "ips": {
     "acc-bike": {
       "Category": [
@@ -7,14 +7,15 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.5.03).",
+      "Description": "Hardware accelerator for BIKE post-quantum key encapsulation mechanish, with AXI interface for integration.",
+      "IP_CARD_URL": "ip_cards/POLIMI_BIKE.json",
       "Id": "acc-bike",
       "License": "Proprietary",
       "Name": "Accelerator for post-quantum key encapsulation mechanism BIKE (ACC-BIKE)",
       "Owners": [
         "Politecnico di Milano"
       ],
-      "Status": "TBD",
+      "Status": "Completed",
       "URL": ""
     },
     "ahb-apb-interrupt-controller": {
@@ -22,45 +23,51 @@
         "Peripheral"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.2.05).",
+      "Description": "An RTL implementation of an Interrupt Controller designed for low-latency interrupt handling in RISC-V SoCs. The controller supports nested interrupts with configurable priority levels and interrupt grouping.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/programmable-interrupt-controller-ip/blob/master/ipcard/programmable-interrupt-controller-ipcard.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/programmable-interrupt-controller-ip/blob/master/ipcard/programmable-interrupt-controller-ipcard.json",
       "Id": "ahb-apb-interrupt-controller",
-      "License": "Others",
-      "Name": "AHB/APB Interrupt Controller",
+      "License": "CERN-OHL-S-2.0",
+      "Name": "AHB Interrupt Controller",
       "Owners": [
         "Infineon Technologies AG"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/Infineon/programmable-interrupt-controller-ip"
     },
     "ahb-apb-timer": {
       "Category": [
         "Peripheral"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.2.06).",
+      "Description": "An RTL implementation of a dual-channel timer peripheral with capture/compare capabilities. It can be integrated into a wide range of RISC-V based SoCs (but not only) and it provides Watchdog Timer, Event Counter, and Pulse Width Modulator functionalities.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/dual-channel-timer-ip/blob/master/ipcard/dual-channel-timer-ipcard.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/dual-channel-timer-ip/blob/master/ipcard/dual-channel-timer-ipcard.json",
       "Id": "ahb-apb-timer",
-      "License": "Others",
-      "Name": "AHB/APB Timer",
+      "License": "CERN-OHL-S-2.0",
+      "Name": "AHB Timer",
       "Owners": [
         "Infineon Technologies AG"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/Infineon/dual-channel-timer-ip"
     },
     "ahb-crossbar": {
       "Category": [
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.2.04).",
+      "Description": "An RTL implementation of an AHB-Lite Crossbar for RISC-V based SoCs. The design supports three initiators and six responders, enabling concurrent transactions between independent initiator-responder pairs.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/ahb-crossbar-ip/blob/master/ipcard/ahb-crossbar-ipcard.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/ahb-crossbar-ip/blob/master/ipcard/ahb-crossbar-ipcard.json",
       "Id": "ahb-crossbar",
-      "License": "Others",
+      "License": "CERN-OHL-S-2.0",
       "Name": "AHB Crossbar",
       "Owners": [
         "Infineon Technologies AG"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/Infineon/ahb-crossbar-ip"
     },
     "ai-asset-workflow": {
       "Category": [
@@ -164,7 +171,9 @@
         "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.1.05).",
+      "Description": "Analysis framework for PPA analysis of different RISCV cores.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/isolde-public/blob/master/ipcards/IFX_PPA_Analysis_Framework_SW_IP_Card.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/isolde-public/blob/master/ipcards/IFX_PPA_Analysis_Framework_SW_IP_Card.json",
       "Id": "analysis-framework",
       "License": "Proprietary",
       "Name": "Analysis Framework",
@@ -172,7 +181,7 @@
         "Infineon Technologies AG"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/Infineon/isolde-public"
     },
     "approx-computing": {
       "Category": [
@@ -324,11 +333,12 @@
     },
     "bcfi": {
       "Category": [
-        "On-Chip Debug System",
-        "Peripheral"
+        "Extension"
       ],
       "Comment": "ISOLDE WI ID 3.1.02 (NXP-AT); compiler support is a separate IP (llvm-bcfi).",
       "Description": "Ensures backward-edge control flow integrity by detecting tampering with return addresses under logical and selected physical attacks.",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-AT_BCFI.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-AT_BCFI.json",
       "Id": "bcfi",
       "License": "Proprietary",
       "Name": "Backward-Edge Control Flow Integrity Unit",
@@ -357,7 +367,7 @@
       "Category": [
         "Core"
       ],
-      "Comment": "Not released yet. It will be available at https://github.com/accemic/c-trace. TRISTAN WIs 2.1.4, 2.2.1, 2.3.4, 2.5.4.",
+      "Comment": "Available at https://github.com/accemic/c-trace. TRISTAN WIs 2.1.4, 2.2.1, 2.3.4, 2.5.4.",
       "Description": "Architecture and design of RISC-V Trace IP.",
       "Id": "c-trace",
       "License": [
@@ -379,9 +389,9 @@
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.3.03).",
+      "Description": "Interface for retrieving and storing the current software context",
       "Id": "ca-pmc-if",
-      "License": "Others",
+      "License": "SHL-2.1",
       "Name": "Context-Aware PMC Interface (CA-PMC-IF)",
       "Owners": [
         "Thales SA"
@@ -428,6 +438,8 @@
       "Comment": "ISOLDE WI ID 4.3.01.",
       "DefaultBranch": "main",
       "Description": "An open-source framework that connects SystemC-based VPs with FPGA emulation, enabling full-system co-emulation of digital and non-digital components. The FPGA accelerates the execution of main digital subsystems, while a wrapper coordinates timing and communication with the VP through JTAG, maintaining synchronization with simulated peripherals.",
+      "IP_CARD_PDF_URL": "ip_cards/POLITO_MESSY_SW_IP_Card.pdf",
+      "IP_CARD_URL": "ip_cards/POLITO_MESSY_SW_IP_Card.json",
       "Id": "chessy",
       "License": "Apache-2.0",
       "Name": "CHESSY: Coupled Hybrid Emulation with SystemC-FPGA Synchronization",
@@ -643,7 +655,9 @@
         "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.09).",
+      "Description": "HW analysis and SW tools development for multicore platforms verification (MACH178 prototype).",
+      "IP_CARD_PDF_URL": "ip_cards/RAPITA_HEMlib_MACH178_SW_IP_Card.pdf",
+      "IP_CARD_URL": "ip_cards/RAPITA_HEMlib_MACH178_SW_IP_Card.json",
       "Id": "compliance-cert-tooling",
       "License": "Proprietary",
       "Name": "Tooling to ensure compliance with multicore timing certification objectives",
@@ -651,14 +665,14 @@
         "RAPITA"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://www.rapitasystems.com/"
     },
     "context-aware-bus": {
       "Category": [
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.2.01).",
+      "Description": "Decorate bus requests with the software context",
       "Id": "context-aware-bus",
       "License": "SHL-2.1",
       "Name": "Context-Aware Bus",
@@ -673,7 +687,7 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.3.01).",
+      "Description": "Add a specific CSR register to store the software context",
       "Id": "context-aware-core-extensions",
       "License": "SHL-2.1",
       "Name": "Context-Aware CORE Extensions",
@@ -682,6 +696,24 @@
       ],
       "Status": "TBD",
       "URL": ""
+    },
+    "continuous-memory-allocator": {
+      "Category": [
+        "Software",
+        "Library"
+      ],
+      "Description": "Portable C library that sub-allocates aligned, physically contiguous regions from memory reserved by a Linux u-dma-buf device. It supplies CPU virtual addresses and the original physical/DMA addresses required by userspace drivers and memory-mapped peripherals.",
+      "IP_CARD_URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/udmabuf-allocator/-/blob/main/ip-card.jsonc",
+      "Id": "continuous-memory-allocator",
+      "License": [
+        "BSD-2-Clause"
+      ],
+      "Name": "Continuous Memory Allocator",
+      "Owners": [
+        "UPB"
+      ],
+      "Status": "Demonstrated",
+      "URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/udmabuf-allocator"
     },
     "core-v-verif": {
       "Category": [
@@ -808,11 +840,12 @@
     },
     "ctm": {
       "Category": [
-        "Extension",
-        "Peripheral"
+        "Extension"
       ],
       "Comment": "ISOLDE WI ID 3.1.03 (NXP-AT); compiler support is a separate IP (llvm-ctm).",
       "Description": "Enforces memory safety by tagging memory objects and their associated pointers, mitigating logical and selected physical attacks.",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-AT_CTM.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-AT_CTM.json",
       "Id": "ctm",
       "License": "Proprietary",
       "Name": "Cryptographically Tagged Memory Unit",
@@ -965,37 +998,21 @@
       "Status": "TBD",
       "URL": ""
     },
-    "cva6-multicore-experiments": {
-      "Category": [
-        "Core",
-        "Core Generator"
-      ],
-      "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.4.02).",
-      "Id": "cva6-multicore-experiments",
-      "License": "Others",
-      "Name": "CVA6 multicore experiments and analysis",
-      "Owners": [
-        "SYSGO GmbH"
-      ],
-      "Status": "TBD",
-      "URL": ""
-    },
     "cva6-processor-extensions": {
       "Category": [
         "Core",
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner (TDIS); canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.1.02).",
+      "Description": "Support multiple RISC-V extensions with configuration",
       "Id": "cva6-processor-extensions",
       "License": "SHL-2.1",
       "Name": "CVA6 processor extensions",
       "Owners": [
         "Thales DIS France SAS"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/openhwgroup/cva6"
     },
     "cva6-split-lockstep": {
       "Category": [
@@ -1324,6 +1341,8 @@
       ],
       "Comment": "Has been released on 14 April 2024, see also press release. TRISTAN WI4.3.2.",
       "Description": "ELinOS is an Embedded Linux distribution and industrial grade Linux with the user-friendly CODEO IDE to build state-of-the-art embedded solutions in a time-saving and cost-efficient manner; also dedicated support from SYSGO is available. ELinOS has strong focus on Security with container support and services, providing drivers, connectivity stacks, real-time extensions and support for industrial hardware (e.g. since long ARM, x86, PowerPC, and, since 2024, RISC-V).",
+      "IP_CARD_PDF_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/elinos.pdf",
+      "IP_CARD_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/elinos.json",
       "Id": "elinos",
       "License": "Proprietary",
       "Name": "ELinOS embedded Linux for RISC-V",
@@ -1335,11 +1354,12 @@
     },
     "emi": {
       "Category": [
-        "Extension",
-        "Peripheral"
+        "Extension"
       ],
       "Comment": "ISOLDE WI ID 3.1.04 (NXP-AT); proprietary, no public repository.",
       "Description": "Enables cryptographic isolation of sensitive workloads in memory, mitigating logical and selected physical attacks.",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-AT_EMI.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-AT_EMI.json",
       "Id": "emi",
       "License": "Proprietary",
       "Name": "Enclave Memory Isolation Unit",
@@ -1402,15 +1422,15 @@
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.3.04).",
+      "Description": "CV-X-IF extension interface version 1.0 integrated into NOEL-V",
       "Id": "extension-interface-cva6",
       "License": "SHL-2.1",
       "Name": "Extension interface for CVA6",
       "Owners": [
         "Thales DIS France SAS"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Completed, verified",
+      "URL": "https://github.com/openhwgroup/cva6"
     },
     "extension-interface-noel-v": {
       "Category": [
@@ -1418,26 +1438,27 @@
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.3.03).",
+      "Description": "CV-X-IF extension interface version 1.0 integrated into NOEL-V",
       "Id": "extension-interface-noel-v",
       "License": [
-        "GPL-2.0-or-later",
+        "GPL-2.0",
         "Proprietary"
       ],
       "Name": "Extension interface for NOEL-V",
       "Owners": [
         "GSL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Completed, verified",
+      "URL": "https://www.gaisler.com/getgrlib"
     },
     "fcfi": {
       "Category": [
-        "Extension",
-        "Peripheral"
+        "Extension"
       ],
       "Comment": "ISOLDE WI ID 3.1.05 (NXP-AT); compiler support is a separate IP (llvm-fcfi).",
       "Description": "Ensures instruction integrity, intra-basic-block execution integrity, and forward-edge control flow integrity under logical and physical attacks.",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-AT_FCFI.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-AT_FCFI.json",
       "Id": "fcfi",
       "License": "Proprietary",
       "Name": "Forward-Edge Control Flow Integrity Unit",
@@ -1454,6 +1475,8 @@
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
       "Description": "TBD (migrated from ISOLDE WI ID 3.6.05).",
+      "IP_CARD_PDF_URL": "https://github.com/sirazvan/twister_FFT/blob/isolde/ip%20card/IMT_fft.pdf",
+      "IP_CARD_URL": "https://github.com/sirazvan/twister_FFT/blob/isolde/ip%20card/IMT_fft.json",
       "Id": "fft",
       "License": "GPL-3.0",
       "Name": "Fast Fourier Transform Algorithms for SIMD and Vector Accelerators (FFT)",
@@ -1461,7 +1484,7 @@
         "IMT"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/sirazvan/twister_FFT/tree/isolde"
     },
     "fi-framework": {
       "Category": [
@@ -1469,18 +1492,19 @@
         "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.07).",
+      "Description": "A Fault-Injection framework automating the usage of the Verilator extension, which enables fault injection simulation with Verilator via SystemVerilogs DPI functionality.",
+      "IP_CARD_PDF_URL": "ip_cards/HM_Verminator_SW_IP_Card.pdf",
+      "IP_CARD_URL": "ip_cards/HM_Verminator_SW_IP_Card.json",
       "Id": "fi-framework",
       "License": [
-        "LGPL-3.0",
-        "Apache-2.0"
+        "Others"
       ],
       "Name": "Verilator-based Fault-Injection Framework",
       "Owners": [
         "HM"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/hm-aemy/verminator"
     },
     "forth-ai-accelerator": {
       "Category": [
@@ -1536,15 +1560,15 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.2.01).",
+      "Description": "Floating Point Unit for RISC-V Cores, with multiple precision support",
       "Id": "fpu",
       "License": "Others",
       "Name": "Floating-Point Unit (FPU) for RISC-V",
       "Owners": [
         "UZL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Completed",
+      "URL": "https://github.com/openhwgroup/cvfpu"
     },
     "fpu-fi-analysis": {
       "Category": [
@@ -1552,15 +1576,15 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.11).",
+      "Description": "Fault injection analysis of the Floating Point Unit (FPU) under different workloads.",
       "Id": "fpu-fi-analysis",
       "License": "Others",
       "Name": "Fault-Injection-Analysis of FPU Unit",
       "Owners": [
         "UZL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Completed",
+      "URL": "https://gitlab.iti.uni-luebeck.de/isolde-iti/fi_fpu_analysis"
     },
     "fpu-mixed-precision": {
       "Category": [
@@ -1568,15 +1592,16 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.2.02).",
+      "Description": "FPU with design-time configurable FP formats for each operation type.",
+      "IP_CARD_URL": "ip_cards/POLIMI_FPMIX.json",
       "Id": "fpu-mixed-precision",
-      "License": "Others",
+      "License": "Apache-2.0",
       "Name": "FPU for mixed-precision computing",
       "Owners": [
         "Politecnico di Milano"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/HEAPLab/FPMIX-ISOLDE"
     },
     "gpio": {
       "Category": [
@@ -1601,17 +1626,17 @@
         "Interface"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.2.07).",
+      "Description": "The GRLIB IP Library is a complete System-on-Chip (SoC) design environment that includes a collection of reusable VHDL IP cores targeting FPGA and ASIC designs.",
       "Id": "grlib",
       "License": [
-        "GPL-2.0-or-later",
+        "GPL-2.0",
         "Proprietary"
       ],
       "Name": "GRLIB IP library",
       "Owners": [
         "GSL"
       ],
-      "Status": "TBD",
+      "Status": "Released",
       "URL": "https://www.gaisler.com/getgrlib"
     },
     "gvsoc": {
@@ -1662,22 +1687,6 @@
       ],
       "Status": "Released",
       "URL": "https://github.com/pulp-platform/hci"
-    },
-    "high-perf-cache-analysis": {
-      "Category": [
-        "Accelerator",
-        "Extension"
-      ],
-      "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.1.13).",
-      "Id": "high-perf-cache-analysis",
-      "License": "Others",
-      "Name": "High-Performance Cache Analysis",
-      "Owners": [
-        "SYSGO GmbH"
-      ],
-      "Status": "TBD",
-      "URL": ""
     },
     "hls-pqc": {
       "Category": [
@@ -1748,11 +1757,12 @@
     "inline-encryption-engine": {
       "Category": [
         "Accelerator",
-        "Extension",
-        "On-Chip Debug System"
+        "Extension"
       ],
       "Comment": "ISOLDE WI ID 3.1.01 (NXP-AT); proprietary, no public repository.",
       "Description": "Provides low-latency tweakable memory encryption for mitigating logical and selected physical attacks.",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-AT_IEE.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-AT_IEE.json",
       "Id": "inline-encryption-engine",
       "License": "Proprietary",
       "Name": "Inline Encryption Engine",
@@ -1931,6 +1941,8 @@
       ],
       "Comment": "ISOLDE WI ID 4.1.11. Public domain (CC0) for the Vivado/Lauterbach debugger configuration code contained therein.",
       "Description": "Instructions on using Lauterbach on a multicore System-on-Chip (SoC) platform—Culsans—featuring two CVA6 RISC-V cores. This SoC is deployed on a Genesys2 development board, and a key focus of our effort has been enabling efficient debugging capabilities with Lauterbach's TRACE32, an industry-standard debugging suite.",
+      "IP_CARD_PDF_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/lauterbach-culsans-setup.pdf",
+      "IP_CARD_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/lauterbach-culsans-setup.json",
       "Id": "lauterbach-cva6",
       "License": "CC0-1.0",
       "Name": "Lauterbach support for CVA6 (instructions how to use Lauterbach on CVA6)",
@@ -1945,16 +1957,18 @@
         "Software",
         "Tool"
       ],
-      "Comment": "PROVISIONAL: owners unknown in the source data; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.10; source data had no partner).",
+      "Comment": "Open source. ISOLDE Category 'Operating systems and applications SW'",
+      "Description": "Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability",
+      "IP_CARD_PDF_URL": "ip_cards/POLIMI_Lavinium_SW_IP_Card.pdf",
+      "IP_CARD_URL": "ip_cards/POLIMI_Lavinium_SW_IP_Card.json",
       "Id": "lavinium",
-      "License": "Proprietary",
-      "Name": "Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability",
+      "License": "Apache-2.0",
+      "Name": "Lavinium WCET Analyzer and Optimizer",
       "Owners": [
-        "TBD"
+        "Politecnico di Milano"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Demonstrated",
+      "URL": "https://github.com/HEAPLab/Lavinium"
     },
     "ldpc": {
       "Category": [
@@ -1962,7 +1976,7 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.6.03).",
+      "Description": "Accelerator for LDPC encoding",
       "Id": "ldpc",
       "License": "Proprietary",
       "Name": "LDPC",
@@ -1970,7 +1984,7 @@
         "ACP"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/korbseq/isolde_ip_cards_acp.git"
     },
     "llvm-bcfi": {
       "Category": [
@@ -2094,6 +2108,8 @@
       "Comment": "ISOLDE WI ID 4.2.17; companion of ips/simd-vector-accelerator.json and ips/scratchpad-memory.json.",
       "DefaultBranch": "main",
       "Description": "GCC support for IMT SIMD/Vector accelerator. Custom instructions are available through inline assembly.",
+      "IP_CARD_PDF_URL": "https://github.com/alex2kameboss/MA-riscv-gnu-toolchain/blob/master/IMT_ISOLDE_-SIMD-Vector_Acclerator_Compiler.pdf",
+      "IP_CARD_URL": "https://github.com/alex2kameboss/MA-riscv-gnu-toolchain/blob/master/IMT_ISOLDE_-SIMD-Vector_Acclerator_Compiler.jsonc",
       "Id": "ma-riscv-gnu-toolchain",
       "License": [
         "BSD-3-Clause",
@@ -2104,7 +2120,7 @@
       "Owners": [
         "IMT"
       ],
-      "Status": "Stable",
+      "Status": "Released",
       "URL": "https://github.com/alex2kameboss/MA-riscv-gnu-toolchain"
     },
     "macsec": {
@@ -2128,15 +2144,16 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.2.19).",
+      "Description": "Fork of Apache TVM 0.18.0 that adds the RISCV2TA deployment target: a 64-bit RISC-V Linux host controlling a VTA-derived tensor accelerator on an AMD/Xilinx VCU128 FPGA. The integration covers host code generation, the VTA compiler stack, RPC execution, AutoTVM tuning, target runtime/driver support, and the associated VTA hardware fork.",
+      "IP_CARD_URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-fork/-/blob/arh-riscv2ta/ip-card.jsonc",
       "Id": "manycore-toolchain",
       "License": "Others",
       "Name": "Basic toolchain for the many-core parallel accelerator",
       "Owners": [
         "UPB"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Demonstrated",
+      "URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-fork"
     },
     "match": {
       "Category": [
@@ -2241,16 +2258,16 @@
         "Software",
         "AI Frameworks"
       ],
-      "Comment": "PROVISIONAL (REBECCA); canonical URL unknown.",
-      "Description": "TBD (migrated from REBECCA). Related: ips/plinio.json, ips/match.json.",
+      "Comment": "Related: ips/plinio.json, ips/match.json. ISOLDE WI ID 4.2.01.",
+      "Description": "Infrastructure to support model optimization and deployment for ISOLDE accelerators and processors.",
       "Id": "ml-dse-cnn-compiler",
-      "License": "Others",
+      "License": "Apache-2.0",
       "Name": "ML Design Space Exploration and Compiler for CNN Accelerator",
       "Owners": [
         "Politecnico di Torino"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/eml-eda/plinio"
     },
     "moonlight": {
       "Category": [
@@ -2274,17 +2291,19 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partners; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.6.01).",
+      "Description": "HW customization of the Codasip A730 processor core focused on the increase of the performance on the Model Predictive Control Application. The customizations focus on the microarchitecture optimization and ISA extension. Each developed customization can be enabled or disabled independently.",
+      "IP_CARD_PDF_URL": "https://github.com/Codasip/ISOLDE/blob/main/IP_cards/IPCard.pdf",
+      "IP_CARD_URL": "https://github.com/Codasip/ISOLDE/blob/main/IP_cards/codasip_mpc.json",
       "Id": "motor-control",
       "License": "Proprietary",
-      "Name": "Motor Control accelerator",
+      "Name": "Motor Control Accelerator",
       "Owners": [
         "Codasip GmbH",
         "BUT",
         "NXP-CZ"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Complete",
+      "URL": "https://codasip.com/products/application-risc-v-processors/a730/"
     },
     "mpc-benchmark": {
       "Category": [
@@ -2327,15 +2346,17 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.6.04).",
+      "Description": "Integration of the neuromorphic accelerator ReckOn",
+      "IP_CARD_PDF_URL": "https://github.com/neuromorphic-polito/reckon_to_RISCV/blob/main/ip-card/ISOLDE_IPcard.pdf",
+      "IP_CARD_URL": "https://github.com/neuromorphic-polito/reckon_to_RISCV/blob/main/ip-card/IPcard.jsonc",
       "Id": "neuromorphic-hw-accelerator",
       "License": "SHL-2.1",
       "Name": "Neuromorphic HW Accelerator",
       "Owners": [
         "Politecnico di Torino"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Demonstrated",
+      "URL": "https://github.com/neuromorphic-polito/reckon_to_RISCV"
     },
     "noel-v": {
       "Category": [
@@ -2343,18 +2364,19 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.1.01).",
+      "Description": "High-performance RV64/32GCH RISC-V processor designed for space applications (fault-tolerant design). Extended with safety and security features (CFI, scalar  crypto). Included in GRLIB IP library",
+      "IP_CARD_URL": "https://github.com/nw-gsl/IP-card/blob/main/NOELV.jsonc",
       "Id": "noel-v",
       "License": [
-        "GPL-2.0-or-later",
+        "GPL-2.0",
         "Proprietary"
       ],
       "Name": "NOEL-V processor extensions",
       "Owners": [
         "GSL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://www.gaisler.com/getgrlib"
     },
     "noel-v-software-tools": {
       "Category": [
@@ -2362,18 +2384,17 @@
         "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.4.04).",
+      "Description": "Bare-metal and linux toolchain for NOEL-V",
       "Id": "noel-v-software-tools",
       "License": [
-        "GPL-2.0-or-later",
-        "Proprietary"
+        "GPL-2.0-or-later"
       ],
       "Name": "NOEL-V software tools",
       "Owners": [
         "GSL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://www.gaisler.com"
     },
     "ntt": {
       "Category": [
@@ -2382,6 +2403,8 @@
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
       "Description": "TBD (migrated from ISOLDE WI ID 3.5.04).",
+      "IP_CARD_PDF_URL": "https://github.com/mgologanu/MersenneNTT/blob/main/ip%20card/IMT_ntt.pdf",
+      "IP_CARD_URL": "https://github.com/mgologanu/MersenneNTT/blob/main/ip%20card/IMT_ntt.json",
       "Id": "ntt",
       "License": "GPL-3.0",
       "Name": "Number Theoretic Transform Algorithms for Post Quantum Cryptography (NTT)",
@@ -2389,7 +2412,7 @@
         "IMT"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/mgologanu/MersenneNTT/tree/main"
     },
     "obi-interconnect": {
       "Category": [
@@ -2409,17 +2432,15 @@
     },
     "open-verification-flow": {
       "Category": [
-        "Operating System",
-        "Software"
+        "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partners; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.08).",
+      "Description": "A generic simulator interface shell to shield specialties of open-source simulators (e.g. Verilator), commercial simulators (e.g. Incisive) and free usable simulators (e.g. Vivado) so that they can be used exchangeable. The shell is part of a framework that also shields formal verification and linting",
       "Id": "open-verification-flow",
-      "License": "Others",
-      "Name": "Open-Source Verification Flow for High Performance Cores, Accelerators and Demonstrators",
+      "License": "Proprietary",
+      "Name": "Verification Flow for High Performance Cores, Accelerators and Demonstrators",
       "Owners": [
-        "Infineon Technologies AG",
-        "HM"
+        "Infineon Technologies AG"
       ],
       "Status": "TBD",
       "URL": ""
@@ -2442,19 +2463,21 @@
     },
     "openmp-lite": {
       "Category": [
-        "Operating System",
+        "Compiler",
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.2.10).",
+      "Description": "OpenMP compiler extensions targeting tightly-coupled accelerators",
+      "IP_CARD_PDF_URL": "ip_cards/NXP-RO_openmp_offloading.pdf",
+      "IP_CARD_URL": "ip_cards/NXP-RO_openmp_offloading.json",
       "Id": "openmp-lite",
       "License": "Proprietary",
       "Name": "OpenMP Lite",
       "Owners": [
         "NXP Semiconductors Romania SRL"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Prototype implemented",
+      "URL": "www.nxp.com"
     },
     "pca": {
       "Category": [
@@ -2478,7 +2501,9 @@
         "Software"
       ],
       "Comment": "TRISTAN WI4.3.3.",
-      "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We plan to support CVA-6 for PikeOS.",
+      "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We support CVA-6 for PikeOS.",
+      "IP_CARD_PDF_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/pikeos.pdf",
+      "IP_CARD_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/pikeos.json",
       "Id": "pikeos",
       "License": "Proprietary",
       "Name": "PikeOS CVA-6 support",
@@ -2494,7 +2519,9 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown. Related TRISTAN asset: ips/pikeos.json.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.1.08).",
+      "Description": "CVA6 multicore support is an ISOLDE contribution of an overall extension of PikeOS/ELinOS support for RISC-V.",
+      "IP_CARD_PDF_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/pikeos.pdf",
+      "IP_CARD_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/pikeos.json",
       "Id": "pikeos-multicore-cva6",
       "License": "Proprietary",
       "Name": "PikeOS support for multicore CVA6",
@@ -2540,7 +2567,7 @@
         "Peripherals"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.1.02).",
+      "Description": "SHL-2.1",
       "Id": "pmdi-ips",
       "License": "Others",
       "Name": "IPs with integrated Context-Aware PMCs",
@@ -2568,18 +2595,21 @@
     },
     "ppm-dse": {
       "Category": [
-        "Software"
+        "Software",
+        "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.3.03).",
+      "Description": "ML-assisted framework for CVA6 power/performance modelling and automated design-space exploration. It generates or ingests assertion-filtered processor configurations and simulation datasets, trains surrogate models to predict cycle count, DMIPS/MHz and power, and supports sensitivity analysis, GP-PSO Bayesian optimization and multi-objective evolutionary search. Selected configurations are validated through Verilator performance simulation and, where available, gate-level power analysis. Outputs include CSV datasets, trained models and ranked CVA6 configurations.",
+      "IP_CARD_PDF_URL": "https://github.com/SilvacoF/PPM-DSE/blob/main/SILVACO_PPM_DSE_SW_IP_Card.pdf",
+      "IP_CARD_URL": "https://github.com/SilvacoF/PPM-DSE/blob/main/SILVACO_PPM_DSE_SW_IP_Card.jsonc",
       "Id": "ppm-dse",
-      "License": "Others",
-      "Name": "Power/Performance Modeling for Design Space Exploration PPM-DSE",
+      "License": "Proprietary",
+      "Name": "SILVACO CVA6 AI-Assisted Power and Performance Design Space Explorer (PPM-DSE)",
       "Owners": [
         "SILVACO"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Demonstrated",
+      "URL": "https://github.com/SilvacoF/PPM-DSE"
     },
     "pqc-multipurpose": {
       "Category": [
@@ -2842,6 +2872,23 @@
       "Status": "TBD",
       "URL": ""
     },
+    "riscv2ta-end-user-inference-gui": {
+      "Category": [
+        "Software"
+      ],
+      "Description": "Desktop graphical runtime for operating remote TVM/VTA inference targets. It guides an end user through FPGA programming and platform boot, TVM RPC connection, compiled-model validation and loading, image or stream selection, remote inference, and visualization of classification results and performance.",
+      "IP_CARD_URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-vta-apps/-/blob/master/gui/ip-card.jsonc",
+      "Id": "riscv2ta-end-user-inference-gui",
+      "License": [
+        "Others"
+      ],
+      "Name": "RISCV2TA End-User Inference GUI",
+      "Owners": [
+        "UPB"
+      ],
+      "Status": "Demonstrated",
+      "URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-vta-apps/-/tree/master/gui"
+    },
     "riviera": {
       "Category": [
         "Core"
@@ -2930,15 +2977,16 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.1.07).",
+      "Description": "Fork of Apache TVM 0.18.0 that adds the RISCV2TA deployment target: a 64-bit RISC-V Linux host controlling a VTA-derived tensor accelerator on an AMD/Xilinx VCU128 FPGA. The integration covers host code generation, the VTA compiler stack, RPC execution, AutoTVM tuning, target runtime/driver support, and the associated VTA hardware fork.",
+      "IP_CARD_URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-fork/-/blob/arh-riscv2ta/ip-card.jsonc",
       "Id": "rt-environment",
       "License": "Others",
       "Name": "Run-Time Environment for end-users",
       "Owners": [
         "UPB"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Demonstrated",
+      "URL": "https://gitlab.upb.ro/etti/dcae-public/arh/research/isolde/riscv2ta/arh-tvm-fork"
     },
     "rt-monitor": {
       "Category": [
@@ -2997,14 +3045,15 @@
         "On-Chip Debug System"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.3.04).",
+      "Description": "Instrumentation of infrastructure for run-time power monitoring based on signals' switching activity, with optional avoidance of side-channel-analysis leakage.",
+      "IP_CARD_URL": "ip_cards/POLIMI_RTPM.json",
       "Id": "rtpm",
       "License": "Proprietary",
       "Name": "Run-time power monitoring instrumentation (RTPM)",
       "Owners": [
         "Politecnico di Milano"
       ],
-      "Status": "TBD",
+      "Status": "Completed",
       "URL": ""
     },
     "rv32-compliance": {
@@ -3125,19 +3174,20 @@
     },
     "safety-control": {
       "Category": [
-        "Accelerator",
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.1.12).",
+      "Description": "An RTL implementation of a Safety and Security Control Unit designed to be tightly coupled with a RISC-V processor core. The unit provides centralized safety monitoring, fault handling, and security control through the usage of custom RISC-V Control and Status Registers.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/safety-security-control-unit-ip/blob/master/ipcard/safety-security-control-unit-ipcard.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/safety-security-control-unit-ip/blob/master/ipcard/safety-security-control-unit-ipcard.json",
       "Id": "safety-control",
-      "License": "Others",
+      "License": "CERN-OHL-S-2.0",
       "Name": "Safety Control",
       "Owners": [
         "Infineon Technologies AG"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Released",
+      "URL": "https://github.com/Infineon/safety-security-control-unit-ip"
     },
     "safety-gen": {
       "Category": [
@@ -3164,15 +3214,17 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.2.18).",
+      "Description": "Library of independent safety checkers targeted on motor control applications",
+      "IP_CARD_PDF_URL": "https://github.com/openhwfoundation/uap/blob/main/ip_cards/NXP-CZ_FuSa.pdf",
+      "IP_CARD_URL": "https://github.com/openhwfoundation/uap/blob/main/ip_cards/NXP-CZ_FuSa.json",
       "Id": "safety-math-motor",
       "License": "Proprietary",
       "Name": "Safety Compliant Math and Motor Control Library",
       "Owners": [
         "NXP-CZ"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Completed",
+      "URL": "https://www.nxp.com/design/design-center/software/automotive-software/automotive-math-and-motor-control-library-ammclib:AMMCLIB"
     },
     "sca": {
       "Category": [
@@ -3180,7 +3232,7 @@
         "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.6.02).",
+      "Description": "Accelerator for frequency domain cross correlations",
       "Id": "sca",
       "License": "Proprietary",
       "Name": "SCA",
@@ -3188,7 +3240,7 @@
         "ACP"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/korbseq/isolde_ip_cards_acp.git"
     },
     "scaie-v": {
       "Category": [
@@ -3208,20 +3260,20 @@
     },
     "scratchpad-memory": {
       "Category": [
-        "Accelerator",
-        "Extension",
-        "Peripheral"
+        "Memory"
       ],
       "Comment": "ISOLDE WI ID 3.2.03.",
       "DefaultBranch": "refactoring",
       "Description": "Polymorphic memory designed to store matrices.",
+      "IP_CARD_PDF_URL": "https://gitlab.com/catalin.ciobanu/PolyMem_System_Verilog/-/blob/refactoring/IMT_ISOLDE_-Scratchpad_memory.pdf?ref_type=heads",
+      "IP_CARD_URL": "https://gitlab.com/catalin.ciobanu/PolyMem_System_Verilog/-/blob/refactoring/IMT_ISOLDE_-Scratchpad_memory.jsonc?ref_type=heads",
       "Id": "scratchpad-memory",
       "License": "GPL-3.0",
       "Name": "Scratchpad Memory",
       "Owners": [
         "IMT"
       ],
-      "Status": "Optimization",
+      "Status": "Released",
       "URL": "https://gitlab.com/catalin.ciobanu/PolyMem_System_Verilog"
     },
     "sdk-neuromorphic": {
@@ -3258,20 +3310,20 @@
     },
     "sec": {
       "Category": [
-        "Core",
-        "Accelerator",
-        "Extension"
+        "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 3.5.05).",
+      "Description": "Crypto-library for embedded or custom devices",
+      "IP_CARD_PDF_URL": "https://github.com/Wutevaaa/Crypto-library-for-embedded-or-custom-devices/blob/IP-Card/cryptographic_accelerators.pdf",
+      "IP_CARD_URL": "https://github.com/Wutevaaa/Crypto-library-for-embedded-or-custom-devices/blob/IP-Card/cryptographic_accelerators.json",
       "Id": "sec",
-      "License": "GPL-3.0",
-      "Name": "Secured RISC-V Processor with Cryptographic Accelerators (SEC)",
+      "License": "Apache-2.0",
+      "Name": "Cryptographic Accelerators for RISC-V (SEC)",
       "Owners": [
         "BEIA"
       ],
-      "Status": "TBD",
-      "URL": ""
+      "Status": "Tested, Validated",
+      "URL": "https://github.com/Wutevaaa/Crypto-library-for-embedded-or-custom-devices"
     },
     "simd-vector-accelerator": {
       "Category": [
@@ -3281,14 +3333,38 @@
       "Comment": "ISOLDE WI ID 3.4.06; toolchain support in ips/ma-riscv-gnu-toolchain.json.",
       "DefaultBranch": "main",
       "Description": "This accelerator extends the RISC-V ISA for matrix operations. This accelerator is tightly coupled with the RISC-V core via CV-X-IF.",
+      "IP_CARD_PDF_URL": "https://github.com/alex2kameboss/MatrixAccelerator/blob/master/IMT_ISOLDE_-SIMD-Vector_Acclerator.pdf",
+      "IP_CARD_URL": "https://github.com/alex2kameboss/MatrixAccelerator/blob/master/IMT_ISOLDE_-SIMD-Vector_Acclerator.jsonc",
       "Id": "simd-vector-accelerator",
       "License": "GPL-3.0",
       "Name": "SIMD/Vector Accelerator",
       "Owners": [
         "IMT"
       ],
-      "Status": "FPGA implementation",
+      "Status": "Released",
       "URL": "https://github.com/alex2kameboss/MatrixAccelerator"
+    },
+    "smart-home-openems-demo-setup": {
+      "Category": [
+        "Software"
+      ],
+      "Description": "Detailed setup instructions for smart home demo (OpenEMS)",
+      "IP_CARD_PDF_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/openems-riscv-demo.pdf",
+      "IP_CARD_URL": "https://github.com/sysgo-embedded/riscv/blob/main/ipcard/openems-riscv-demo.json",
+      "Id": "smart-home-openems-demo-setup",
+      "License": [
+        "CC0-1.0"
+      ],
+      "Name": "Smart home OpenEMS demo setup",
+      "Owners": [
+        "SYSGO GmbH",
+        "CONS",
+        "BYK",
+        "FZI",
+        "BEIA"
+      ],
+      "Status": "Available",
+      "URL": "https://zenodo.org/records/18164662"
     },
     "socmake": {
       "Category": [
@@ -3325,14 +3401,14 @@
         "Software"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 4.1.06).",
+      "Description": "Support framework for the deployment, management and testing of high-performance algorithm using RISC-V cores and accelerators, supporting the ISOLDE Space Demonstrator.",
       "Id": "space-edge-framework",
       "License": "Proprietary",
       "Name": "Execution Framework for Space edge computing",
       "Owners": [
         "TASI"
       ],
-      "Status": "TBD",
+      "Status": "Prototype",
       "URL": ""
     },
     "spede": {
@@ -3385,10 +3461,12 @@
     },
     "sw-abstraction-layer-riscv": {
       "Category": [
-        "Software"
+        "Extension"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.4.03).",
+      "Description": "Custom extension that allows indexable CSRs to facilitate same style programming for CSRs and memory-mapped registers.",
+      "IP_CARD_PDF_URL": "https://github.com/Infineon/isolde-public/blob/master/ipcards/IFX_HDL_Simulator_Interface_SW_IP_Card.pdf",
+      "IP_CARD_URL": "https://github.com/Infineon/isolde-public/blob/master/ipcards/IFX_HDL_Simulator_Interface_SW_IP_Card.json",
       "Id": "sw-abstraction-layer-riscv",
       "License": "Proprietary",
       "Name": "SW Abstraction Layer for RISC-V Processors",
@@ -3396,7 +3474,7 @@
         "Infineon Technologies AG"
       ],
       "Status": "TBD",
-      "URL": ""
+      "URL": "https://github.com/Infineon/isolde-public"
     },
     "syn-watchdog": {
       "Category": [
@@ -3439,13 +3517,15 @@
       "Comment": "ISOLDE WIs ID 3.3.02 (hardware) and ID 4.3.02 (TCCP-CO compiler); IP card by SvenMehlhop on GitHub.",
       "DefaultBranch": "main",
       "Description": "The Time Contract Co-Processor (TCCP), a reconfigurable open-source co-processor for RISC-V systems.",
+      "IP_CARD_PDF_URL": "https://github.com/SvenMehlhop/ip-card/blob/87ebe6ffbef0e81e3b11bf6fa9d88110037c7028/OFFIS_TCCP.pdf",
+      "IP_CARD_URL": "https://github.com/SvenMehlhop/ip-card/blob/87ebe6ffbef0e81e3b11bf6fa9d88110037c7028/OFFIS_TCCP.jsonc",
       "Id": "tccp",
       "License": "Apache-2.0",
       "Name": "Time Contract Monitoring Co-Processor (TCCP)",
       "Owners": [
         "OFFIS"
       ],
-      "Status": "Prototype. To be updated.",
+      "Status": "Prototype.",
       "URL": "https://github.com/offis/isolde-tccp"
     },
     "testing-design-params-cva6": {
@@ -3454,14 +3534,14 @@
         "Tool"
       ],
       "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-      "Description": "TBD (migrated from ISOLDE WI ID 2.1.04).",
+      "Description": "Creation of CVA6 cores of different multicore architectures by system-on-chip generator tools to identify the suitable design parameters, targeting different use cases.",
       "Id": "testing-design-params-cva6",
       "License": "Others",
       "Name": "Testing Design Parameters for CVA6",
       "Owners": [
         "UZL"
       ],
-      "Status": "TBD",
+      "Status": "Completed",
       "URL": ""
     },
     "timeweaver": {
@@ -3713,13 +3793,14 @@
       "Comment": "ISOLDE WI ID 3.4.04; same repository as Ara (see ips/ara.json); IP card lives in the repo docs.",
       "DefaultBranch": "mp/pulp-v2-os-fpga",
       "Description": "RISC-V V 1.0 modular vector accelerator with multi-precision capabilities.",
+      "IP_CARD_PDF_URL": "https://github.com/pulp-platform/ara/blob/mp/pulp-v2-os-fpga/docs/ip_cards/ara_ipcard.pdf?raw=true",
       "Id": "vpu",
       "License": "SHL-0.51",
       "Name": "Vector Processing Unit (with multi-precision capabilities) (VPU)",
       "Owners": [
         "ETH Zürich"
       ],
-      "Status": "Optimization, verification, and feature addition in progress",
+      "Status": "Implemented and verified with RVV1.0 tests. Demonstrated on FPGA, open-source flow available.",
       "URL": "https://github.com/pulp-platform/ara"
     },
     "vpu-2": {
@@ -3949,28 +4030,28 @@
       "Tasks": [
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown. Keep the migrated 'TBD' status until the owner fills it in.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.1.01).",
+          "Description": "High-performance RV64/32GCH RISC-V processor designed for space applications (fault-tolerant design). Extended with safety and security features (CFI, scalar  crypto). Included in GRLIB IP library",
           "IPs": [
             "noel-v"
           ],
           "Partners": [
             "GSL"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.1.01",
           "Title": "NOEL-V processor extensions",
           "WI": "ID 2.1.01"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner (TDIS); canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.1.02).",
+          "Description": "Support multiple RISC-V extensions with configuration",
           "IPs": [
             "cva6-processor-extensions"
           ],
           "Partners": [
             "TDIS"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.1.02",
           "Title": "CVA6 processor extensions",
           "WI": "ID 2.1.02"
@@ -3991,21 +4072,21 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.1.04).",
+          "Description": "Creation of CVA6 cores of different multicore architectures by system-on-chip generator tools to identify the suitable design parameters, targeting different use cases.",
           "IPs": [
             "testing-design-params-cva6"
           ],
           "Partners": [
             "UZL"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-2.1.04",
           "Title": "Testing Design Parameters for CVA6",
           "WI": "ID 2.1.04"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.1.05).",
+          "Description": "Analysis framework for PPA analysis of different RISCV cores.",
           "IPs": [
             "analysis-framework"
           ],
@@ -4019,7 +4100,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.2.01).",
+          "Description": "Decorate bus requests with the software context",
           "IPs": [
             "context-aware-bus"
           ],
@@ -4065,63 +4146,63 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.2.04).",
+          "Description": "An RTL implementation of an AHB-Lite Crossbar for RISC-V based SoCs. The design supports three initiators and six responders, enabling concurrent transactions between independent initiator-responder pairs.",
           "IPs": [
             "ahb-crossbar"
           ],
           "Partners": [
             "IFX"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.2.04",
           "Title": "AHB Crossbar",
           "WI": "ID 2.2.04"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.2.05).",
+          "Description": "An RTL implementation of an Interrupt Controller designed for low-latency interrupt handling in RISC-V SoCs. The controller supports nested interrupts with configurable priority levels and interrupt grouping.",
           "IPs": [
             "ahb-apb-interrupt-controller"
           ],
           "Partners": [
             "IFX"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.2.05",
-          "Title": "AHB/APB Interrupt Controller",
+          "Title": "AHB Interrupt Controller",
           "WI": "ID 2.2.05"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.2.06).",
+          "Description": "An RTL implementation of a dual-channel timer peripheral with capture/compare capabilities. It can be integrated into a wide range of RISC-V based SoCs (but not only) and it provides Watchdog Timer, Event Counter, and Pulse Width Modulator functionalities.",
           "IPs": [
             "ahb-apb-timer"
           ],
           "Partners": [
             "IFX"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.2.06",
-          "Title": "AHB/APB Timer",
+          "Title": "AHB Timer",
           "WI": "ID 2.2.06"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner. Canonical URL https://www.gaisler.com/getgrlib in the source data.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.2.07).",
+          "Description": "The GRLIB IP Library is a complete System-on-Chip (SoC) design environment that includes a collection of reusable VHDL IP cores targeting FPGA and ASIC designs.",
           "IPs": [
             "grlib"
           ],
           "Partners": [
             "GSL"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.2.07",
           "Title": "GRLIB IP library",
           "WI": "ID 2.2.07"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.3.01).",
+          "Description": "Add a specific CSR register to store the software context",
           "IPs": [
             "context-aware-core-extensions"
           ],
@@ -4150,28 +4231,28 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.3.03).",
+          "Description": "CV-X-IF extension interface version 1.0 integrated into NOEL-V",
           "IPs": [
             "extension-interface-noel-v"
           ],
           "Partners": [
             "GSL"
           ],
-          "Status": "TBD",
+          "Status": "Completed, verified",
           "TaskId": "isolde-2.3.03",
           "Title": "Extension interface for NOEL-V",
           "WI": "ID 2.3.03"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.3.04).",
+          "Description": "CV-X-IF extension interface version 1.0 integrated into NOEL-V",
           "IPs": [
             "extension-interface-cva6"
           ],
           "Partners": [
             "TDIS"
           ],
-          "Status": "TBD",
+          "Status": "Completed, verified",
           "TaskId": "isolde-2.3.04",
           "Title": "Extension interface for CVA6",
           "WI": "ID 2.3.04"
@@ -4193,21 +4274,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.4.02).",
-          "IPs": [
-            "cva6-multicore-experiments"
-          ],
-          "Partners": [
-            "SYSGO"
-          ],
-          "Status": "TBD",
-          "TaskId": "isolde-2.4.02",
-          "Title": "CVA6 multicore experiments and analysis",
-          "WI": "ID 2.4.02"
-        },
-        {
-          "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.4.03).",
+          "Description": "Custom extension that allows indexable CSRs to facilitate same style programming for CSRs and memory-mapped registers.",
           "IPs": [
             "sw-abstraction-layer-riscv"
           ],
@@ -4221,14 +4288,14 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 2.4.04).",
+          "Description": "Bare-metal and linux toolchain for NOEL-V",
           "IPs": [
             "noel-v-software-tools"
           ],
           "Partners": [
             "GSL"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-2.4.04",
           "Title": "NOEL-V software tools",
           "WI": "ID 2.4.04"
@@ -4249,7 +4316,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.1.02).",
+          "Description": "SHL-2.1",
           "IPs": [
             "pmdi-ips"
           ],
@@ -4359,56 +4426,42 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.1.12).",
+          "Description": "An RTL implementation of a Safety and Security Control Unit designed to be tightly coupled with a RISC-V processor core. The unit provides centralized safety monitoring, fault handling, and security control through the usage of custom RISC-V Control and Status Registers.",
           "IPs": [
             "safety-control"
           ],
           "Partners": [
             "IFX"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-3.1.12",
           "Title": "Safety Control",
           "WI": "ID 3.1.12"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.1.13).",
-          "IPs": [
-            "high-perf-cache-analysis"
-          ],
-          "Partners": [
-            "SYSGO"
-          ],
-          "Status": "TBD",
-          "TaskId": "isolde-3.1.13",
-          "Title": "High-Performance Cache Analysis",
-          "WI": "ID 3.1.13"
-        },
-        {
-          "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.2.01).",
+          "Description": "Floating Point Unit for RISC-V Cores, with multiple precision support",
           "IPs": [
             "fpu"
           ],
           "Partners": [
             "UZL"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-3.2.01",
           "Title": "Floating-Point Unit (FPU) for RISC-V",
           "WI": "ID 3.2.01"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown. Note POLIMI is aliased to Politecnico di Torino in cfg/partners.json.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.2.02).",
+          "Description": "FPU with design-time configurable FP formats for each operation type.",
           "IPs": [
             "fpu-mixed-precision"
           ],
           "Partners": [
             "POLIMI"
           ],
-          "Status": "TBD",
+          "Status": "Released",
           "TaskId": "isolde-3.2.02",
           "Title": "FPU for mixed-precision computing",
           "WI": "ID 3.2.02"
@@ -4423,7 +4476,7 @@
           "Partners": [
             "IMT"
           ],
-          "Status": "Optimization",
+          "Status": "Released",
           "TaskId": "isolde-3.2.03",
           "Title": "Scratchpad Memory",
           "WI": "ID 3.2.03"
@@ -4452,14 +4505,14 @@
           "Partners": [
             "OFFIS"
           ],
-          "Status": "Prototype. To be updated.",
+          "Status": "Prototype.",
           "TaskId": "isolde-3.3.02",
           "Title": "Time Contract Monitoring Co-Processor (TCCP)",
           "WI": "ID 3.3.02"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.3.03).",
+          "Description": "Interface for retrieving and storing the current software context",
           "IPs": [
             "ca-pmc-if"
           ],
@@ -4473,14 +4526,14 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.3.04).",
+          "Description": "Instrumentation of infrastructure for run-time power monitoring based on signals' switching activity, with optional avoidance of side-channel-analysis leakage.",
           "IPs": [
             "rtpm"
           ],
           "Partners": [
             "POLIMI"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-3.3.04",
           "Title": "Run-time power monitoring instrumentation (RTPM)",
           "WI": "ID 3.3.04"
@@ -4540,7 +4593,7 @@
           "Partners": [
             "ETHZ"
           ],
-          "Status": "Optimization, verification, and feature addition in progress",
+          "Status": "Implemented and verified with RVV1.0 tests. Demonstrated on FPGA, open-source flow available.",
           "TaskId": "isolde-3.4.04",
           "Title": "Vector Processing Unit (with multi-precision capabilities) (VPU)",
           "WI": "ID 3.4.04"
@@ -4568,7 +4621,7 @@
           "Partners": [
             "IMT"
           ],
-          "Status": "FPGA implementation",
+          "Status": "Released",
           "TaskId": "isolde-3.4.06",
           "Title": "SIMD/Vector Accelerator",
           "WI": "ID 3.4.06"
@@ -4617,14 +4670,14 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.5.03).",
+          "Description": "Hardware accelerator for BIKE post-quantum key encapsulation mechanish, with AXI interface for integration.",
           "IPs": [
             "acc-bike"
           ],
           "Partners": [
             "POLIMI"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-3.5.03",
           "Title": "Accelerator for post-quantum key encapsulation mechanism BIKE (ACC-BIKE)",
           "WI": "ID 3.5.03"
@@ -4645,21 +4698,21 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.5.05).",
+          "Description": "Crypto-library for embedded or custom devices",
           "IPs": [
             "sec"
           ],
           "Partners": [
             "BEIA"
           ],
-          "Status": "TBD",
+          "Status": "Tested, Validated",
           "TaskId": "isolde-3.5.05",
-          "Title": "Secured RISC-V Processor with Cryptographic Accelerators (SEC)",
+          "Title": "Cryptographic Accelerators for RISC-V (SEC)",
           "WI": "ID 3.5.05"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partners; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.6.01).",
+          "Description": "HW customization of the Codasip A730 processor core focused on the increase of the performance on the Model Predictive Control Application. The customizations focus on the microarchitecture optimization and ISA extension. Each developed customization can be enabled or disabled independently.",
           "IPs": [
             "motor-control"
           ],
@@ -4668,14 +4721,14 @@
             "BUT",
             "NXP-CZ"
           ],
-          "Status": "TBD",
+          "Status": "Complete",
           "TaskId": "isolde-3.6.01",
-          "Title": "Motor Control accelerator",
+          "Title": "Motor Control Accelerator",
           "WI": "ID 3.6.01"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.6.02).",
+          "Description": "Accelerator for frequency domain cross correlations",
           "IPs": [
             "sca"
           ],
@@ -4689,7 +4742,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.6.03).",
+          "Description": "Accelerator for LDPC encoding",
           "IPs": [
             "ldpc"
           ],
@@ -4703,14 +4756,14 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 3.6.04).",
+          "Description": "Integration of the neuromorphic accelerator ReckOn",
           "IPs": [
             "neuromorphic-hw-accelerator"
           ],
           "Partners": [
             "POLITO"
           ],
-          "Status": "TBD",
+          "Status": "Demonstrated",
           "TaskId": "isolde-3.6.04",
           "Title": "Neuromorphic HW Accelerator",
           "WI": "ID 3.6.04"
@@ -4830,35 +4883,35 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.1.06).",
+          "Description": "Support framework for the deployment, management and testing of high-performance algorithm using RISC-V cores and accelerators, supporting the ISOLDE Space Demonstrator.",
           "IPs": [
             "space-edge-framework"
           ],
           "Partners": [
             "TASI"
           ],
-          "Status": "TBD",
+          "Status": "Prototype",
           "TaskId": "isolde-4.1.06",
           "Title": "Execution Framework for Space edge computing",
           "WI": "ID 4.1.06"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.1.07).",
+          "Description": "Fork of Apache TVM 0.18.0 that adds the RISCV2TA deployment target: a 64-bit RISC-V Linux host controlling a VTA-derived tensor accelerator on an AMD/Xilinx VCU128 FPGA. The integration covers host code generation, the VTA compiler stack, RPC execution, AutoTVM tuning, target runtime/driver support, and the associated VTA hardware fork.",
           "IPs": [
             "rt-environment"
           ],
           "Partners": [
             "UPB"
           ],
-          "Status": "TBD",
+          "Status": "Demonstrated",
           "TaskId": "isolde-4.1.07",
           "Title": "Run-Time Environment for end-users",
           "WI": "ID 4.1.07"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.1.08).",
+          "Description": "CVA6 multicore support is an ISOLDE contribution of an overall extension of PikeOS/ELinOS support for RISC-V.",
           "IPs": [
             "pikeos-multicore-cva6"
           ],
@@ -4988,14 +5041,14 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.2.10).",
+          "Description": "OpenMP compiler extensions targeting tightly-coupled accelerators",
           "IPs": [
             "openmp-lite"
           ],
           "Partners": [
             "NXP-RO"
           ],
-          "Status": "TBD",
+          "Status": "Prototype implemented",
           "TaskId": "isolde-4.2.10",
           "Title": "OpenMP Lite",
           "WI": "ID 4.2.10"
@@ -5095,35 +5148,35 @@
           "Partners": [
             "IMT"
           ],
-          "Status": "Stable",
+          "Status": "Released",
           "TaskId": "isolde-4.2.17",
           "Title": "Support of SIMD/Vector Accelerator and scratchpad memory",
           "WI": "ID 4.2.17"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.2.18).",
+          "Description": "Library of independent safety checkers targeted on motor control applications",
           "IPs": [
             "safety-math-motor"
           ],
           "Partners": [
             "NXP-CZ"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-4.2.18",
           "Title": "Safety Compliant Math and Motor Control Library",
           "WI": "ID 4.2.18"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.2.19).",
+          "Description": "Fork of Apache TVM 0.18.0 that adds the RISCV2TA deployment target: a 64-bit RISC-V Linux host controlling a VTA-derived tensor accelerator on an AMD/Xilinx VCU128 FPGA. The integration covers host code generation, the VTA compiler stack, RPC execution, AutoTVM tuning, target runtime/driver support, and the associated VTA hardware fork.",
           "IPs": [
             "manycore-toolchain"
           ],
           "Partners": [
             "UPB"
           ],
-          "Status": "TBD",
+          "Status": "Demonstrated",
           "TaskId": "isolde-4.2.19",
           "Title": "Basic toolchain for the many-core parallel accelerator",
           "WI": "ID 4.2.19"
@@ -5152,23 +5205,23 @@
           "Partners": [
             "OFFIS"
           ],
-          "Status": "Prototype. To be updated.",
+          "Status": "Prototype.",
           "TaskId": "isolde-4.3.02",
           "Title": "Time Contract Co-processor Compiler (TCCP-CO)",
           "WI": "ID 4.3.02"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.03).",
+          "Description": "ML-assisted framework for CVA6 power/performance modelling and automated design-space exploration. It generates or ingests assertion-filtered processor configurations and simulation datasets, trains surrogate models to predict cycle count, DMIPS/MHz and power, and supports sensitivity analysis, GP-PSO Bayesian optimization and multi-objective evolutionary search. Selected configurations are validated through Verilator performance simulation and, where available, gate-level power analysis. Outputs include CSV datasets, trained models and ranked CVA6 configurations.",
           "IPs": [
             "ppm-dse"
           ],
           "Partners": [
             "SILVACO"
           ],
-          "Status": "TBD",
+          "Status": "Demonstrated",
           "TaskId": "isolde-4.3.03",
-          "Title": "Power/Performance Modeling for Design Space Exploration PPM-DSE",
+          "Title": "SILVACO CVA6 AI-Assisted Power and Performance Design Space Explorer (PPM-DSE)",
           "WI": "ID 4.3.03"
         },
         {
@@ -5216,7 +5269,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.07).",
+          "Description": "A Fault-Injection framework automating the usage of the Verilator extension, which enables fault injection simulation with Verilator via SystemVerilogs DPI functionality.",
           "IPs": [
             "fi-framework"
           ],
@@ -5230,17 +5283,16 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partners; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.08).",
+          "Description": "A generic simulator interface shell to shield specialties of open-source simulators (e.g. Verilator), commercial simulators (e.g. Incisive) and free usable simulators (e.g. Vivado) so that they can be used exchangeable. The shell is part of a framework that also shields formal verification and linting",
           "IPs": [
             "open-verification-flow"
           ],
           "Partners": [
-            "IFX",
-            "HM"
+            "IFX"
           ],
           "Status": "TBD",
           "TaskId": "isolde-4.3.08",
-          "Title": "Open-Source Verification Flow for High Performance Cores, Accelerators and Demonstrators",
+          "Title": "Verification Flow for High Performance Cores, Accelerators and Demonstrators",
           "WI": "ID 4.3.08"
         },
         {
@@ -5286,6 +5338,17 @@
           "TaskId": "isolde-4.1.09",
           "Title": "XNG hypervisor CVA6 board support package (with H-extension)",
           "WI": "ID 4.1.09"
+        },
+        {
+          "IPs": [
+            "ml-dse-cnn-compiler"
+          ],
+          "Partners": [
+            "POLITO"
+          ],
+          "TaskId": "isolde-4.2.01",
+          "Title": "ML Design Space Exploration and Compiler for CNN Accelerator",
+          "WI": "ID 4.2.01"
         },
         {
           "Comment": "Local IP card at ip_cards/FENTISS_ISOLDE_-_XNG_hypervisor_integration_of_validation_tools.json / .pdf.",
@@ -5349,7 +5412,7 @@
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.09).",
+          "Description": "HW analysis and SW tools development for multicore platforms verification (MACH178 prototype).",
           "IPs": [
             "compliance-cert-tooling"
           ],
@@ -5362,32 +5425,71 @@
           "WI": "ID 4.3.09"
         },
         {
-          "Comment": "PROVISIONAL: the source row had an empty Partners list; set to ['TBD'] so the schema's minimum of one Partner holds. Fill with the real partner.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.10).",
+          "Comment": "Partners POLIMI ported from upstream main (the source row had an empty Partners list).",
+          "Description": "Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability",
           "IPs": [
             "lavinium"
           ],
           "Partners": [
-            "TBD"
+            "POLIMI"
           ],
-          "Status": "TBD",
+          "Status": "Demonstrated",
           "TaskId": "isolde-4.3.10",
-          "Title": "Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability",
+          "Title": "Lavinium WCET Analyzer and Optimizer",
           "WI": "ID 4.3.10"
         },
         {
           "Comment": "PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.",
-          "Description": "TBD (migrated from ISOLDE WI ID 4.3.11).",
+          "Description": "Fault injection analysis of the Floating Point Unit (FPU) under different workloads.",
           "IPs": [
             "fpu-fi-analysis"
           ],
           "Partners": [
             "UZL"
           ],
-          "Status": "TBD",
+          "Status": "Completed",
           "TaskId": "isolde-4.3.11",
           "Title": "Fault-Injection-Analysis of FPU Unit",
           "WI": "ID 4.3.11"
+        },
+        {
+          "Comment": "PROVISIONAL: no WI in the upstream source data.",
+          "IPs": [
+            "continuous-memory-allocator"
+          ],
+          "Partners": [
+            "UPB"
+          ],
+          "TaskId": "isolde-cont-mem-alloc",
+          "Title": "Continuous Memory Allocator",
+          "WI": "TBD"
+        },
+        {
+          "Comment": "PROVISIONAL: no WI in the upstream source data.",
+          "IPs": [
+            "riscv2ta-end-user-inference-gui"
+          ],
+          "Partners": [
+            "UPB"
+          ],
+          "TaskId": "isolde-riscv2ta-gui",
+          "Title": "RISCV2TA End-User Inference GUI",
+          "WI": "TBD"
+        },
+        {
+          "IPs": [
+            "smart-home-openems-demo-setup"
+          ],
+          "Partners": [
+            "SYSGO",
+            "CONS",
+            "BYK",
+            "FZI",
+            "BEIA"
+          ],
+          "TaskId": "isolde-5.3",
+          "Title": "Smart home OpenEMS demo setup",
+          "WI": "5.3"
         }
       ]
     },
@@ -5575,7 +5677,6 @@
           "WI": "TBD"
         },
         {
-          "Comment": "PROVISIONAL: no WI/description in the source data.",
           "IPs": [
             "pikeos"
           ],
@@ -5584,7 +5685,7 @@
           ],
           "TaskId": "rebecca-pikeos",
           "Title": "PikeOS and Hypervisor",
-          "WI": "TBD"
+          "WI": "WP3"
         },
         {
           "Comment": "PROVISIONAL: no WI in the source data; IP card on GitHub (pulp-unibo/ip-card).",
@@ -6496,7 +6597,7 @@
           "WI": "WI2.5.11"
         },
         {
-          "Comment": "Not released yet. It will be available at https://github.com/accemic/c-trace.",
+          "Comment": "Available at https://github.com/accemic/c-trace.",
           "Description": "Architecture and design of RISC-V Trace IP",
           "IPs": [
             "c-trace"
@@ -6916,7 +7017,7 @@
           "WI": "WI4.3.1"
         },
         {
-          "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We plan to support CVA-6 for PikeOS.",
+          "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We support CVA-6 for PikeOS.",
           "IPs": [
             "pikeos"
           ],

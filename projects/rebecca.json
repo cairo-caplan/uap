@@ -16,7 +16,7 @@
     { "TaskId": "rebecca-io-coherency", "WI": "TBD", "Title": "I/O Coherency", "IPs": ["io-coherency"], "Partners": ["Open-Source"], "Description": "Coherent data for ASIC accelerators accessing L2 cache", "Comment": "PROVISIONAL: no WI in the source data." },
     { "TaskId": "rebecca-dma", "WI": "TBD", "Title": "DMA", "IPs": ["dma"], "Partners": ["EXA"], "Description": "Fast data transfer support between RISC-V subsystem and external memories", "Comment": "PROVISIONAL: no WI in the source data." },
     { "TaskId": "rebecca-booting", "WI": "TBD", "Title": "Booting Devices", "IPs": ["booting-devices"], "Partners": ["EXA"], "Description": "Support for BootROM as well as BootRAM for SD and/or JTAG boot", "Comment": "PROVISIONAL: no WI in the source data." },
-    { "TaskId": "rebecca-pikeos", "WI": "TBD", "Title": "PikeOS and Hypervisor", "IPs": ["pikeos"], "Partners": ["SYSGO"], "Comment": "PROVISIONAL: no WI/description in the source data." },
+    { "TaskId": "rebecca-pikeos", "WI": "WP3", "Title": "PikeOS and Hypervisor", "IPs": ["pikeos"], "Partners": ["SYSGO"] },
     { "TaskId": "rebecca-xng", "WI": "TBD", "Title": "XtratuM Hypervisor", "IPs": ["xng-hypervisor"], "Partners": ["FENTISS"], "Comment": "PROVISIONAL: no WI in the source data; IP card on GitHub (pulp-unibo/ip-card)." },
     { "TaskId": "rebecca-kubernetes", "WI": "TBD", "Title": "Kubernetes", "IPs": ["kubernetes"], "Partners": ["FORTH"], "Comment": "PROVISIONAL: no WI/description in the source data." },
     { "TaskId": "rebecca-safelayer", "WI": "TBD", "Title": "SafeLayer", "IPs": ["safelayer"], "Partners": ["ZHAW"], "Comment": "PROVISIONAL: no WI/description in the source data." },

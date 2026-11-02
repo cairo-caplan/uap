@@ -13,11 +13,11 @@ How to read a task line: the old `ips/<project>.json` entry is identified
 by its `TaskId` (the `WI` and `Title` are carried over verbatim); `IPs`
 lists the new `ips/*.json` documents the task references.
 
-**Totals:** 241 IP documents, 253 tasks across 5 project files.
+**Totals:** 242 IP documents, 255 tasks across 5 project files.
 
 ## Review checklists
 
-### IP owners still `TBD` (7)
+### IP owners still `TBD` (6)
 
 Per Decision 4, owners were **not** inferred from the old task Partners.
 Fill these in case by case (`Owners` in `ips/<id>.json`, then regenerate
@@ -26,12 +26,11 @@ Fill these in case by case (`Owners` in `ips/<id>.json`, then regenerate
 - `ai-asset-workflow` — AI Asset Workflow
 - `cpi` — CPI
 - `cupmn-cc-hbm3` — CC HBM3
-- `lavinium` — Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability
 - `rtca6-4core` — RTCA6-4Core
 - `socsmith` — SoCSmith
 - `yosys` — Yosys
 
-### IP comments marked `PROVISIONAL` (127)
+### IP comments marked `PROVISIONAL` (123)
 
 Grouping, canonical URLs or owner guesses flagged during migration:
 
@@ -68,7 +67,6 @@ Grouping, canonical URLs or owner guesses flagged during migration:
 - `cva6-4core`: PROVISIONAL (REBECCA); canonical URL unknown. Related base IP: ips/cva6.json.
 - `cva6-enhanced-safe-secure`: PROVISIONAL (RIGOLETTO T2.1/T3.1); canonical URL unknown.
 - `cva6-error-detection`: PROVISIONAL (RIGOLETTO T3.1); canonical URL unknown.
-- `cva6-multicore-experiments`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `cva6-processor-extensions`: PROVISIONAL: owners derived from the ISOLDE partner (TDIS); canonical URL unknown.
 - `cva6-split-lockstep`: PROVISIONAL (RIGOLETTO T3.1); canonical URL unknown.
 - `cva6-splitlockstep-dv`: PROVISIONAL (RIGOLETTO T3.1); canonical URL unknown.
@@ -96,14 +94,12 @@ Grouping, canonical URLs or owner guesses flagged during migration:
 - `fpu-fi-analysis`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `fpu-mixed-precision`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `grlib`: PROVISIONAL: owners derived from the ISOLDE partner.
-- `high-perf-cache-analysis`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `ids-aho-corasick`: PROVISIONAL (REBECCA); canonical URL unknown. Note: 'GPL' is not a valid SPDX id — set to GPL-2.0-or-later or GPL-3.0-or-later once confirmed.
 - `imec-neuromorphic`: PROVISIONAL (REBECCA); canonical URL unknown.
 - `intel-shuttle`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `io-coherency`: PROVISIONAL (REBECCA); canonical URL unknown.
 - `keccak-pqc`: PROVISIONAL (RIGOLETTO T2.1/T3.1/T2.2/T3.2).
 - `kubernetes`: PROVISIONAL (REBECCA); URL to the upstream project, confirm the fork actually used.
-- `lavinium`: PROVISIONAL: owners unknown in the source data; canonical URL unknown.
 - `ldpc`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `llvm-mlir-sal`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `low-power-multiplier`: PROVISIONAL (RIGOLETTO T3.1/T3.2); canonical URL unknown.
@@ -113,7 +109,6 @@ Grouping, canonical URLs or owner guesses flagged during migration:
 - `manycore-toolchain`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `memsub-bytecode-vm`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
 - `ml-compiler-ml-accelerator`: PROVISIONAL (REBECCA); companion of ips/csem-ml-accelerator.json.
-- `ml-dse-cnn-compiler`: PROVISIONAL (REBECCA); canonical URL unknown.
 - `moonlight`: PROVISIONAL URL (derived from the Scale4Edge entry) — confirm the exact repository; contact eyck@minres.com.
 - `motor-control`: PROVISIONAL: owners derived from the ISOLDE partners; canonical URL unknown.
 - `neuromorphic-hw-accelerator`: PROVISIONAL: owners derived from the ISOLDE partner; canonical URL unknown.
@@ -163,10 +158,12 @@ Grouping, canonical URLs or owner guesses flagged during migration:
 - `xng-hypervisor`: Single IP referenced by several ISOLDE WIs (IDs 2.4.01, 3.1.11, 4.1.09, 4.3.12, 4.3.13, 2.2.08); local IP cards at ip_cards/FENTISS_ISOLDE_-_*.json. PROVISIONAL: URL taken from the card text.
 - `yolo-object-detector`: PROVISIONAL (REBECCA); canonical URL unknown.
 
-### Tasks with `WI: TBD` (37)
+### Tasks with `WI: TBD` (38)
 
 The source data carried no Work Item identifier:
 
+- `isolde-cont-mem-alloc` (Continuous Memory Allocator)
+- `isolde-riscv2ta-gui` (RISCV2TA End-User Inference GUI)
 - `rebecca-rv-main-proc` (RISC-V Main Processor Complex)
 - `rebecca-axi-crossbar` (AXI Crossbar for Central Interconnect)
 - `rebecca-ids` (Intrusion-Detection System (IDS) Module)
@@ -181,7 +178,6 @@ The source data carried no Work Item identifier:
 - `rebecca-io-coherency` (I/O Coherency)
 - `rebecca-dma` (DMA)
 - `rebecca-booting` (Booting Devices)
-- `rebecca-pikeos` (PikeOS and Hypervisor)
 - `rebecca-xng` (XtratuM Hypervisor)
 - `rebecca-kubernetes` (Kubernetes)
 - `rebecca-safelayer` (SafeLayer)
@@ -205,9 +201,8 @@ The source data carried no Work Item identifier:
 - `scale4edge-qta` (QTA - QEMU Timing Analyzer)
 - `scale4edge-muriscv-nn` (muRISCV-NN)
 
-### Tasks with `Partners: TBD` (2)
+### Tasks with `Partners: TBD` (1)
 
-- `isolde-4.3.10` (Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability): Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability
 - `tristan-wi5.2.5-yosys` (Yosys): Yosys
 
 ## Compatibility matrix remapping (Decision 5)
@@ -282,15 +277,14 @@ carried them twice with different content; merge after review.
 | `isolde-2.2.02` | ID 2.2.02 | Wormhole NoC | `wormhole-noc` |  |
 | `isolde-2.2.03` | ID 2.2.03 | AXI Sniffer | `axi-sniffer` |  |
 | `isolde-2.2.04` | ID 2.2.04 | AHB Crossbar | `ahb-crossbar` | PROVISIONAL |
-| `isolde-2.2.05` | ID 2.2.05 | AHB/APB Interrupt Controller | `ahb-apb-interrupt-controller` | PROVISIONAL |
-| `isolde-2.2.06` | ID 2.2.06 | AHB/APB Timer | `ahb-apb-timer` | PROVISIONAL |
+| `isolde-2.2.05` | ID 2.2.05 | AHB Interrupt Controller | `ahb-apb-interrupt-controller` | PROVISIONAL |
+| `isolde-2.2.06` | ID 2.2.06 | AHB Timer | `ahb-apb-timer` | PROVISIONAL |
 | `isolde-2.2.07` | ID 2.2.07 | GRLIB IP library | `grlib` | PROVISIONAL |
 | `isolde-2.3.01` | ID 2.3.01 | Context-Aware CORE Extensions | `context-aware-core-extensions` | PROVISIONAL |
 | `isolde-2.3.02` | ID 2.3.02 | Memory bank interface | `memory-bank-interface` |  |
 | `isolde-2.3.03` | ID 2.3.03 | Extension interface for NOEL-V | `extension-interface-noel-v` | PROVISIONAL |
 | `isolde-2.3.04` | ID 2.3.04 | Extension interface for CVA6 | `extension-interface-cva6` | PROVISIONAL |
 | `isolde-2.3.05` | ID 2.3.05 | Interface between CVA6 and Vector accelerator | `cva6-vector-interface` |  |
-| `isolde-2.4.02` | ID 2.4.02 | CVA6 multicore experiments and analysis | `cva6-multicore-experiments` | PROVISIONAL |
 | `isolde-2.4.03` | ID 2.4.03 | SW Abstraction Layer for RISC-V Processors | `sw-abstraction-layer-riscv` | PROVISIONAL |
 | `isolde-2.4.04` | ID 2.4.04 | NOEL-V software tools | `noel-v-software-tools` | PROVISIONAL |
 | `isolde-3.1.01-safeti` | ID 3.1.01 | Safety-related Traffic Injector | `safe-ti` |  |
@@ -303,7 +297,6 @@ carried them twice with different content; merge after review.
 | `isolde-3.1.08` | ID 3.1.08 | Memory subsystem support for Bytecode VMs | `memsub-bytecode-vm` | PROVISIONAL |
 | `isolde-3.1.10` | ID 3.1.10 | Root-of-Trust Unit Design and Interface with RISC-V Host Processor (TitanCFI) | `rot-titancfi` |  |
 | `isolde-3.1.12` | ID 3.1.12 | Safety Control | `safety-control` | PROVISIONAL |
-| `isolde-3.1.13` | ID 3.1.13 | High-Performance Cache Analysis | `high-perf-cache-analysis` | PROVISIONAL |
 | `isolde-3.2.01` | ID 3.2.01 | Floating-Point Unit (FPU) for RISC-V | `fpu` | PROVISIONAL |
 | `isolde-3.2.02` | ID 3.2.02 | FPU for mixed-precision computing | `fpu-mixed-precision` | PROVISIONAL |
 | `isolde-3.2.03` | ID 3.2.03 | Scratchpad Memory | `scratchpad-memory` |  |
@@ -322,8 +315,8 @@ carried them twice with different content; merge after review.
 | `isolde-3.5.02` | ID 3.5.02 | Multipurpose Accelerator for PQC | `pqc-multipurpose` | PROVISIONAL |
 | `isolde-3.5.03` | ID 3.5.03 | Accelerator for post-quantum key encapsulation mechanism BIKE (ACC-BIKE) | `acc-bike` | PROVISIONAL |
 | `isolde-3.5.04` | ID 3.5.04 | Number Theoretic Transform Algorithms for Post Quantum Cryptography (NTT) | `ntt` | PROVISIONAL |
-| `isolde-3.5.05` | ID 3.5.05 | Secured RISC-V Processor with Cryptographic Accelerators (SEC) | `sec` | PROVISIONAL |
-| `isolde-3.6.01` | ID 3.6.01 | Motor Control accelerator | `motor-control` | PROVISIONAL |
+| `isolde-3.5.05` | ID 3.5.05 | Cryptographic Accelerators for RISC-V (SEC) | `sec` | PROVISIONAL |
+| `isolde-3.6.01` | ID 3.6.01 | Motor Control Accelerator | `motor-control` | PROVISIONAL |
 | `isolde-3.6.02` | ID 3.6.02 | SCA | `sca` | PROVISIONAL |
 | `isolde-3.6.03` | ID 3.6.03 | LDPC | `ldpc` | PROVISIONAL |
 | `isolde-3.6.04` | ID 3.6.04 | Neuromorphic HW Accelerator | `neuromorphic-hw-accelerator` | PROVISIONAL |
@@ -358,22 +351,26 @@ carried them twice with different content; merge after review.
 | `isolde-4.2.19` | ID 4.2.19 | Basic toolchain for the many-core parallel accelerator | `manycore-toolchain` | PROVISIONAL |
 | `isolde-4.3.01` | ID 4.3.01 | CHESSY: Coupled Hybrid Emulation with SystemC-FPGA Synchronization | `chessy` |  |
 | `isolde-4.3.02` | ID 4.3.02 | Time Contract Co-processor Compiler (TCCP-CO) | `tccp` |  |
-| `isolde-4.3.03` | ID 4.3.03 | Power/Performance Modeling for Design Space Exploration PPM-DSE | `ppm-dse` | PROVISIONAL |
+| `isolde-4.3.03` | ID 4.3.03 | SILVACO CVA6 AI-Assisted Power and Performance Design Space Explorer (PPM-DSE) | `ppm-dse` | PROVISIONAL |
 | `isolde-4.3.04` | ID 4.3.04 | Bit-accurate FPGA fault injection (BAFFI) tool | `baffi` |  |
 | `isolde-4.3.05` | ID 4.3.05 | cosim-gen | `cosim-gen` |  |
 | `isolde-4.3.06` | ID 4.3.06 | Software simulator for the AI/ML Accelerator | `aiml-simulator` |  |
 | `isolde-4.3.07` | ID 4.3.07 | Verilator-based Fault-Injection Framework | `fi-framework` | PROVISIONAL |
-| `isolde-4.3.08` | ID 4.3.08 | Open-Source Verification Flow for High Performance Cores, Accelerators and Demonstrators | `open-verification-flow` | PROVISIONAL |
+| `isolde-4.3.08` | ID 4.3.08 | Verification Flow for High Performance Cores, Accelerators and Demonstrators | `open-verification-flow` | PROVISIONAL |
 | `isolde-2.4.01` | ID 2.4.01 | XNG RISC-V BSP to support new NOEL-V features | `xng-hypervisor` |  |
 | `isolde-3.1.11` | ID 3.1.11 | Integration and support in XNG hypervisor for SafeTI and SafeSU IPs | `xng-hypervisor`, `safe-ti`, `safe-su` |  |
 | `isolde-4.1.09` | ID 4.1.09 | XNG hypervisor CVA6 board support package (with H-extension) | `xng-hypervisor` |  |
+| `isolde-4.2.01` | ID 4.2.01 | ML Design Space Exploration and Compiler for CNN Accelerator | `ml-dse-cnn-compiler` |  |
 | `isolde-4.3.12` | ID 4.3.12 | XNG hypervisor integration of validation tools | `xng-hypervisor` |  |
 | `isolde-4.3.13` | ID 4.3.13 | XNG hypervisor runtime fault diagnosis tests integration | `xng-hypervisor` |  |
 | `isolde-2.2.08` | ID 2.2.08 | L2C-Lite partitioning in XtratuM/NG | `xng-hypervisor` |  |
 | `isolde-2.2.08-ahb-filter` | ID 2.2.08 | AHB Filter support in XtratuM/NG | `xng-hypervisor` | PROVISIONAL |
 | `isolde-4.3.09` | ID 4.3.09 | Tooling to ensure compliance with multicore timing certification objectives | `compliance-cert-tooling` | PROVISIONAL |
-| `isolde-4.3.10` | ID 4.3.10 | Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability | `lavinium` | Partners TBD, PROVISIONAL |
+| `isolde-4.3.10` | ID 4.3.10 | Lavinium WCET Analyzer and Optimizer | `lavinium` |  |
 | `isolde-4.3.11` | ID 4.3.11 | Fault-Injection-Analysis of FPU Unit | `fpu-fi-analysis` | PROVISIONAL |
+| `isolde-cont-mem-alloc` | TBD | Continuous Memory Allocator | `continuous-memory-allocator` | WI TBD, PROVISIONAL |
+| `isolde-riscv2ta-gui` | TBD | RISCV2TA End-User Inference GUI | `riscv2ta-end-user-inference-gui` | WI TBD, PROVISIONAL |
+| `isolde-5.3` | 5.3 | Smart home OpenEMS demo setup | `smart-home-openems-demo-setup` |  |
 
 ### REBECCA (`projects/rebecca.json`, was `ips/rebecca.json`)
 
@@ -393,7 +390,7 @@ carried them twice with different content; merge after review.
 | `rebecca-io-coherency` | TBD | I/O Coherency | `io-coherency` | WI TBD, PROVISIONAL |
 | `rebecca-dma` | TBD | DMA | `dma` | WI TBD, PROVISIONAL |
 | `rebecca-booting` | TBD | Booting Devices | `booting-devices` | WI TBD, PROVISIONAL |
-| `rebecca-pikeos` | TBD | PikeOS and Hypervisor | `pikeos` | WI TBD, PROVISIONAL |
+| `rebecca-pikeos` | WP3 | PikeOS and Hypervisor | `pikeos` |  |
 | `rebecca-xng` | TBD | XtratuM Hypervisor | `xng-hypervisor` | WI TBD, PROVISIONAL |
 | `rebecca-kubernetes` | TBD | Kubernetes | `kubernetes` | WI TBD, PROVISIONAL |
 | `rebecca-safelayer` | TBD | SafeLayer | `safelayer` | WI TBD, PROVISIONAL |
@@ -549,14 +546,14 @@ carried them twice with different content; merge after review.
 
 ## IP inventory
 
-241 independent IPs (`ips/<Id>.json`). `Tasks` counts the tasks
+242 independent IPs (`ips/<Id>.json`). `Tasks` counts the tasks
 referencing the IP across all project files (0 is legitimate — Decision 3).
 
 | IP Id | Name | Owners | Tasks |
 |---|---|---|---|
 | `acc-bike` | Accelerator for post-quantum key encapsulation mechanism BIKE (ACC-BIKE) | Politecnico di Milano | 1 |
-| `ahb-apb-interrupt-controller` | AHB/APB Interrupt Controller | Infineon Technologies AG | 1 |
-| `ahb-apb-timer` | AHB/APB Timer | Infineon Technologies AG | 1 |
+| `ahb-apb-interrupt-controller` | AHB Interrupt Controller | Infineon Technologies AG | 1 |
+| `ahb-apb-timer` | AHB Timer | Infineon Technologies AG | 1 |
 | `ahb-crossbar` | AHB Crossbar | Infineon Technologies AG | 1 |
 | `ai-asset-workflow` | AI Asset Workflow | BCA, TBD | 1 |
 | `ai-mapper` | AI Mapper | ZHAW | 1 |
@@ -596,6 +593,7 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `compliance-cert-tooling` | Tooling to ensure compliance with multicore timing certification objectives | RAPITA | 1 |
 | `context-aware-bus` | Context-Aware Bus | Thales SA | 1 |
 | `context-aware-core-extensions` | Context-Aware CORE Extensions | Thales SA | 1 |
+| `continuous-memory-allocator` | Continuous Memory Allocator | UPB | 1 |
 | `core-v-verif` | CORE-V-VERIF | OpenHW Foundation | 2 |
 | `coredsl` | Core DSL | MINRES Technologies GmbH | 1 |
 | `corev-binutils-gdb` | COREV Binutils | Universita di Bologna | 1 |
@@ -613,7 +611,6 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `cva6-eclipse-demo` | Setting up Yocto and baremetal debug on CVA6 | Thales SA | 2 |
 | `cva6-enhanced-safe-secure` | CVA6-EnhancedSafe&Secure | Thales SA | 1 |
 | `cva6-error-detection` | IPErrorDetectionCVA6 | Thales DIS France SAS | 1 |
-| `cva6-multicore-experiments` | CVA6 multicore experiments and analysis | SYSGO GmbH | 1 |
 | `cva6-processor-extensions` | CVA6 processor extensions | Thales DIS France SAS | 1 |
 | `cva6-split-lockstep` | IP-CVA6-SplitLockStep | Universita di Bologna | 2 |
 | `cva6-splitlockstep-dv` | CVA6-SplitLockStep-DV | Eclipse Foundation Europe GmbH | 1 |
@@ -656,7 +653,6 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `gvsoc` | GVSOC | Universita di Bologna | 1 |
 | `hal-rot` | HAL for RoT unit as a secure-coprocessor | Universita di Bologna | 1 |
 | `hci` | Heterogeneous Cluster Interconnect (HCI) | Universita di Bologna | 1 |
-| `high-perf-cache-analysis` | High-Performance Cache Analysis | SYSGO GmbH | 1 |
 | `hls-pqc` | HLS-based Post-Quantum Cryptographic Accelerator (HLS-PQC) | Barcelona Supercomputing Center | 1 |
 | `hpdcache` | HPDcache | Commissariat a l’Energie Atomique et aux Energies Alternatives | 1 |
 | `ids-aho-corasick` | Intrusion-Detection System (IDS) Module | TUC | 1 |
@@ -673,7 +669,7 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `kenning` | Kenning | Antmicro SP Zoo | 1 |
 | `kubernetes` | Kubernetes | FORTH | 1 |
 | `lauterbach-cva6` | Lauterbach support for CVA6 (instructions how to use Lauterbach on CVA6) | SYSGO GmbH | 1 |
-| `lavinium` | Optimizing WCET with LAVINIUM Toolchain: A Scheduling Solution for Improved Reliability | TBD | 1 |
+| `lavinium` | Lavinium WCET Analyzer and Optimizer | Politecnico di Milano | 1 |
 | `ldpc` | LDPC | ACP | 1 |
 | `llvm-bcfi` | LLVM support for backward-edge CFI | NXP Semiconductors Austria GmbH & Co. KG | 1 |
 | `llvm-ctm` | LLVM support for cryptographically tagged memory | NXP Semiconductors Austria GmbH & Co. KG | 1 |
@@ -691,9 +687,9 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `messy` | Messy | Politecnico di Torino | 1 |
 | `meta-cva6-yocto` | Yocto for CVA6 | Thales SA | 1 |
 | `ml-compiler-ml-accelerator` | ML Compiler for ML Accelerator | CSEM | 1 |
-| `ml-dse-cnn-compiler` | ML Design Space Exploration and Compiler for CNN Accelerator | Politecnico di Torino | 1 |
+| `ml-dse-cnn-compiler` | ML Design Space Exploration and Compiler for CNN Accelerator | Politecnico di Torino | 2 |
 | `moonlight` | Moonlight | MINRES Technologies GmbH | 1 |
-| `motor-control` | Motor Control accelerator | Codasip GmbH, BUT, NXP-CZ | 2 |
+| `motor-control` | Motor Control Accelerator | Codasip GmbH, BUT, NXP-CZ | 2 |
 | `mpc-benchmark` | Model Prediction Control Application | NXP-CZ | 1 |
 | `muriscv-nn` | muRISCV-NN | Technische Universität München | 1 |
 | `neuromorphic-hw-accelerator` | Neuromorphic HW Accelerator | Politecnico di Torino | 1 |
@@ -701,7 +697,7 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `noel-v-software-tools` | NOEL-V software tools | GSL | 1 |
 | `ntt` | Number Theoretic Transform Algorithms for Post Quantum Cryptography (NTT) | IMT | 1 |
 | `obi-interconnect` | OBI interconnect | Commissariat a l’Energie Atomique et aux Energies Alternatives | 1 |
-| `open-verification-flow` | Open-Source Verification Flow for High Performance Cores, Accelerators and Demonstrators | Infineon Technologies AG, HM | 1 |
+| `open-verification-flow` | Verification Flow for High Performance Cores, Accelerators and Demonstrators | Infineon Technologies AG | 1 |
 | `openasip` | Co-processor Generator Tool | Tampere University | 1 |
 | `openmp-lite` | OpenMP Lite | NXP Semiconductors Romania SRL | 1 |
 | `pca` | Parallel Computing Accelerator (PCA) | Politecnico di Torino | 1 |
@@ -711,7 +707,7 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `plinio` | Plinio | Politecnico di Torino | 2 |
 | `pmdi-ips` | IPs with integrated Context-Aware PMCs | Thales SA | 1 |
 | `politano-cnn-acc` | CNN Accelerator | Politecnico di Torino | 1 |
-| `ppm-dse` | Power/Performance Modeling for Design Space Exploration PPM-DSE | SILVACO | 1 |
+| `ppm-dse` | SILVACO CVA6 AI-Assisted Power and Performance Design Space Explorer (PPM-DSE) | SILVACO | 1 |
 | `pqc-multipurpose` | Multipurpose Accelerator for PQC | SAL | 1 |
 | `pqc-swip` | PQC-SWIP | NXP Semiconductors Austria GmbH & Co. KG | 1 |
 | `pulp-nn-sparse` | Pulp-NN-sparse | Politecnico di Torino | 2 |
@@ -728,6 +724,7 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `riscv-nn` | CMSIS-like Open-Source AI, DSP and compute (e.g. BLAS) libraries | Infineon Technologies AG, Politecnico di Torino, Universita di Bologna, Commissariat a l’Energie Atomique et aux Energies Alternatives | 1 |
 | `riscv-runtime` | RISC-V Runtime | Commissariat a l’Energie Atomique et aux Energies Alternatives | 1 |
 | `riscv-sw-ai-inference` | RISC-V Software AI Inference Engine | Klepsydra | 1 |
+| `riscv2ta-end-user-inference-gui` | RISCV2TA End-User Inference GUI | UPB | 1 |
 | `riviera` | Riviera: RISC-V ISA Extensions for NFC Applications | NXP Semiconductors Austria GmbH & Co. KG | 1 |
 | `rocketchip` | IP-RocketChip | FZI | 1 |
 | `root-of-trust` | IP-Root-Of-Trust | COM | 1 |
@@ -753,8 +750,9 @@ referencing the IP across all project files (0 is legitimate — Decision 3).
 | `scratchpad-memory` | Scratchpad Memory | IMT | 2 |
 | `sdk-neuromorphic` | SDK for Neuromorphic Accelerator | Interuniversitair Micro-electronica Centrum | 1 |
 | `sdk-watchdog` | SDK for Watchdog AI Accelerator | SYN | 1 |
-| `sec` | Secured RISC-V Processor with Cryptographic Accelerators (SEC) | BEIA | 1 |
+| `sec` | Cryptographic Accelerators for RISC-V (SEC) | BEIA | 1 |
 | `simd-vector-accelerator` | SIMD/Vector Accelerator | IMT | 2 |
+| `smart-home-openems-demo-setup` | Smart home OpenEMS demo setup | SYSGO GmbH, CONS, BYK, FZI, BEIA | 1 |
 | `socmake` | SoCMAKE | CERN | 1 |
 | `socsmith` | SoCSmith | TBD | 1 |
 | `space-edge-framework` | Execution Framework for Space edge computing | TASI | 1 |

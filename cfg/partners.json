@@ -201,7 +201,7 @@
   },
   {
     "id": "openhw",
-    "name": "OpenHW Foundation",
+    "name": "Eclipse Foundation - OpenHW Foundation WG",
     "aliases": [
       "OpenHW",
       "Eclipse Foundation Europe GmbH",
@@ -382,7 +382,7 @@
   {
     "id": "uzl",
     "name": "UZL",
-    "aliases": []
+    "aliases": ["Universität zu Lübeck", "University of Lübeck"]
   },
   {
     "id": "vlsi",

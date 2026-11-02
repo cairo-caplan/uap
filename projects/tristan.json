@@ -90,7 +90,7 @@
       "Description": "Architecture and design of RISC-V Trace IP",
       "IPs": ["c-trace"],
       "Partners": ["Accemic Technologies", "Fraunhofer", "MINRES Technologies", "SYSGO"],
-      "Comment": "Not released yet. It will be available at https://github.com/accemic/c-trace."
+      "Comment": "Available at https://github.com/accemic/c-trace."
     },
     {
       "TaskId": "tristan-wi2.5.10",
@@ -355,7 +355,7 @@
       "TaskId": "tristan-wi4.3.3-pikeos",
       "WI": "WI4.3.3",
       "Title": "PikeOS CVA-6 support",
-      "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We plan to support CVA-6 for PikeOS.",
+      "Description": "CVA6 is a 6-stage, single-issue, in-order CPU which implements the 64-bit RISC-V instruction set. PikeOS is a portable real-time operating system based on a separation kernel designed for the highest levels of Safety & Security. The PikeOS technology is certifiable by various certification standards including DO-178C, ECSS, EN 50128 / EN 50657, IEC 61508, and ISO 26262. We support CVA-6 for PikeOS.",
       "IPs": ["pikeos"],
       "Partners": ["SYSGO"]
     },

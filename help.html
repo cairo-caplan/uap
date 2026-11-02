@@ -118,8 +118,14 @@
                     <p><strong>Note:</strong> This field is currently not validated by the platform. It shall be limited to a set of options in the future, to be discussed by the VRTG.</p>
                 </div>
             </li>
-            <li><strong>Description</strong> / <strong>Comment</strong> / <strong>IP_CARD_URL</strong> / <strong>IP_CARD_PDF_URL</strong>: one-paragraph summary, internal notes, and optional IP-card links (cards must live in <code>ip_cards/</code>).</li>
-          </ul>
+            <li><strong>Description</strong> / <strong>Comment</strong> / <strong>IP_CARD_URL</strong> / <strong>IP_CARD_PDF_URL</strong>: one-paragraph summary, internal notes, and optional IP-card links (a locally hosted card must live in <code>ip_cards/</code>).</li>
+            <li><strong>IP card</strong> (<code>IP_CARD_URL</code>): A link to an IP card, a machine-readible JSON description of the IP. For generation and validation, see <a href="https://github.com/pulp-unibo/ip-card">https://github.com/pulp-unibo/ip-card</a>.
+              <div class="note">
+                  <p><strong>Note:</strong> The link may point to any URL of your choice. This e.g. allows to store the IP card with together with the developed item or any other repository under your control, making updates easier. On this platform, a relative link must point into <code>ip_cards/</code>.</p>
+              </div>
+            </li>
+            <li><strong>IP card PDF</strong> (<code>IP_CARD_PDF_URL</code>): A link to a more human-readable PDF export of the JSON IP card. For PDF generation, also see <a href="https://github.com/pulp-unibo/ip-card">https://github.com/pulp-unibo/ip-card</a>.</li>
+            </ul>
           <p>A <strong>project file</strong> holds one row per Task (≡ Work Item):</p>
           <ul>
             <li><strong>TaskId</strong>: <span class="mandatory-field">Mandatory field.</span> Unique identifier, conventionally <code>&lt;project&gt;-&lt;wi&gt;</code> (e.g. <code>tristan-wi2.4.1</code>).</li>
