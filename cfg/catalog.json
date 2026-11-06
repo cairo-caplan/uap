@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T18:27:42Z",
+  "generated_at": "2026-11-05T22:06:34Z",
   "ips": {
     "acc-bike": {
       "Category": [
@@ -3525,7 +3525,7 @@
       "Owners": [
         "OFFIS"
       ],
-      "Status": "Prototype.",
+      "Status": "Released",
       "URL": "https://github.com/offis/isolde-tccp"
     },
     "testing-design-params-cva6": {
@@ -4505,7 +4505,7 @@
           "Partners": [
             "OFFIS"
           ],
-          "Status": "Prototype.",
+          "Status": "Released",
           "TaskId": "isolde-3.3.02",
           "Title": "Time Contract Monitoring Co-Processor (TCCP)",
           "WI": "ID 3.3.02"
@@ -5205,7 +5205,7 @@
           "Partners": [
             "OFFIS"
           ],
-          "Status": "Prototype.",
+          "Status": "Released",
           "TaskId": "isolde-4.3.02",
           "Title": "Time Contract Co-processor Compiler (TCCP-CO)",
           "WI": "ID 4.3.02"
