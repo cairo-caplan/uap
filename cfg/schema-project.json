@@ -44,10 +44,10 @@
               { "type": "string", "minLength": 1 }
             ]
           },
-          "ForkURL": {
+          "URL": {
             "type": "string",
             "format": "uri-or-empty",
-            "description": "Fork or branch URL for this task's work, if it differs from the IP canonical URL."
+            "description": "Repository URL for this task's work; may be a fork/branch of an IP. If omitted, the first referenced IP's canonical URL applies."
           },
           "Branch": { "type": "string" },
           "Status": { "type": "string" },

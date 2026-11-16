@@ -3,12 +3,43 @@
 # Copyright (c) 2026 Eclipse Foundation
 """Shared helpers for the UAP scripts (validation, catalogue build, stats).
 
-Used by scripts/validate_ips.py, scripts/build_catalog.py and
-scripts/fetch_repo_stats.py. Standard library only.
+Used by every printing script — scripts/validate_ips.py,
+scripts/build_catalog.py, scripts/fetch_repo_stats.py and
+scripts/upstream_audit.py. Standard library only.
 """
 
+import io
 import json
+import sys
 from pathlib import Path
+
+
+def harden_console():
+    """Make sys.stdout/sys.stderr survive a non-UTF-8 locale.
+
+    2026-11-14: a `py: fetch repo stats` run died on the ellipsis of its
+    "fetching ..." progress line because the shell's console encoding was
+    ASCII — and interpolated provider text can carry any codepoint, so the
+    stream must be fixed, not the call site. Everything is written as UTF-8
+    (errors="replace" covers lone surrogates), so printing can no longer
+    raise. Call once, right after the imports, in every script that prints
+    data. Streams without a `.buffer` (test captures, redirected objects)
+    are left alone, and a stream that refuses to be detached keeps its old
+    behaviour — this must never crash the script at import time.
+    """
+    for name in ("stdout", "stderr"):
+        stream = getattr(sys, name)
+        if not hasattr(stream, "buffer"):
+            continue
+        try:
+            # detach() first: the discarded wrapper must not flush its
+            # (empty) buffer behind the new wrapper's writes.
+            buffer = stream.detach()
+            setattr(sys, name, io.TextIOWrapper(
+                buffer, encoding="utf-8", errors="replace",
+                line_buffering=True))
+        except (AttributeError, ValueError, OSError):
+            continue
 
 
 def load_json(path):

@@ -16,6 +16,13 @@
   <title>Help - Unified RISC-V IP Access Platform (UAP)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <!-- Optional OpenHW Foundation style theme (scoped under html[data-theme="openhw"]) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="theme-openhw.css" />
+  <script src="scripts/theme.js"></script>
   <!-- Favicon (relative: the site may be served from a /sub-path on Pages) -->
   <link rel="icon" type="image/png" href="images/logo_unified-riscv.png" />
   <link rel="apple-touch-icon" href="images/logo_unified-riscv.png" />
@@ -66,11 +73,20 @@
       </div>
 
       <div class="note">
-          <p>The IP catalogue includes a <strong>Repo Stats</strong> column showing public repository statistics (stars, forks, commits) for every entry whose URL (or task fork URL) points to a GitHub or GitLab repository. These figures are collected automatically once a week from the public GitHub and GitLab APIs, so no login is needed and the numbers may be up to seven days old. Entries hosted elsewhere (project pages, proprietary sources) show <em>n/a</em>.</p>
+          <p>The platform shows public repository statistics (stars, forks, commits) for entries whose URL (or task <code>URL</code>) points to a GitHub or GitLab repository. These figures are collected automatically, roughly weekly, from the public GitHub and GitLab APIs, so no login is needed and the numbers may be some days old. A card shows its <strong>Repo Stats</strong> row only when such a repository has cached statistics. Entries hosted elsewhere, such as project pages or proprietary sources, simply omit the row, and the drawer's <em>Statistics</em> field then reads <em>n/a</em>. In the IP view a card also shows the logo of its repository beside the IP name whenever the collected record carries one.</p>
       </div>
 
       <div class="note">
-          <p><strong>Two views:</strong> the platform page switches between the <strong>IP view</strong> (one row per independent IP, listing the project work items that touched it) and the <strong>Project view</strong> (one row per Task / Work Item, listing its IPs and partners). Cards show a compact summary; the complete field set for any entry lives in its <strong>detail drawer</strong> (select a card title). The Compatibility Matrix links jump to the matching IP when its label maps to a catalogue IP, or to the project's task list otherwise.</p>
+          <p><strong>Two views:</strong> the platform page switches between the <strong>IP view</strong> (one row per independent IP, listing the project work items that touched it) and the <strong>Project view</strong> (one row per Task / Work Item, listing its IPs and partners). Cards show a compact summary (fields with no value are left out); the complete field set for any entry lives in its <strong>detail drawer</strong>. Click anywhere on a card, or press Enter on a focused card, to open it. The Compatibility Matrix links jump to the matching IP when its label maps to a catalogue IP, or to the project's task list otherwise.</p>
+          <p>The <strong>Project view</strong> comes in two layouts, chosen with the <strong>Canvas | Grid</strong> switch that appears beside the IPs / Projects control: <strong>Canvas</strong> (the default) floats the project cards on a wide, scrollable stage; <strong>Grid</strong> is the card list described above. On the canvas the caret in a project card's corner opens its task list, and each task lists its IPs as chips: pressing one, or the <em>IPs on canvas</em> toggle inside the task's detail drawer, shows that IP's full card, IP-view summary, repository statistics and repository logo included. Pressing a pressed chip again drops the card. Cards never overlap: expanding, spawning, resizing or dragging a card slides whatever it now covers aside by the smallest possible distance, and any card can be resized with the grip in its bottom-right corner. Typing in the search box dims the non-matching cards and hides non-matching task rows instead of reflowing the canvas, and <em>Escape</em> closes the filter popover, then the drawer, then clears the search, then clears the selection. Positions, sizes, expansions, pinned IP cards and the layout choice itself are remembered for the session; <em>Clear selection</em> drops the IP cards and <em>Reset layout</em> starts over. The attribute filters apply to the Grid layout only, because filtering on the canvas would have to move cards around. The chips stay visible, so an active filter is never hidden from you. Compatibility Matrix links still land on the matching entry in either layout.</p>
+      </div>
+
+      <div class="note">
+          <p><strong>ISOLA assistant (preview):</strong> the top bar of the platform page offers an <strong>ISOLA</strong> tab with the ISOLA catalogue assistant, an AI assistant with an MCP setup. Ask it about the IPs, projects and tasks of this catalogue and it will point you to the matching entries. The assistant only loads when you open the tab. It is a prototype for now and will be integrated into the platform officially in the future.</p>
+      </div>
+
+      <div class="note">
+          <p><strong>Optional page style:</strong> the top bar of the platform page offers an <strong>OpenHW style</strong> switch that restyles the site in the OpenHW Foundation's green/blue tones (Roboto typeface). The choice is remembered in your browser (<code>localStorage</code>) and applies to every page until you switch it back; the default style is always the starting point on a fresh browser.</p>
       </div>
 
       <p>This guide will walk you through the process of adding new RISC-V IPs, subprojects, or updating existing catalogue entries.</p>
@@ -81,13 +97,13 @@
       </div>
 
       <h3>Part 1: Edit or Create Your Contribution to the UAP catalogue</h3>
-      <p style="line-height:1.6;">The catalogue stores two kinds of JSON documents: <strong>IP files</strong> (<code>ips/&lt;id&gt;.json</code> — one independent IP per file) and <strong>project files</strong> (<code>projects/&lt;project&gt;.json</code> — one row per Task / Work Item of an EU research project, each referencing the IP(s) it touched). Use the <a href="editor.html">Editor</a> to create or update either kind. The workflow below explains recommended steps to prepare, save and submit changes via a GitHub Pull Request (PR).</p>
+      <p style="line-height:1.6;">The catalogue stores two kinds of JSON documents: <strong>IP files</strong>, one independent IP per <code>ips/&lt;id&gt;.json</code> file, and <strong>project files</strong>, one <code>projects/&lt;project&gt;.json</code> file per EU research project holding one row per Task / Work Item, each row referencing the IP or IPs it touched. Use the <a href="editor.html">Editor</a> to create or update either kind. The workflow below explains recommended steps to prepare, save and submit changes via a GitHub Pull Request (PR).</p>
 
       <ol style="line-height:1.7;">
         <li><strong>Open the Editor</strong>:  click on the <a href="editor.html">Editor</a> button at the top of the site.</li>
 
         <li><strong>Pick the document kind, then load or create a file</strong>
-          <p>At the top of the Editor, choose <em>IP file (ips/)</em> or <em>Project file (projects/)</em> — the table adapts to the kind. Files are listed from the platform catalogue:</p>
+          <p>At the top of the Editor, choose <em>IP file (ips/)</em> or <em>Project file (projects/)</em>; the table adapts to the kind. Files are listed from the platform catalogue:</p>
           <ul>
             <li>Choose an existing <code>ips/&lt;id&gt;.json</code> or <code>projects/&lt;project&gt;.json</code> from the <em>Select file from repository</em> dropdown, then <em>Load</em>.</li>
             <li>Or load a local JSON with the <em>Upload file</em> button (the kind is detected from the file itself).</li>
@@ -100,7 +116,7 @@
           <ul>
             <li><strong>Id</strong>: <span class="mandatory-field">Mandatory field.</span> Lowercase slug (letters, digits, <code>-</code>, <code>.</code>, <code>_</code>); this is also the file name (<code>ips/&lt;Id&gt;.json</code>).</li>
             <li><strong>Name</strong>: <span class="mandatory-field">Mandatory field.</span> The IP's display name.</li>
-            <li><strong>Owners</strong>: <span class="mandatory-field">Mandatory field (≥1).</span> The organisation(s) that <em>own</em> the IP, picked from the registry in <code>cfg/partners.json</code> (names or abbreviations). While owners are still being assigned, <code>TBD</code> is accepted — resolve it case by case afterwards.</li>
+            <li><strong>Owners</strong>: <span class="mandatory-field">Mandatory field (≥1).</span> The organisation(s) that <em>own</em> the IP, picked from the registry in <code>cfg/partners.json</code> (names or abbreviations). While owners are still being assigned, <code>TBD</code> is accepted; resolve it case by case afterwards.</li>
             <li><strong>Category</strong>: <span class="mandatory-field">Mandatory field.</span>
                 <p>Assign your IP to one or more existing categories. These categories are pre-defined in the <code>cfg/categories.json</code> file. You can select multiple categories from the dropdown list that appears when you interact with this field.</p>
                 <div class="warning">
@@ -131,14 +147,14 @@
             <li><strong>TaskId</strong>: <span class="mandatory-field">Mandatory field.</span> Unique identifier, conventionally <code>&lt;project&gt;-&lt;wi&gt;</code> (e.g. <code>tristan-wi2.4.1</code>).</li>
             <li><strong>WI</strong>: <span class="mandatory-field">Mandatory field.</span> Work Item identifier(s) under your Project (use <code>TBD</code> while unknown).</li>
             <li><strong>Title</strong>: <span class="mandatory-field">Mandatory field.</span> Short name of the work delivered.</li>
-            <li><strong>IPs</strong>: <span class="mandatory-field">Mandatory field (≥1).</span> The IP id(s) this task touches, picked from the catalogue. A task may span several IPs; never invent an id — create the IP file first.</li>
+            <li><strong>IPs</strong>: <span class="mandatory-field">Mandatory field (≥1).</span> The IP id(s) this task touches, picked from the catalogue. A task may span several IPs; never invent an id, create the IP file first.</li>
             <li><strong>Partners</strong>: <span class="mandatory-field">Mandatory field (≥1).</span> Organization(s) working on this task, from <code>cfg/partners.json</code>. Use the abbreviations established in your Project's official documents.</li>
-            <li><strong>ForkURL</strong> / <strong>Branch</strong>: when the work lives in a fork or branch rather than the IP's canonical URL.</li>
+            <li><strong>URL</strong> / <strong>Branch</strong>: when the work lives in a fork or branch rather than the IP's canonical URL.</li>
             <li><strong>Status</strong> / <strong>Description</strong> / <strong>Comment</strong>: free-text task state, summary, and notes.</li>
           </ul>
         </li>
 
-        <li><strong>Save the file</strong>:  Click <em>Save to JSON File</em>. The editor validates the required fields and references (owners, partners, IP ids, categories, licenses) and downloads the resulting JSON to your machine — an IP file arrives as <code>&lt;Id&gt;.json</code> for the <code>ips/</code> folder, a project file as <code>&lt;project&gt;.json</code> for the <code>projects/</code> folder.</li>
+        <li><strong>Save the file</strong>:  Click <em>Save to JSON File</em>. The editor validates the required fields and references (owners, partners, IP ids, categories, licenses) and downloads the resulting JSON to your machine: an IP file arrives as <code>&lt;Id&gt;.json</code> for the <code>ips/</code> folder, a project file as <code>&lt;project&gt;.json</code> for the <code>projects/</code> folder.</li>
 
         <li><strong>Submit your changes via a GitHub Pull Request (PR)</strong>
           <ol>
@@ -185,7 +201,7 @@
                   <li>Ensure the base repository is <code>openhwfoundation/uap</code> and the head repository is your fork (e.g., <code>YOUR_USERNAME/uap</code>).</li>
               </ol>
             </li>
-            <li>OpenHW staff will review and merge the PR; once merged the live site will update shortly (the catalogue aggregate <code>cfg/catalog.json</code> is validated on the PR and regenerated by CI shortly after the merge — GitHub Pages itself runs no build).</li>
+            <li>OpenHW staff will review and merge the PR; once merged the live site will update shortly. The catalogue aggregate <code>cfg/catalog.json</code> is validated on the PR and regenerated by CI shortly after the merge, since GitHub Pages itself runs no build.</li>
           </ol>
         </li>
 
@@ -254,7 +270,7 @@
         and from the European Union, under Grant Agreements No. 101095947 (TRISTAN),
         101112274 (ISOLDE).
       </p>
-      <p>© 2025 Unified RISC-V IP Access Platform - All rights reserved.</p>
+      <p>Copyright © 2025–2026 Contributors to the Eclipse Foundation. Made available under the Eclipse Public License 2.0.</p>
     </div>
   </footer>
 

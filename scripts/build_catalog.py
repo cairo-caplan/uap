@@ -41,11 +41,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from uap_common import (  # noqa: E402
+    harden_console,
     iter_json_files,
     load_json,
     partner_lookup,
     to_list,
 )
+
+# Referential errors print data-derived names that may carry any codepoint —
+# a UnicodeEncodeError must never interrupt the report (2026-11-14, same
+# incident as fetch_repo_stats.py). Catalogue files are always UTF-8.
+harden_console()
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -172,7 +178,7 @@ def main():
 
     if args.check:
         if not out_path.exists():
-            print(f"{out_path} is missing — run: python3 scripts/build_catalog.py")
+            print(f"{out_path} is missing -- run: python3 scripts/build_catalog.py")
             return 1
         # Compare structurally, ignoring the generated_at timestamp.
         try:

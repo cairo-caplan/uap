@@ -1,0 +1,192 @@
+<!--
+#-------------------------------------------------------------------------------
+# Copyright (C) 2026 Eclipse Foundation
+# 
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+# 
+# SPDX-License-Identifier: EPL-2.0
+#-------------------------------------------------------------------------------
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projects view preview - Unified RISC-V IP Access Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Common stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Optional OpenHW Foundation style theme (scoped under html[data-theme="openhw"]) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="theme-openhw.css" />
+  <script src="scripts/theme.js"></script>
+
+  <!-- Prototype stylesheet (last: its theme overrides must win over the theme file) -->
+  <link rel="stylesheet" href="prototype-mindmap.css" />
+
+  <!-- Favicon (relative: the site may be served from a /sub-path on Pages) -->
+  <link rel="icon" type="image/png" href="images/logo_unified-riscv.png" />
+  <link rel="apple-touch-icon" href="images/logo_unified-riscv.png" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+</head>
+<body class="page-with-layout proto-page">
+
+  <!-- Shared header -->
+  <header>
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html">
+          <img src="images/unified-riscv-horizontal-logo.png"
+               alt="Unified RISC-V Logo"
+               class="nav-logo-img">
+        </a>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="unified-access.html">Unified Access</a></li>
+          <li><a href="editor.html">Editor</a></li>
+          <li><a href="help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Prototype top bar: back link + title + toolbar (Reset / Clear) -->
+    <div class="top-bar proto-top-bar">
+      <div class="proto-title-wrap">
+        <a class="proto-back" href="unified-access.html">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          <span>Back to the Catalogue</span>
+        </a>
+        <h1 class="proto-title">
+          Projects view
+          <span class="proto-badge">Preview</span>
+        </h1>
+      </div>
+      <div class="proto-toolbar" role="group" aria-label="Preview actions">
+        <!-- Canvas | Table mode switch: a radiogroup of two buttons with a
+             sliding thumb (styled in prototype-mindmap.css, wired in
+             scripts/prototype-mindmap.js). Deliberately NOT .tab-btn /
+             data-tab, the production tab-nav binding gotcha. -->
+        <div id="proto-view-switch" class="proto-view-switch" role="radiogroup" aria-label="View mode">
+          <span class="proto-view-thumb" aria-hidden="true"></span>
+          <button type="button" id="proto-view-canvas" class="proto-view-option is-active"
+                  role="radio" aria-checked="true" data-view="canvas">
+            <i class="fas fa-diagram-project" aria-hidden="true"></i><span>Canvas</span>
+          </button>
+          <button type="button" id="proto-view-table" class="proto-view-option"
+                  role="radio" aria-checked="false" tabindex="-1" data-view="table">
+            <i class="fas fa-table-list" aria-hidden="true"></i><span>Table</span>
+          </button>
+        </div>
+        <div class="mm-search-wrap">
+          <input id="mm-search" type="text" placeholder="Search projects, tasks, IPs&hellip;"
+                 aria-label="Search projects, tasks and IPs" autocomplete="off" />
+          <button id="mm-search-clear" class="mm-search-clear" type="button"
+                  aria-label="Clear search" hidden><i class="fas fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div id="mm-search-count" class="mm-search-count" role="status" aria-live="polite" hidden></div>
+        <button type="button" id="proto-clear" class="proto-tool-btn" title="Deselect all tasks and drop unpinned IP cards">
+          <i class="fas fa-xmark" aria-hidden="true"></i><span>Clear selection</span>
+        </button>
+        <button type="button" id="proto-reset" class="proto-tool-btn" title="Restore the initial grid layout, the default card sizes and the top-left scroll position, and forget the saved view">
+          <i class="fas fa-rotate-left" aria-hidden="true"></i><span>Reset view</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="proto-status" class="proto-status" role="status" aria-live="polite">Loading the catalogue&hellip;</div>
+
+    <!-- Single unified view: production cards float on a scrollable canvas in
+         a production-like grid; expanding one reveals task rows, selecting a
+         task instantiates shared IP cards to its right, and cards never
+         overlap (whatever a spawn/resize covers is pushed aside). -->
+    <div id="mm-root">
+      <div class="mm-legend">
+        <span class="mm-legend-item">
+          <span class="mm-card-swatch mm-card-swatch--project" aria-hidden="true"></span>
+          Project
+        </span>
+        <span class="mm-legend-item">
+          <span class="mm-card-swatch mm-card-swatch--task" aria-hidden="true"></span>
+          Task
+        </span>
+        <span class="mm-legend-item">
+          <span class="mm-card-swatch mm-card-swatch--ip" aria-hidden="true"></span>
+          IP
+        </span>
+        <span class="mm-legend-item">
+          <span class="mm-legend-swatch mm-legend-swatch--ip" aria-hidden="true"></span>
+          Selected Task &rarr; IP
+        </span>
+        <span class="mm-legend-hint">Drag a card to move it &middot; drag the background or use the scrollbars to move around &middot; drag the bottom-right grip to resize a card &middot; click a project or task title to open its details &middot; the caret expands a project's task list &middot; click an IP chip in a task row to show or hide its card on the canvas &middot; tick Pin to keep an IP card after deselecting every task that touches it</span>
+      </div>
+      <div id="mm-stage" class="mm-stage" tabindex="0" role="region"
+           aria-label="Projects canvas: focus it and use the arrow keys, or the scrollbars, to move around; Tab reaches the cards and their controls">
+        <div id="mm-canvas" class="mm-canvas">
+          <svg id="mm-links" class="mm-links" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+        </div>
+        </div>
+
+        <!-- Table mode: the very same contents as the canvas (Projects, Tasks,
+           IPs) as sortable tables. The rows the current search leaves
+           visible, with CSV export of the active table or a ZIP holding one
+           CSV per table. Built by scripts/prototype-mindmap.js. -->
+        <div id="mm-table" class="mm-table" hidden>
+        <div class="mm-table-bar">
+          <div class="mm-table-tabs" id="mm-table-tabs" role="tablist" aria-label="Table contents">
+            <button type="button" class="mm-table-tab is-active" id="mm-tab-project" role="tab"
+                    aria-selected="true" aria-controls="mm-table-panel" data-kind="project">Projects</button>
+            <button type="button" class="mm-table-tab" id="mm-tab-task" role="tab"
+                    aria-selected="false" aria-controls="mm-table-panel" data-kind="task" tabindex="-1">Tasks</button>
+            <button type="button" class="mm-table-tab" id="mm-tab-ip" role="tab"
+                    aria-selected="false" aria-controls="mm-table-panel" data-kind="ip" tabindex="-1">IPs</button>
+          </div>
+          <div class="mm-table-actions">
+            <button type="button" id="mm-export-csv" class="proto-tool-btn"
+                    title="Download the rows of the current table (current search applied) as a CSV file">
+              <i class="fas fa-file-csv" aria-hidden="true"></i><span>Export CSV</span>
+            </button>
+            <button type="button" id="mm-export-zip" class="proto-tool-btn"
+                    title="Download all three tables (current search applied) as a ZIP archive holding one CSV file per table">
+              <i class="fas fa-file-zipper" aria-hidden="true"></i><span>Export ZIP</span>
+            </button>
+          </div>
+        </div>
+        <div id="mm-table-panel" class="mm-table-panel" role="tabpanel"
+             aria-labelledby="mm-tab-project" tabindex="0">
+          <!-- the sortable <table> is rebuilt on every tab / sort / search change -->
+        </div>
+        </div>
+        </div>
+  <!-- Detail drawer (populated by scripts/prototype-mindmap.js), the same
+       shell as unified-access.html; style.css already styles it. -->
+  <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+  <aside id="detail-drawer" class="detail-drawer" hidden aria-modal="true" role="dialog" aria-labelledby="drawer-title" aria-hidden="true">
+    <header class="drawer-header">
+      <div class="drawer-title-wrap">
+        <span class="drawer-kind" id="drawer-kind"></span>
+        <h2 id="drawer-title" class="drawer-title"></h2>
+      </div>
+      <button type="button" class="drawer-close" aria-label="Close details">&times;</button>
+    </header>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+  </main>
+
+  <script src="scripts/prototype-mindmap.js"></script>
+
+</body>
+</html>

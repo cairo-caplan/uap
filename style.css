@@ -478,9 +478,18 @@ select {
   box-sizing: border-box;
 }
 
+/* The search box sits in a wrapper so the clear × can float inside it; the
+   wrapper is the grid item, the input keeps filling it. */
+.uap-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
 .search-and-settings-container #search-input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 44px 12px 16px;   /* right room for the clear button */
   font-size: 1rem;
   border: 1px solid #d6d9de;
   border-radius: 10px;
@@ -494,6 +503,44 @@ select {
   border-color: #1565c0;
   box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
 }
+
+/* Round clear button floating at the right edge of the input. */
+.uap-search-clear {
+  position: absolute;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #9aa4b0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uap-search-clear:hover {
+  background: #eef6ff;
+  color: #1565c0;
+}
+
+.uap-search-clear:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 1px;
+}
+
+/* Live hit counts under the search box ("2 projects · 26 tasks · 27 IPs
+   match"). Hidden — and its text emptied — while no search is active. */
+.uap-search-status {
+  grid-column: 1 / -1;
+  margin-top: -8px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
 
 .search-and-settings-container #settings-toggle-btn {
   background: #fff;
@@ -1068,6 +1115,91 @@ code {
   margin-bottom: 20px;
 }
 
+/* Button group on the right of the top bar: matrix control + theme switch */
+.top-bar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Left of the top bar: the dataset switch with the Projects layout switch
+   beside it (the layout switch is only un-hidden on the Projects dataset). */
+.top-bar-switchers {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Canvas | Grid layout switch: two radios as one pill with a sliding thumb
+   (both options are equal-width flex halves, so translateX(100%) lands the
+   thumb exactly on the right one). */
+.uap-layout-switch {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid #d6d9de;
+  border-radius: 999px;
+  background: #eef2f6;
+}
+
+.uap-layout-option {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #374a5e;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.uap-layout-option:hover,
+.uap-layout-option.is-active {
+  color: #1565c0;
+}
+
+.uap-layout-option:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+}
+
+/* The padding box minus the thumb's own 3px inset: it covers exactly the left
+   flex half, and translateX(100%) moves it exactly onto the right one. */
+.uap-layout-thumb {
+  position: absolute;
+  z-index: 0;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(21, 45, 80, 0.18);
+  transition: transform 180ms ease;
+}
+
+.uap-layout-switch.is-grid .uap-layout-thumb {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uap-layout-thumb {
+    transition: none;
+  }
+}
+
+
 .view-switcher {
   display: inline-flex;
   align-items: center;
@@ -1130,6 +1262,87 @@ code {
 .matrix-toggle i {
   margin-right: 6px;
   color: #1565c0;
+}
+
+/* Theme switch: same pill shape as the matrix control it sits next to */
+.theme-toggle {
+  border-radius: 999px !important;
+  margin-bottom: 0 !important;
+  border: 1px solid #d6d9de !important;
+  background-color: #ffffff;
+}
+
+.theme-toggle:hover:not(.active) {
+  background-color: #eef2f6;
+}
+
+.theme-toggle i {
+  margin-right: 6px;
+  color: #1565c0;
+}
+
+/* ISOLA assistant preview switch: same pill shape as its top-bar neighbours */
+.isola-toggle {
+  border-radius: 999px !important;
+  margin-bottom: 0 !important;
+  border: 1px solid #d6d9de !important;
+  background-color: #ffffff;
+}
+
+.isola-toggle.active {
+  background-color: #eef6ff;
+  border-color: #bcd8f5 !important;
+  box-shadow: none;
+}
+
+.isola-toggle i {
+  margin-right: 6px;
+  color: #1565c0;
+}
+
+/* "Preview" badge: in the tab pill and in the view heading */
+.isola-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background-color: #fff3cd;
+  color: #664d03;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* ISOLA assistant preview (third top-bar tab) */
+.isola-viewport {
+  margin-bottom: 40px;
+}
+
+.isola-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.isola-title {
+  margin-top: 0;
+}
+
+.isola-intro {
+  color: #374a5e;
+}
+
+.isola-frame {
+  display: block;
+  width: 100%;
+  height: 850px;
+  max-height: calc(100vh - 160px);
+  border: 0;
+  border-radius: 8px;
+  background-color: #f4f6f8;
 }
 
 /* Persistent chip filter bar */
@@ -1345,7 +1558,14 @@ code {
   border-radius: 16px;
   padding: 18px 20px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
   transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+
+/* The whole card is clickable (opens the detail drawer), so it is focusable. */
+.entity-card:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
 }
 
 .entity-card:hover {
@@ -1359,6 +1579,27 @@ code {
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
+}
+
+/* Logo of the repository an IP card points at (IP view), inline in front of
+   the name — same widget as .mm-ip-logo on the Projects canvas. No slot is
+   reserved: cards without a logo render exactly as they did before; the
+   distance to the title is the head's own gap. */
+.card-logo {
+  height: 28px;
+  max-width: 64px;
+  object-fit: contain;
+  flex: none;
+}
+
+/* Grid card heads only: let the title take the slack so a logo card keeps
+   the title left and .card-ext at the right edge (with space-between a
+   third head child would center). Deliberately scoped to #card-grid — the
+   Projects canvas IP card head spaces itself through .mm-pin's auto
+   margin and must keep its own layout untouched. */
+#card-grid .card-title {
+  flex: 1;
+  min-width: 0;
 }
 
 .card-title {
@@ -1417,7 +1658,6 @@ code {
   color: #6b7280;
   font-weight: 600;
   font-size: 0.8rem;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
@@ -1642,7 +1882,6 @@ button.pill--project.project-card:hover {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #1565c0;
   background: #e7f1fb;
@@ -1709,7 +1948,6 @@ button.pill--project.project-card:hover {
   color: #6b7280;
   font-weight: 600;
   font-size: 0.78rem;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
@@ -1744,7 +1982,6 @@ button.pill--project.project-card:hover {
   margin: 4px 0 10px;
   font-size: 0.82rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #6b7280;
 }
@@ -1979,7 +2216,6 @@ button.pill--project.project-card:hover {
 .ipcard-badge-label {
   color: #6b7280;
   font-weight: 600;
-  text-transform: uppercase;
   font-size: 0.66rem;
   letter-spacing: 0.03em;
 }
@@ -2108,7 +2344,6 @@ button.pill--project.project-card:hover {
   text-align: left;
   color: #6b7280;
   font-weight: 700;
-  text-transform: uppercase;
   font-size: 0.68rem;
   letter-spacing: 0.03em;
   padding: 2px 10px 4px 0;
@@ -2192,20 +2427,37 @@ button.pill--project.project-card:hover {
     justify-content: center;
   }
 
-  .matrix-toggle {
+  .matrix-toggle,
+  .isola-toggle {
     align-self: center;
   }
 
   .search-and-settings-container {
     grid-template-columns: 1fr auto;
-    grid-template-areas: "search gear";
+    grid-template-areas:
+      "search gear"
+      "status status";
   }
 
-  .search-and-settings-container #search-input {
+  .uap-search-wrap {
     grid-area: search;
   }
 
   .search-and-settings-container #settings-toggle-btn {
     grid-area: gear;
   }
+
+  .uap-search-status {
+    grid-area: status;
   }
+
+  .top-bar-switchers {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .uap-layout-switch,
+  .uap-layout-option {
+    justify-content: center;
+  }
+}

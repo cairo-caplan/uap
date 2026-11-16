@@ -13,14 +13,15 @@
 # fetch_repo_stats.py
 
 """
-Pre-compute public repository statistics for every GitHub and GitLab URL found
+Pre-compute public repository statistics for every GitHub, GitLab and
+Bitbucket URL found
 in the `ips/*.json` IP documents (canonical `URL` / `DefaultBranch`) and the
-`projects/*.json` task documents (per-task `ForkURL` / `Branch`), and write
+`projects/*.json` task documents (per-task `URL` / `Branch`), and write
 them to `cfg/repo-stats.json`.
 
 The platform page (unified-access.html) only fetches that JSON cache, so site
-visitors never contact the GitHub or GitLab APIs and no authentication is
-required for public repositories.
+visitors never contact the GitHub, GitLab or Bitbucket APIs and no
+authentication is required for public repositories.
 
 Intended to be run weekly from .github/workflows/repo-stats.yml, or manually:
 
@@ -52,7 +53,14 @@ in tristan-isolde-unified-access-page/script.js:
   - several URLs may be separated by ';' in one string
   - trailing prose is tolerated: the slug stops at the first invalid character
     (e.g. "https://github.com/pulp-platform/ara (branch: mp/xif ...)")
-  - other hosts (bitbucket.org, vendor pages, ...) and empty values are ignored
+  - Bitbucket: https://bitbucket.org/{workspace}/{repo} on the public host
+    only. Self-hosted instances (bitbucket.sw.nxp.com, ...) need
+    authentication and stay ignored, as do vendor pages and empty values.
+
+Every record also carries an optional `logo` URL — the repository's avatar, or
+the owner's where the provider has no per-repository logo (GitHub). A repo
+whose provider exposes no avatar gets `logo: null`; consumers treat a missing
+or null logo as "no logo".
 """
 
 import argparse
@@ -67,9 +75,27 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from uap_common import harden_console  # noqa: E402
+
+# The console must survive a non-UTF-8 locale: the ellipsis of the old
+# "fetching ..." progress line killed a whole run under an ASCII stdout
+# (2026-11-14), and interpolated provider text ({exc}, API messages) can
+# carry any codepoint — harden the stream, not one call site. The JSON
+# cache is always written as UTF-8 whatever the locale says.
+harden_console()
+
 ROOT = Path(__file__).resolve().parents[1]
 
 API_ROOT = "https://api.github.com"
+BITBUCKET_API_ROOT = "https://api.bitbucket.org/2.0"
+CACHE_SOURCE = "GitHub + GitLab + Bitbucket REST API (pre-computed)"
+# A record written before the optional `logo` field exists carries no key at
+# all. Such a record is neither revalidated by ETag nor reused as fresh, so
+# one fetch per record backfills its logo and the normal rate-limit hygiene
+# applies again afterwards.
+LOGO_FIELD = "logo"
 ACCEPT_HEADER = "application/vnd.github+json"
 API_VERSION = "2022-11-28"
 USER_AGENT = "uap-stats-bot"
@@ -88,6 +114,40 @@ _GITLAB_SLUG_RE = re.compile(
     r"https?://([A-Za-z0-9.\-]*gitlab[A-Za-z0-9.\-]*)/([A-Za-z0-9._-]+)/([A-Za-z0-9._-]+)",
     re.IGNORECASE,
 )
+
+# Bitbucket repository URLs on the public host only. Self-hosted instances
+# (bitbucket.sw.nxp.com, ...) are deliberately NOT resolved: their API needs
+# authentication, so those URLs stay ignored.
+_BITBUCKET_SLUG_RE = re.compile(
+    r"https?://bitbucket\.org/([A-Za-z0-9._-]+)/([A-Za-z0-9._-]+)",
+    re.IGNORECASE,
+)
+
+# Thumbnail size requested from the avatar CDN for the `logo` field.
+AVATAR_SIZE = 128
+
+
+def _avatar_url(value):
+    """Return a usable http(s) avatar URL, or None when there is none."""
+    if not isinstance(value, str):
+        return None
+    trimmed = value.strip()
+    if not trimmed.lower().startswith(("http://", "https://")):
+        return None
+    return trimmed
+
+
+def _avatar_size_param(url):
+    """Pin the thumbnail size of an avatar CDN URL that supports `s=<px>`.
+
+    GitHub serves avatars as "https://avatars.githubusercontent.com/u/<id>?v=4"
+    and honours an `s` size parameter; a URL without a query string gets one.
+    """
+    if not url:
+        return None
+    if re.search(r"([?&])s=\d+", url):
+        return re.sub(r"([?&])s=\d+", rf"\g<1>s={AVATAR_SIZE}", url)
+    return f"{url}{'&' if '?' in url else '?'}s={AVATAR_SIZE}"
 
 
 def utc_now_iso():
@@ -138,8 +198,9 @@ class GithubProvider:
         _, owner, repo = key.split("/", 2)
         base_url = f"{API_ROOT}/repos/{owner}/{repo}"
         # Revalidate a stale cache entry with its stored ETag when possible:
-        # GitHub answers 304 without consuming a rate-limit request.
-        if existing and existing.get("etag"):
+        # GitHub answers 304 without consuming a rate-limit request. Entries
+        # predating the `logo` field are fetched in full so the logo lands.
+        if existing and existing.get("etag") and LOGO_FIELD in existing:
             client.etags[base_url] = existing["etag"]
 
         status, headers, body = client.get(base_url)
@@ -181,6 +242,9 @@ class GithubProvider:
             "default_branch": default_branch,
             "pushed_at": info.get("pushed_at"),
             "archived": bool(info.get("archived")),
+            # Owner-level proxy image: GitHub exposes no per-repository logo,
+            # so the owner avatar stands in for one (see the `logo` contract).
+            "logo": _avatar_size_param((info.get("owner") or {}).get("avatar_url")),
             "fetched_at": utc_now_iso(),
             "etag": headers.get("ETag"),
         }
@@ -235,7 +299,8 @@ class GitlabProvider:
         host, group, project = key.split("/", 2)
         encoded_path = urllib.parse.quote(f"{group}/{project}", safe="")
         base_url = f"https://{host}/api/v4/projects/{encoded_path}"
-        if existing and existing.get("etag"):
+        # Same `logo` backfill rule as the GitHub provider.
+        if existing and existing.get("etag") and LOGO_FIELD in existing:
             client.etags[base_url] = existing["etag"]
 
         status, headers, body = client.get(base_url)
@@ -273,6 +338,9 @@ class GitlabProvider:
             "default_branch": info.get("default_branch") or "",
             "pushed_at": info.get("last_activity_at"),
             "archived": bool(info.get("archived")),
+            # GitLab has a per-project avatar, but many projects (and most
+            # self-hosted instances) expose none — null then means "no logo".
+            "logo": _avatar_url(info.get("avatar_url")),
             "fetched_at": utc_now_iso(),
             "etag": headers.get("ETag"),
         }
@@ -378,11 +446,128 @@ class GitlabProvider:
         return min(total, 100)
 
 
+class BitbucketProvider:
+    """Parses bitbucket.org URLs and fetches metadata from its REST API 2.0.
+
+    Only the public bitbucket.org host is supported (self-hosted instances
+    need authentication). The API exposes no stars/watchers/license, and no
+    commit or contributor counter, so those fields stay null.
+    """
+
+    name = "bitbucket"
+
+    def parse_repos(self, url_value):
+        """Extract lowercase "bitbucket.org/workspace/repo" keys from a URL."""
+        if not url_value or not isinstance(url_value, str):
+            return []
+
+        keys = []
+        for chunk in url_value.split(";"):
+            for match in _BITBUCKET_SLUG_RE.finditer(chunk):
+                workspace = _clean_part(match.group(1))
+                slug = _clean_part(match.group(2))
+                # The regex character classes stop at '/', so "/overview"
+                # and "?tab=..." never enter the captured segments.
+                if not workspace or not slug:
+                    continue
+                key = f"bitbucket.org/{workspace}/{slug}".lower()
+                if key not in keys:
+                    keys.append(key)
+        return keys
+
+    def fetch_stats(self, client, key, existing=None):
+        """Fetch metadata for one repo. Returns ((canonical_key, record), error)."""
+        _, workspace, slug = key.split("/", 2)
+        base_url = f"{BITBUCKET_API_ROOT}/repositories/{workspace}/{slug}"
+
+        status, headers, body = client.get(base_url)
+        if status != 200:
+            return None, f"HTTP {status}"
+        try:
+            info = json.loads(body.decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            return None, f"malformed response: {exc}"
+
+        html_url = ""
+        links = info.get("links") or {}
+        html_link = links.get("html") or {}
+        if isinstance(html_link, dict):
+            html_url = html_link.get("href") or ""
+
+        # Open issues + open pull requests, mirroring how the GitLab records
+        # combine issues and merge requests.
+        open_issues = self._fetch_open_count(client, base_url, "issues", "open")
+        time.sleep(client.sleep_seconds)
+        pull_requests = self._fetch_open_count(client, base_url, "pullrequests", "OPEN")
+        time.sleep(client.sleep_seconds)
+        forks = info.get("forks")
+        mainbranch = info.get("mainbranch")
+
+        record = {
+            "repo": key,
+            "provider": self.name,
+            "host": "bitbucket.org",
+            "html_url": html_url or f"https://bitbucket.org/{workspace}/{slug}",
+            # Bitbucket has no stars and no watcher count.
+            "stars": None,
+            "forks": forks.get("count") if isinstance(forks, dict) else None,
+            "watchers": None,
+            "open_issues": _sum_optional(open_issues, pull_requests),
+            # The 2.0 API exposes no commit or contributor counter.
+            "commits": None,
+            "contributors": None,
+            "language": info.get("language") or None,
+            # No license field on a Bitbucket repository.
+            "license_spdx_id": None,
+            "default_branch": (mainbranch.get("name") if isinstance(mainbranch, dict) else "") or "",
+            "pushed_at": info.get("updated_on"),
+            # Bitbucket has no archived flag.
+            "archived": False,
+            # Workspace avatar as the logo proxy — Bitbucket has no per-repo
+            # logo; a repository without an avatar leaves the value null.
+            "logo": _avatar_url(info.get("avatar")),
+            "fetched_at": utc_now_iso(),
+            "etag": headers.get("ETag"),
+        }
+
+        canonical = key
+        full_name = info.get("full_name")
+        if isinstance(full_name, str) and full_name.count("/") == 1:
+            canonical = f"bitbucket.org/{full_name}"
+        return (canonical, record), None
+
+    def _fetch_open_count(self, client, base_url, collection, state):
+        """Count an open collection via the paginated payload's `size`."""
+        try:
+            status, _headers, body = client.get(
+                f"{base_url}/{collection}?state={state}&pagelen=1"
+            )
+        except RuntimeError as exc:
+            print(f"  warning: {exc}", file=sys.stderr)
+            return None
+        if status != 200:
+            return None
+        try:
+            parsed = json.loads(body.decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return None
+        size = parsed.get("size") if isinstance(parsed, dict) else None
+        return size if isinstance(size, int) else None
+
+
+def _sum_optional(*values):
+    """Sum the values that are numbers; None when none of them is one."""
+    numbers = [v for v in values if isinstance(v, int)]
+    return sum(numbers) if numbers else None
+
+
 def provider_for_key(key):
     """Pick the provider for a cache key from its host segment."""
     host = key.split("/", 1)[0].lower()
     if host == "github.com" or host.endswith(".github.com"):
         return "github"
+    if host == "bitbucket.org":
+        return "bitbucket"
     return "gitlab"
 
 
@@ -390,11 +575,12 @@ def _entry_url_values(entry):
     """Collect the URL-bearing fields of one catalogue entry.
 
     IP documents carry `URL` (+ `DefaultBranch`); project task entries carry
-    `ForkURL` (+ `Branch`). Both are scanned so every canonical and fork URL
-    referenced by the catalogue ends up in the cache.
+    `URL` (+ `Branch`) — a task's URL is its repository, often a fork or a
+    branch of an IP. Both are scanned so every URL referenced by the catalogue
+    ends up in the cache.
     """
     values = []
-    for field in ("URL", "ForkURL"):
+    for field in ("URL",):
         raw = entry.get(field, "")
         if isinstance(raw, list):
             values.extend(v for v in raw if isinstance(v, str))
@@ -562,15 +748,43 @@ def _count_items(client, url):
 
 
 def load_existing_cache(path):
+    """Return (repos, errors) of an existing cache; ({}, {}) when unusable."""
     if not path.exists():
-        return {}
+        return {}, {}
     try:
         with open(path, "r", encoding="utf-8") as fh:
             data = json.load(fh)
     except (OSError, json.JSONDecodeError):
-        return {}
-    repos = data.get("repos") if isinstance(data, dict) else None
-    return repos if isinstance(repos, dict) else {}
+        return {}, {}
+    if not isinstance(data, dict):
+        return {}, {}
+    repos = data.get("repos") if isinstance(data.get("repos"), dict) else {}
+    errors = data.get("errors") if isinstance(data.get("errors"), dict) else {}
+    return repos, errors
+
+
+def is_transient(error):
+    """True for a failure that says nothing about the repository itself.
+
+    Rate limiting (403/429) and server-side errors (5xx) are transient: they
+    must not delete a cache entry, because a dropped entry means the site
+    silently loses the statistics it already shows for that repository.
+    """
+    return bool(error) and (error.startswith("HTTP 403")
+                            or error.startswith("HTTP 429")
+                            or error.startswith("HTTP 5")
+                            or error.startswith("network failure"))
+
+
+def keep_previous(existing, existing_key, repos_out, error):
+    """Carry a stale cache entry over when its refresh failed transiently.
+
+    Rate limits (60 requests/hour against an unauthenticated GitHub API) must
+    not wipe the statistics the site already shows; a real 404 still drops the
+    record, because there the repository itself is gone.
+    """
+    if existing and existing_key and is_transient(error):
+        repos_out[existing_key] = existing
 
 
 def is_fresh(record, max_age_hours):
@@ -647,10 +861,11 @@ def main():
     out_path = Path(args.out)
 
     providers = {provider.name: provider for provider in
-                 (GithubProvider(), GitlabProvider())}
+                 (GithubProvider(), GitlabProvider(), BitbucketProvider())}
 
     keys = collect_repo_refs(
-        ips_dir, Path(args.projects_dir), [providers["github"], providers["gitlab"]]
+        ips_dir, Path(args.projects_dir),
+        [providers["github"], providers["gitlab"], providers["bitbucket"]]
     )
     print(f"Found {len(keys)} unique repositories in {ips_dir} + {args.projects_dir}")
     for key in keys:
@@ -664,11 +879,19 @@ def main():
 
     token = args.auth_token or os.environ.get("GITHUB_TOKEN") or None
     gitlab_token = args.gitlab_token or os.environ.get("GITLAB_TOKEN") or None
+    existing_cache, existing_errors = load_existing_cache(out_path)
     client = StatsClient(token=token, gitlab_token=gitlab_token)
-    existing_cache = load_existing_cache(out_path)
 
     repos_out = {}
-    errors = {}
+    # With --limit-repos the entries and error notes outside the selection are
+    # carried over unchanged, so refreshing a subset never shrinks the cache.
+    errors = dict(existing_errors)
+    if args.limit_repos and args.limit_repos > 0:
+        selected = {key.lower() for key in keys}
+        for cache_key, record in existing_cache.items():
+            if cache_key.lower() not in selected:
+                repos_out[cache_key] = record
+        errors = {k: v for k, v in existing_errors.items() if k.lower() not in selected}
     reused = 0
     for key in keys:
         # Match cache entries case-insensitively.
@@ -679,24 +902,28 @@ def main():
                 existing = value
                 existing_key = cache_key
                 break
-        # Reuse recent cache entries so re-runs stay cheap within the rate limit.
-        if existing and is_fresh(existing, args.max_age_hours):
+        # Reuse recent cache entries so re-runs stay cheap within the rate
+        # limit — except entries that never received a `logo` field.
+        if (existing and LOGO_FIELD in existing
+                and is_fresh(existing, args.max_age_hours)):
             repos_out[existing_key] = existing
             reused += 1
             print(f"reusing cached {existing_key}")
             continue
 
         provider = providers[provider_for_key(key)]
-        print(f"fetching {key} ({provider.name}) …")
+        print(f"fetching {key} ({provider.name}) ...")
         try:
             result, error = provider.fetch_stats(client, key, existing=existing)
         except RuntimeError as exc:
             errors[key] = str(exc)
             print(f"  error: {exc}", file=sys.stderr)
+            keep_previous(existing, existing_key, repos_out, str(exc))
             continue
         if error:
             errors[key] = error
             print(f"  error: {error}", file=sys.stderr)
+            keep_previous(existing, existing_key, repos_out, error)
             continue
         canonical, record = result
         record["repo"] = canonical
@@ -706,7 +933,7 @@ def main():
 
     payload = {
         "generated_at": utc_now_iso(),
-        "source": "GitHub REST API + GitLab REST API (pre-computed)",
+        "source": CACHE_SOURCE,
         "repos": {key: repos_out[key] for key in sorted(repos_out)},
         "errors": {key: errors[key] for key in sorted(errors)},
     }

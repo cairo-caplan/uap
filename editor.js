@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Preferred leading order per document kind; trailing fields come from the
   // schema property list so a schema addition is never silently dropped.
   const IP_FIELD_ORDER = ["Id", "Name", "Owners", "Category", "URL", "DefaultBranch", "License", "Status", "Description", "IP_CARD_URL", "IP_CARD_PDF_URL", "Comment"];
-  const TASK_FIELD_ORDER = ["TaskId", "WI", "Title", "IPs", "Partners", "ForkURL", "Branch", "Status", "Description", "Comment"];
+  const TASK_FIELD_ORDER = ["TaskId", "WI", "Title", "IPs", "Partners", "URL", "Branch", "Status", "Description", "Comment"];
   // Fields whose value is a list of organisation / IP / category references.
   const ORG_FIELDS = ['Owners', 'Partners'];
   const IP_FIELDS = ['IPs'];
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.keys(catalog.ips || {}).sort().forEach(id => {
       const option = document.createElement('option');
       option.value = `ips/${id}.json`;
-      option.textContent = `${id}.json — ${catalog.ips[id].Name || ''}`;
+      option.textContent = `${id}.json - ${catalog.ips[id].Name || ''}`;
       option.dataset.kind = 'ip';
       ipGroup.appendChild(option);
     });
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.keys(catalog.projects || {}).sort().forEach(id => {
       const option = document.createElement('option');
       option.value = `projects/${id}.json`;
-      option.textContent = `${id}.json — ${catalog.projects[id].Name || ''}`;
+      option.textContent = `${id}.json - ${catalog.projects[id].Name || ''}`;
       option.dataset.kind = 'project';
       projGroup.appendChild(option);
     });
@@ -216,8 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     kind = document.querySelector('input[name="doc-kind"]:checked').value;
     projectRow.style.display = kind === 'project' ? '' : 'none';
     idHint.textContent = kind === 'ip'
-      ? 'IP file — saves as ips/<Id>.json (Id is the file name).'
-      : 'Project file — saves as projects/<Id>.json; pick the project.';
+      ? 'IP file: saves as ips/<Id>.json; the Id is the file name.'
+      : 'Project file: saves as projects/<Id>.json; pick the project.';
     }
 
   // --- DATA HANDLING ---
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    alert(`Saved as ${result.fileName} (downloaded — place it in the repository and commit).`);
+    alert(`Saved as ${result.fileName}. Place the downloaded file in the repository and commit.`);
   }
 
   // --- RENDERING ---

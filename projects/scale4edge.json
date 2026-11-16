@@ -9,7 +9,7 @@
       "Description": "Unique Program Execution Checking (UPEC) is a method for formally verifying the security of hardware at the RTL. UPEC checks whether confidential data in the system can be stolen by an attacker (user program) for any programs that can be executed on the hardware. UPEC detects all confidentiality violations that are made possible by so-called transient execution side channels of the microarchitecture. In Phase 1 of Scale4Edge, the security analysis focuses on cores ranging from smaller in-order cores to larger out-of-order processors; in Phase 2, UPEC will be extended to entire SoCs.",
       "IPs": ["upec"],
       "Partners": ["RPTU"],
-      "ForkURL": "https://github.com/RPTU-EIS",
+      "URL": "https://github.com/RPTU-EIS",
       "Status": "Date of Availability 2025-04-27",
       "Comment": "Available at https://github.com/RPTU-EIS/symbolic-pmp and https://github.com/RPTU-EIS/upec-boom-verification-suite. Contact: Wolfgang Kunz, RPTU Kaiserslautern-Landau (wolfgang.kunz@rptu.de). PROVISIONAL: the source data carried no WI id; the source URL was the org URL https://github.com/RPTU-EIS."
     },
@@ -20,7 +20,7 @@
       "Description": "Moonlight is a subsystem around a TGC core developed by MINRES. The Good Core (TGC) is a highly flexible, scalable and expandable RISC-V processor core and the TGC variant to be used in the subsystem is configurable. Moonlight contains a configurable APB3 subsystem with a customizable number of different peripherals, e.g., GPIO, UART, Timer, SPI, I2S Receiver, DMA.",
       "IPs": ["moonlight"],
       "Partners": ["MINRES"],
-      "ForkURL": "https://scale4edge-new.edacentrum.de/node/112",
+      "URL": "https://scale4edge-new.edacentrum.de/node/112",
       "Status": "Date of Availability 2025-07-31",
       "Comment": "License: send an email to eyck@minres.com. PROVISIONAL: the source URL is the project page, not a repository."
     },

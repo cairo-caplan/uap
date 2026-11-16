@@ -45,7 +45,7 @@ const PILL_FIELDS = {
 // Columns that never get a filter button in the chip filter bar (free-text or
 // synthetic fields whose values are not discrete filter facets).
 const NON_FILTER_FIELDS = new Set([
-  'Name', 'Title', 'URL', 'ForkURL', 'Description', 'Comment',
+  'Name', 'Title', 'URL', 'Description', 'Comment',
   'DefaultBranch', 'Branch', 'Tasks', REPO_STATS_COLUMN, IP_CARD_COLUMN
 ]);
 
@@ -58,6 +58,9 @@ const exportBtn  = document.getElementById('export-btn');
 const fileInput  = document.getElementById('file-input');
 const loadRadios = document.querySelectorAll('input[name="load-mode"]');
 const cardGrid        = document.getElementById('card-grid');
+const canvasStageEl   = document.getElementById('canvas-stage');
+const canvasBarEl     = document.getElementById('canvas-bar');
+const layoutSwitchEl  = document.getElementById('layout-switch');
 const filterBar       = document.getElementById('filter-bar');
 const activeFiltersEl = document.getElementById('active-filters');
 const drawerEl        = document.getElementById('detail-drawer');
@@ -195,17 +198,47 @@ async function loadRepoStats() {
   return items;
   }
 
-// Add event listener for the search input (debounced — the card grid rebuild
-// is heavier than the old table cell, so avoid a full re-render per keystroke).
+// ---------------------------------------------------------------------------
+// Search box — one funnel for every writer
+//
+// Typing, the clear button, the pendingSearch restore and the deep-link paths
+// all go through setSearchText(), so the input, the clear button, the live hit
+// count and the Projects canvas can never disagree about the needle.
+// ---------------------------------------------------------------------------
+const searchInputEl  = document.getElementById('search-input');
+const searchClearEl  = document.getElementById('search-clear');
+const searchStatusEl = document.getElementById('search-status');
+
 let searchDebounce = null;
-document.getElementById('search-input').addEventListener('input', e => {
-  const value = e.target.value.trim().toLowerCase();
-  if (searchDebounce) clearTimeout(searchDebounce);
-  searchDebounce = setTimeout(() => {
-    searchText = value;
-    applyFilters();
-  }, 150);
-});
+
+// Set the needle from raw (untrimmed, mixed-case) text. apply=false is for the
+// callers that re-run applyFilters() themselves right afterwards.
+function setSearchText(raw, { apply = true } = {}) {
+  const value = String(raw ?? '');
+  if (searchInputEl && searchInputEl.value !== value) searchInputEl.value = value;
+  searchText = value.trim().toLowerCase();
+  if (searchClearEl) searchClearEl.hidden = !searchText;
+  updateSearchStatus();
+  if (apply) applyFilters();
+}
+
+// The clear button cancels a pending debounce: the emptied box must win over
+// the keystroke that is still on its way.
+if (searchClearEl) {
+  searchClearEl.addEventListener('click', () => {
+    if (searchDebounce) clearTimeout(searchDebounce);
+    setSearchText('');
+    if (searchInputEl) searchInputEl.focus();
+  });
+}
+
+// Debounced at 150 ms — rebuilding the card grid is heavier than a keystroke.
+if (searchInputEl) {
+  searchInputEl.addEventListener('input', () => {
+    if (searchDebounce) clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => setSearchText(searchInputEl.value), 150);
+  });
+}
 
 // Entry Point: Handle Load-Mode Switch
 loadRadios.forEach(radio => {
@@ -337,20 +370,8 @@ function applyCatalog(data) {
   taskDataset = [];
   for (const proj of projectDocs) {
     for (const task of (proj.Tasks || [])) {
-      const ipIds = Array.isArray(task.IPs) ? task.IPs : [task.IPs].filter(Boolean);
-      const firstIp = (data.ips || {})[ipIds[0]] || {};
-      const row = { ...task };
-      row.Title = task.Title ?? '';
-      // Legacy alias so search over "Name" keeps matching task titles.
-      row.Name = row.Title;
-      row.Project = proj.Name;
-      // A task's repository is its fork when it has one, otherwise the
-      // canonical URL of the first IP it touches.
-      row.ForkURL = task.ForkURL || '';
-      row.URL = row.ForkURL || firstIp.URL || '';
-      row.IPs = ipIds;
-      row.Partners = Array.isArray(task.Partners) ? task.Partners : [task.Partners].filter(Boolean);
-      taskDataset.push(row);
+      // Same row shape the detail drawer builds for an IP-view task reference.
+      taskDataset.push(normalizeTaskRow(task, proj.Name));
     }
   }
   taskDataset.sort((a, b) => String(a.Title ?? '').localeCompare(String(b.Title ?? '')));
@@ -360,14 +381,17 @@ function applyCatalog(data) {
   rebuildActiveDataset();
   dataLoaded = true;
   if (pendingSearch !== null) {
-    searchText = pendingSearch.toLowerCase();
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) searchInput.value = pendingSearch;
+    setSearchText(pendingSearch, { apply: false });
     pendingSearch = null;
   }
   buildFilterBar();
   applyFilters();
   setInitialFilterSelections(parseFiltersFromQuery()); // Apply URL filters now
+  // Hand the fresh datasets to the Projects canvas, then let the layout switch
+  // decide which Projects layout is on screen (the filters above may already
+  // have moved the page to the Project view).
+  if (typeof window.UapCanvas?.onCatalogLoaded === 'function') window.UapCanvas.onCatalogLoaded();
+  applyProjectLayout();
   exportBtn.disabled = false;
 }
 
@@ -415,6 +439,8 @@ function resetTable() {
   if (cardGrid) cardGrid.innerHTML = '';
   if (filterBar) filterBar.innerHTML = '';
   if (activeFiltersEl) { activeFiltersEl.hidden = true; activeFiltersEl.innerHTML = ''; }
+  // The canvas mirrors the same datasets, so it empties with them.
+  if (typeof window.UapCanvas?.onCatalogLoaded === 'function') window.UapCanvas.onCatalogLoaded();
   exportBtn.disabled = true;
 }
 
@@ -452,6 +478,72 @@ function matchesSearch(row) {
   return [row['IP_CARD_URL'], row['IP_CARD_PDF_URL']].some(v => v && String(v).toLowerCase().includes(searchText));
 }
 
+// View-independent search columns for the live hit counts: matchesSearch()
+// searches the ACTIVE view's `columns`, which would make the counts change when
+// the dataset switch moves. These fixed lists mirror each view's own column set
+// (plus the Task's referenced IP names, reachable from its IPs column).
+const SEARCH_HIT_COLUMNS = {
+  task: ['Title', 'TaskId', 'WI', 'Status', 'Partners', 'Description', 'URL', 'Comment', 'IPs'],
+  ip:   ['Name', 'Id', 'Category', 'Owners', 'License', 'Status', 'Description', 'URL', 'Tasks']
+};
+
+function rowHitsColumn(row, text, col) {
+  const cell = row[col];
+  if (cell == null) return false;
+  if (Array.isArray(cell)) return cell.some(v => v != null && String(v).toLowerCase().includes(text));
+  return String(cell).toLowerCase().includes(text);
+}
+
+// The current needle's hits, shared by the status line and by the Projects
+// canvas dimming: a Task hits on its own columns, on the names of the IPs it
+// touches, or on its project's name; a Project hits on its own name or on any
+// of its tasks; an IP hits like matchesSearch() does, IP Card URLs included.
+// Column filters deliberately do NOT change these counts — they count the
+// needle, which is what both Projects layouts apply to the cards.
+function computeSearchHits(text) {
+  const active = !!text;
+  const hits = { active, projects: new Set(), tasks: new Set(), ips: new Set() };
+  if (!active) return hits;
+
+  for (const row of taskDataset) {
+    const hit = SEARCH_HIT_COLUMNS.task.some(col => rowHitsColumn(row, text, col))
+      || rowHitsColumn(row, text, 'Project')
+      || (row.IPs || []).some(ipId => ipDisplayName(ipId).toLowerCase().includes(text));
+    if (!hit) continue;
+    hits.tasks.add(row);
+    hits.projects.add(row.Project);
+  }
+  for (const proj of Object.values((catalog && catalog.projects) || {})) {
+    const name = String((proj && proj.Name) ?? '');
+    if (name.toLowerCase().includes(text)) hits.projects.add(name);
+  }
+  for (const row of ipDataset) {
+    if (SEARCH_HIT_COLUMNS.ip.some(col => rowHitsColumn(row, text, col))
+      || [row['IP_CARD_URL'], row['IP_CARD_PDF_URL']].some(v => v && String(v).toLowerCase().includes(text))) {
+      hits.ips.add(row.Id);
+    }
+  }
+  return hits;
+}
+
+// "3 projects · 26 tasks · 27 IPs match" under the search box. Hidden AND
+// emptied when no needle is active, so no stale announcement lingers in the
+// accessibility tree.
+function updateSearchStatus() {
+  if (!searchStatusEl) return;
+  if (!searchText) {
+    searchStatusEl.hidden = true;
+    searchStatusEl.textContent = '';
+    return;
+  }
+  const hits = computeSearchHits(searchText);
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  searchStatusEl.hidden = false;
+  searchStatusEl.textContent =
+    `${plural(hits.projects.size, 'project')} · ${plural(hits.tasks.size, 'task')}`
+    + ` · ${plural(hits.ips.size, 'IP')} match`;
+}
+
 // Recompute filteredData from filterState + searchText, render cards + chips.
 // Only filters whose column exists in the active view are applied; the others
 // stay in filterState for when that view is selected again.
@@ -484,8 +576,14 @@ function applyFilters() {
   }
 
   renderActiveChips();
+  // The grid keeps rendering even while the Projects canvas is on screen: the
+  // filter chips, the announced result count and the drawer state stay honest,
+  // and switching back to Grid shows the same rows without a re-filter.
   renderCards(filteredData);
   refreshFilterCounts();
+  // The canvas dims its cards around the same needle (data-level semantics —
+  // the column filters do not reach into the canvas, see applyProjectLayout).
+  if (typeof window.UapCanvas?.applySearch === 'function') window.UapCanvas.applySearch();
   }
 
 function isValidUrl(string) {
@@ -501,10 +599,10 @@ function isValidUrl(string) {
 }
 
 // ---------------------------------------------------------------------------
-// Repository statistics helpers (GitHub + GitLab)
+// Repository statistics helpers (GitHub + GitLab + Bitbucket)
 // The key normalisation rules below must stay in sync with parse_repo_refs()
-// (GithubProvider.parse_repos / GitlabProvider.parse_repos) in
-// scripts/fetch_repo_stats.py:
+// (GithubProvider.parse_repos / GitlabProvider.parse_repos /
+// BitbucketProvider.parse_repos) in scripts/fetch_repo_stats.py:
 //   - GitHub: accepts github.com/{owner}/{repo}, optionally followed by
 //     /tree/<ref>, /blob/<ref>/... (only owner/repo is kept)
 //   - GitLab: any host containing "gitlab"; the first two path segments are
@@ -512,7 +610,10 @@ function isValidUrl(string) {
 //     stripped. Known limitation: nested subgroups are not resolved.
 //   - several URLs may be separated by ';' in one string
 //   - trailing prose is tolerated: the slug stops at the first invalid character
-//   - other hosts (bitbucket.org, vendor pages, ...) and empty values ignored
+//   - Bitbucket: accepts bitbucket.org/{workspace}/{repo} on the public host
+//     only — self-hosted instances (bitbucket.sw.nxp.com, ...) need
+//     authentication and stay ignored
+//   - other hosts (vendor pages, ...) and empty values ignored
 // Cache keys are lowercase "<host>/owner/repo".
 // ---------------------------------------------------------------------------
 // The lookbehind prevents matching other hosts such as
@@ -522,6 +623,10 @@ const GITHUB_SLUG_RE = /(?<![A-Za-z0-9.\-])(?:www\.)?github\.com\/([A-Za-z0-9._-
 // least two path segments (group/project). Requiring the scheme prevents false
 // positives on paths such as github.com/gitlab-tools/foo.
 const GITLAB_SLUG_RE = /https?:\/\/([A-Za-z0-9.\-]*gitlab[A-Za-z0-9.\-]*)\/([A-Za-z0-9._-]+)\/([A-Za-z0-9._-]+)/gi;
+// Bitbucket project URLs on the public host only. Self-hosted instances are
+// deliberately NOT resolved (their API needs authentication), so those URLs
+// keep rendering "no repository statistics".
+const BITBUCKET_SLUG_RE = /https?:\/\/bitbucket\.org\/([A-Za-z0-9._-]+)\/([A-Za-z0-9._-]+)/gi;
 
 function parseRepoRefs(urlValue) {
   if (!urlValue || typeof urlValue !== 'string') return [];
@@ -555,6 +660,13 @@ function parseRepoRefs(urlValue) {
       if (!group || !project) continue;
       push('gitlab', `${host}/${group}/${project}`);
     }
+    const bbRe = new RegExp(BITBUCKET_SLUG_RE.source, 'gi');
+    while ((match = bbRe.exec(chunk)) !== null) {
+      const workspace = match[1].replace(/^\.+|\.+$/g, '');
+      const slug = match[2].replace(/^\.+|\.+$/g, '');
+      if (!workspace || !slug) continue;
+      push('bitbucket', `bitbucket.org/${workspace}/${slug}`);
+    }
   });
   return refs;
 }
@@ -566,14 +678,21 @@ function lookupRepoStats(key) {
 }
 
 // Merge the stats of every GitHub/GitLab repo referenced by a row's URL field
-// (canonical IP URL in the IP view, task ForkURL in the Project view).
+// (canonical IP URL in the IP view, task URL in the Project view).
 // Returns { repos: [{key, provider, record|null}], total: {...}|null } or null
 // when the row references no known repository host at all.
 function getRowRepoStats(row) {
   const refs = parseRepoRefs(row ? row['URL'] : '');
   if (!refs.length) return null;
 
-  const repos = refs.map(ref => ({ ...ref, record: lookupRepoStats(ref.key) }));
+  // Bitbucket's API exposes no stars/forks/commit counters, so its cache
+  // record exists only as a logo source. Keeping it out of the statistics
+  // path means a Bitbucket-only URL still renders exactly as it did before
+  // Bitbucket was parsed at all.
+  const statRefs = refs.filter(ref => ref.provider !== 'bitbucket');
+  if (!statRefs.length) return null;
+
+  const repos = statRefs.map(ref => ({ ...ref, record: lookupRepoStats(ref.key) }));
   const found = repos.filter(r => r.record).map(r => r.record);
   if (!found.length) return { repos, total: null };
 
@@ -603,6 +722,42 @@ function getRowRepoStats(row) {
       archived: found.every(r => r.archived === true)
     }
   };
+}
+
+// Logo of the first repository a row references, for the IP-view card and
+// the Projects canvas IP card. Uses every parsed ref — Bitbucket included —
+// and returns '' when no cache record carries a logo (the card then renders
+// no logo at all). The cache is written by scripts/fetch_repo_stats.py; the
+// runtime never calls a repository API.
+function getRepoLogoForIp(row) {
+  for (const ref of parseRepoRefs(row ? row['URL'] : '')) {
+    const record = lookupRepoStats(ref.key);
+    const logo = record && record.logo;
+    if (typeof logo === 'string' && logo.trim()) return logo.trim();
+  }
+  return '';
+}
+
+// The <img> widget shared by both production IP-card heads — the IP-view
+// grid card (renderCards) and the Projects canvas card (projects-canvas.js
+// renderIpCard): no logo means no element at all, and a logo that 404s
+// removes itself instead of showing a broken-image icon. (The third
+// IP-card renderer, the preview prototype script, is deliberately left
+// without logos and awaits deletion.)
+function buildRepoLogoImg(row, className) {
+  const logoUrl = getRepoLogoForIp(row);
+  if (!logoUrl) return null;
+  const img = document.createElement('img');
+  img.className = className;
+  img.src = logoUrl;
+  img.alt = '';
+  // Avatars are square and sized 28 px by CSS — the attribute pair reserves
+  // that box so the lazy load raises no layout-shift hint.
+  img.width = 28;
+  img.height = 28;
+  img.loading = 'lazy';
+  img.addEventListener('error', () => img.remove(), { once: true });
+  return img;
 }
 
 // Compact "12d ago" / "3mo ago" style formatting for cache and push dates.
@@ -667,7 +822,7 @@ function renderRepoStats(container, row) {
     // Repositories are known but the cache has no (fresh) entry for them.
     const missing = document.createElement('span');
     missing.className = 'gh-stats-na';
-    missing.textContent = '—';
+    missing.textContent = 'n/a';
     missing.title = `Statistics for ${stats.repos.map(r => r.key).join(', ')} are not refreshed yet.`;
     wrapper.appendChild(missing);
     container.appendChild(wrapper);
@@ -762,10 +917,8 @@ function renderIpCardLinks(container, row) {
     { key: 'IP_CARD_URL',     cls: 'fas fa-file-code', title: 'Open IP Card (JSON)', aria: 'IP Card JSON' },
     { key: 'IP_CARD_PDF_URL', cls: 'fas fa-file-pdf',  title: 'Open IP Card (PDF)',  aria: 'IP Card PDF'  }
   ];
-  let any = false;
   iconSpecs.forEach(spec => {
     if (row[spec.key]) {
-      any = true;
       const a = document.createElement('a');
       a.href = row[spec.key];
       a.className = 'ip-card-link';
@@ -778,13 +931,12 @@ function renderIpCardLinks(container, row) {
       icon.setAttribute('aria-hidden', 'true');
       a.appendChild(icon);
       container.appendChild(a);
-    }
-  });
-  if (!any) container.textContent = '—';
-  }
+      }
+      });
+      }
 
-  // ---------------------------------------------------------------------------
-  // IP Card preview — lazily fetch and render the ip_cards/*.json(|jsonc)
+      // ---------------------------------------------------------------------------
+      // IP Card preview — lazily fetch and render the ip_cards/*.json(|jsonc)
   // document an IP row points at, inside the detail drawer.
   //
   // The migrated cards are messy: two different top-level shapes coexist under
@@ -1156,9 +1308,9 @@ function renderIpCardLinks(container, row) {
 
   function ipcardError(cardUrl) {
   const box = el('div', 'ipcard-error');
-  box.textContent = 'The IP Card could not be loaded';
+  box.textContent = 'The IP Card could not be loaded.';
   if (cardUrl) {
-    box.appendChild(document.createTextNode(' — open it directly: '));
+    box.appendChild(document.createTextNode(' Open it directly: '));
     const a = el('a', 'ipcard-link');
     a.href = cardUrl;
     a.target = '_blank';
@@ -1281,7 +1433,6 @@ function renderIpCardLinks(container, row) {
   // each task in the detail drawer.
 function renderTasksBlock(container, row) {
   const refs = row._taskDetails || [];
-  if (!refs.length) { container.textContent = '—'; return; }
   const list = document.createElement('div');
   list.className = 'task-list';
   refs.forEach(({ proj, task }) => {
@@ -1293,7 +1444,10 @@ function renderTasksBlock(container, row) {
     btn.className = 'task-link';
     btn.textContent = task.Title || '(untitled task)';
     btn.title = `${proj.Name} · ${wi}`;
-    btn.addEventListener('click', () => openDetailDrawer('task', normalizeTaskRow(task, proj.Name)));
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      openDetailDrawer('task', normalizeTaskRow(task, proj.Name));
+    });
     item.appendChild(btn);
     const meta = document.createElement('span');
     meta.className = 'task-item-meta';
@@ -1304,18 +1458,20 @@ function renderTasksBlock(container, row) {
   container.appendChild(list);
 }
 
-// Build a task-row-shaped object from a raw task + its project name so that the
-// detail drawer can render an IP-view task without the task living in
-// taskDataset. Keeps the drawer navigation identical across both views.
+// Build a task-row-shaped object from a raw task + its project name. Used both
+// for the Project-view dataset and for the detail drawer of an IP-view task
+// reference, so the two never drift apart.
 function normalizeTaskRow(task, projectName) {
   const ipIds = Array.isArray(task.IPs) ? task.IPs : [task.IPs].filter(Boolean);
   const firstIp = (catalog && catalog.ips && catalog.ips[ipIds[0]]) || {};
   const row = { ...task };
   row.Title = task.Title ?? '';
+  // Legacy alias so search over "Name" keeps matching task titles.
   row.Name = row.Title;
   row.Project = projectName;
-  row.ForkURL = task.ForkURL || '';
-  row.URL = row.ForkURL || firstIp.URL || '';
+  // A task's repository is its own URL when it has one, otherwise the
+  // canonical URL of the first IP it touches.
+  row.URL = task.URL || firstIp.URL || '';
   row.IPs = ipIds;
   row.Partners = Array.isArray(task.Partners) ? task.Partners : [task.Partners].filter(Boolean);
   return row;
@@ -1346,7 +1502,7 @@ function renderStatusPill(value) {
 
 // Project pill: small logo + name, opens the project drawer on click.
 function renderProjectPill(container, projectName) {
-  if (!projectName) { container.textContent = '—'; return; }
+  if (!projectName) { container.textContent = 'n/a'; return; }
   const proj = projectsData.find(p => p.name === projectName);
   const card = document.createElement('button');
   card.type = 'button';
@@ -1362,7 +1518,10 @@ function renderProjectPill(container, projectName) {
   const label = document.createElement('span');
   label.textContent = projectName;
   card.appendChild(label);
-  card.addEventListener('click', () => openDetailDrawer('project', projectName));
+  card.addEventListener('click', e => {
+    e.stopPropagation();
+    openDetailDrawer('project', projectName);
+  });
   container.appendChild(card);
 }
 
@@ -1389,6 +1548,25 @@ function renderIpsCell(container, ipIds) {
 // Card rendering (replaces the old table for the platform page).
 // ---------------------------------------------------------------------------
 
+// A column is worth a card row only when the row actually carries a value:
+// cards omit the row entirely instead of rendering an "—" / "n/a" placeholder.
+function isRowValueEmpty(col, row) {
+  if (col === IP_CARD_COLUMN) return !(row.IP_CARD_URL || row.IP_CARD_PDF_URL);
+  if (col === REPO_STATS_COLUMN) {
+    // Falsy when the row references no repository host, and total is null when
+    // the cache holds no entry for the referenced repositories.
+    const stats = getRowRepoStats(row);
+    return !stats || !stats.total;
+  }
+  // A URL nobody can click is no value either.
+  if (col === 'URL') return !isValidUrl(row.URL);
+  const val = row[col];
+  if (Array.isArray(val)) {
+    return val.filter(v => v !== null && v !== undefined && String(v).trim() !== '').length === 0;
+  }
+  return val === null || val === undefined || String(val).trim() === '';
+}
+
 // Render the value for one column into a container, choosing the right widget:
 // pills, repo stats, IP card icons, task list, links, or plain text.
 function renderCardValue(container, col, row) {
@@ -1399,38 +1577,54 @@ function renderCardValue(container, col, row) {
   if (col === IP_CARD_COLUMN) { container.className += ' card-meta-value--icons'; renderIpCardLinks(container, row); return; }
   if (col === 'Tasks') { renderTasksBlock(container, row); return; }
   if (col === 'IPs') {
-    const ids = Array.isArray(val) ? val : [val].filter(Boolean);
-    if (!ids.length) { container.textContent = '—'; return; }
-    renderIpsCell(container, ids);
+    renderIpsCell(container, Array.isArray(val) ? val : [val].filter(Boolean));
     return;
   }
   if (col === 'Project') { renderProjectPill(container, row[col]); return; }
   if (col === 'Status') {
-    if (!nonEmpty.length) { container.textContent = '—'; return; }
     container.className += ' card-meta-value--wrap';
     nonEmpty.forEach(v => container.appendChild(renderStatusPill(v)));
     return;
   }
   if (PILL_FIELDS[col]) {
-    if (!nonEmpty.length) { container.textContent = '—'; return; }
     container.className += ' card-meta-value--wrap';
     nonEmpty.forEach(v => container.appendChild(renderPill(String(v), PILL_FIELDS[col])));
     return;
   }
-  if (col === 'URL' || col === 'ForkURL') {
-    if (isValidUrl(row[col])) {
-      const a = document.createElement('a');
-      a.href = row[col];
-      a.textContent = row[col];
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      container.appendChild(a);
-    } else {
-      container.textContent = '';
-    }
+  if (col === 'URL') {
+    const a = document.createElement('a');
+    a.href = row[col];
+    a.textContent = row[col];
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    container.appendChild(a);
     return;
   }
   container.textContent = Array.isArray(val) ? val.join(', ') : (val ?? '');
+}
+
+// Emit one labelled meta row per column that carries a value ("no row without
+// a value" — never a "—" placeholder). Shared by the grid cards and the
+// Projects canvas cards so the two layouts cannot drift apart.
+function renderCardMetaRows(metaEl, row, cols, titleKey) {
+  for (const col of cols) {
+    if (col === titleKey) continue;
+    // In the Project view, "Name" is a legacy alias of the Title; skip it.
+    if (view === 'project' && col === 'Name') continue;
+    // Missing or empty value: no row at all (no "—" placeholder).
+    if (isRowValueEmpty(col, row)) continue;
+    const rowEl = document.createElement('div');
+    rowEl.className = 'card-meta-row';
+    const label = document.createElement('span');
+    label.className = 'card-meta-label';
+    label.textContent = columnLabels[col] || col;
+    const value = document.createElement('span');
+    value.className = 'card-meta-value';
+    renderCardValue(value, col, row);
+    rowEl.appendChild(label);
+    rowEl.appendChild(value);
+    metaEl.appendChild(rowEl);
+  }
 }
 
 // Render the filtered rows as cards.
@@ -1457,9 +1651,15 @@ function renderCards(rows) {
     card.className = 'entity-card';
     card.setAttribute('role', 'listitem');
 
-    // --- Header: title (opens drawer) + external link ---
+    // --- Header: repo logo + title (opens drawer) + external link ---
     const head = document.createElement('div');
     head.className = 'card-head';
+    // Logo of the repository this IP points at (cfg/repo-stats.json),
+    // through the same shared widget as the Projects canvas IP card.
+    if (view === 'ip') {
+      const logo = buildRepoLogoImg(row, 'card-logo');
+      if (logo) head.appendChild(logo);
+    }
     const title = document.createElement('button');
     title.type = 'button';
     title.className = 'card-title';
@@ -1487,23 +1687,29 @@ function renderCards(rows) {
     // --- Meta rows for the remaining columns ---
     const meta = document.createElement('div');
     meta.className = 'card-meta';
-    visibleColumns.forEach(col => {
-      if (col === titleKey) return;
-      // In the Project view, "Name" is a legacy alias of the Title; skip it.
-      if (view === 'project' && col === 'Name') return;
-      const rowEl = document.createElement('div');
-      rowEl.className = 'card-meta-row';
-      const label = document.createElement('span');
-      label.className = 'card-meta-label';
-      label.textContent = columnLabels[col] || col;
-      const value = document.createElement('span');
-      value.className = 'card-meta-value';
-      renderCardValue(value, col, row);
-      rowEl.appendChild(label);
-      rowEl.appendChild(value);
-      meta.appendChild(rowEl);
-    });
+    renderCardMetaRows(meta, row, visibleColumns, titleKey);
     card.appendChild(meta);
+
+    // Clicking anywhere on the card opens the drawer, like the title button
+    // does. Interactive children (title, external link, project pills, task
+    // links) handle their own clicks and the guard below keeps this handler
+    // from firing for them as well.
+    const openCardDrawer = () => openDetailDrawer(view === 'ip' ? 'ip' : 'task', row);
+    card.addEventListener('click', e => {
+      // Anchors and buttons do their own work; an <a> without href is inert and
+      // still belongs to the card.
+      if (e.target.closest('a[href], button')) return;
+      // Dragging to select text inside a card must not summon the drawer.
+      if (window.getSelection && String(window.getSelection())) return;
+      openCardDrawer();
+    });
+    card.tabIndex = 0;
+    card.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (e.target !== card) return; // inner controls keep their own keys
+      e.preventDefault();           // Space would scroll the page
+      openCardDrawer();
+    });
 
     frag.appendChild(card);
   });
@@ -1798,10 +2004,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelector('input[name="load-mode"][value="server"]')
           .dispatchEvent(new Event('change'));
 
-  // Wire the new top-bar controls (view switcher) + settings gear.
+  // Wire the new top-bar controls (view switcher, Projects layout switch)
+  // + settings gear.
   setupViewSwitcher();
+  setupLayoutSwitch();
   setupSettingsPanel();
   setupDrawer();
+  // Restore the saved Projects layout. The canvas module owns the payload, so
+  // the choice is read back from it (Canvas is the default with no state).
+  projectLayout = typeof window.UapCanvas?.getLayout === 'function'
+    ? window.UapCanvas.getLayout()
+    : 'canvas';
 
   // Setup tab navigation and load compatibility matrix
   setupTabNavigation();
@@ -1821,10 +2034,70 @@ function setViewButtons() {
 }
 
 function setView(newView) {
-  if (view === newView) { setViewButtons(); return; }
+  if (view === newView) { setViewButtons(); applyProjectLayout(); return; }
   view = newView;
   setViewButtons();
   onViewChanged();
+}
+
+// ---------------------------------------------------------------------------
+// Projects layout — Canvas (floating cards, projects-canvas.js) | Grid (the
+// card grid). Only the Projects dataset offers the choice; the IPs dataset is
+// always the grid. The choice is stored inside the canvas module's session
+// payload (sessionStorage['uap-canvas-state'].layout) so one key holds the
+// whole Projects view state; a fresh browser session starts on Canvas.
+// ---------------------------------------------------------------------------
+let projectLayout = 'canvas';
+
+function setProjectLayout(layout) {
+  projectLayout = layout === 'grid' ? 'grid' : 'canvas';
+  if (typeof window.UapCanvas?.saveLayout === 'function') window.UapCanvas.saveLayout(projectLayout);
+  applyProjectLayout();
+}
+
+// Push (projectLayout, view) onto the DOM. Idempotent: called by the dataset
+// switch, the layout switch, the tab switch and the catalogue load.
+function applyProjectLayout() {
+  const canvasOn = view === 'project' && projectLayout === 'canvas';
+  if (layoutSwitchEl) layoutSwitchEl.hidden = view !== 'project';
+  if (cardGrid) cardGrid.hidden = canvasOn;
+  if (canvasBarEl) canvasBarEl.hidden = !canvasOn;
+  if (canvasStageEl) canvasStageEl.hidden = !canvasOn;
+  // Attribute filters cannot be shown on the canvas: the canvas search dims
+  // the cards around the needle, while a column filter would have to REMOVE
+  // cards, moving everything and invalidating the saved positions. The
+  // #active-filters chips stay visible, so an active filter is never invisible,
+  // and the grid keeps filtering underneath, so Grid re-applies on the spot.
+  if (filterBar) filterBar.hidden = canvasOn;
+  // The canvas needs a wider column than the 1100px reading width can give
+  // its card grid; projects-canvas.css keys its max-width on this class.
+  document.body.classList.toggle('uap-canvas-on', canvasOn);
+  if (layoutSwitchEl) {
+    layoutSwitchEl.classList.toggle('is-grid', projectLayout === 'grid');
+    layoutSwitchEl.querySelectorAll('.uap-layout-option').forEach(option => {
+      const on = option.dataset.layout === projectLayout;
+      option.classList.toggle('is-active', on);
+      option.setAttribute('aria-checked', on ? 'true' : 'false');
+      option.tabIndex = on ? 0 : -1;
+    });
+  }
+  if (typeof window.UapCanvas?.setActive === 'function') window.UapCanvas.setActive(canvasOn);
+}
+
+function setupLayoutSwitch() {
+  if (!layoutSwitchEl) return;
+  layoutSwitchEl.addEventListener('click', e => {
+    const option = e.target.closest('.uap-layout-option');
+    if (option) setProjectLayout(option.dataset.layout);
+  });
+  // Radiogroup semantics: the two options are radios in a group, so the arrow
+  // keys move the selection — and activate it, both layouts are cheap to show.
+  layoutSwitchEl.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    setProjectLayout(projectLayout === 'canvas' ? 'grid' : 'canvas');
+    layoutSwitchEl.querySelector('.uap-layout-option.is-active')?.focus();
+  });
 }
 
 function setupViewSwitcher() {
@@ -1836,12 +2109,12 @@ function setupViewSwitcher() {
     });
   });
   setViewButtons();
-  }
+}
 
-  // Gear button toggles the floating settings panel (data source + Export CSV +
-  // Edit link). Clicking the button toggles it; a click outside it, or Escape,
-  // closes it.
-  function setupSettingsPanel() {
+// Gear button toggles the floating settings panel (data source + Export CSV +
+// Edit link). Clicking the button toggles it; a click outside it, or Escape,
+// closes it.
+function setupSettingsPanel() {
   const btn = document.getElementById('settings-toggle-btn');
   const panel = document.getElementById('settings-panel');
   if (!btn || !panel) return;
@@ -1868,6 +2141,7 @@ function onViewChanged() {
   rebuildActiveDataset();
   buildFilterBar();
   applyFilters();
+  applyProjectLayout();
 }
 
 // Update visibleColumns for the active view.
@@ -1902,7 +2176,7 @@ function deriveColumns() {
   // Synthetic IP Card column: rendered from IP_CARD_URL/IP_CARD_PDF_URL raw
   // fields, which are otherwise not shown directly.
   if (raw.includes('IP_CARD_URL') || raw.includes('IP_CARD_PDF_URL')) ordered.push(IP_CARD_COLUMN);
-  ['URL', 'ForkURL', 'DefaultBranch', 'Branch', 'IPs', 'Partners', 'Tasks', 'WI', 'TaskId', 'Description'].forEach(push);
+  ['URL', 'DefaultBranch', 'Branch', 'IPs', 'Partners', 'Tasks', 'WI', 'TaskId', 'Description'].forEach(push);
   // Synthetic column: not a key of the data objects, rendered from the
   // pre-computed repository statistics cache.
   if (!ordered.includes(REPO_STATS_COLUMN)) ordered.push(REPO_STATS_COLUMN);
@@ -1980,18 +2254,18 @@ function drawerField(labelText, buildFn) {
 
 function pillsInto(container, values, kind) {
   const arr = (Array.isArray(values) ? values : [values]).filter(Boolean);
-  if (!arr.length) { container.textContent = '—'; return; }
+  if (!arr.length) { container.textContent = 'n/a'; return; }
   arr.forEach(v => container.appendChild(renderPill(String(v), kind)));
 }
 
 function statusInto(container, values) {
   const arr = (Array.isArray(values) ? values : [values]).filter(Boolean);
-  if (!arr.length) { container.textContent = '—'; return; }
+  if (!arr.length) { container.textContent = 'n/a'; return; }
   arr.forEach(v => container.appendChild(renderStatusPill(v)));
 }
 
 function linkInto(container, url, text) {
-  if (!isValidUrl(url)) { container.textContent = text ? text : '—'; return; }
+  if (!isValidUrl(url)) { container.textContent = text ? text : 'n/a'; return; }
   const a = document.createElement('a');
   a.href = url;
   a.textContent = text || url;
@@ -2012,6 +2286,10 @@ function openDetailDrawer(type, arg) {
   else if (type === 'ip') renderIpDrawer(arg);
   else if (type === 'task') renderTaskDrawer(arg);
   showDrawer();
+  // Let the Projects canvas decorate the fresh drawer (IP show/hide toggles,
+  // "Show on canvas"). The canvas module is optional: without it this event
+  // simply has no listener.
+  document.dispatchEvent(new CustomEvent('uap:drawer-render', { detail: { kind: type, row: arg } }));
 }
 
 function renderIpDrawer(row) {
@@ -2056,7 +2334,7 @@ function renderTaskDrawer(row) {
   if (row.Partners && row.Partners.length) fields.appendChild(drawerField('Partners', c => pillsInto(c, row.Partners, 'partner')));
   if (row.Status) fields.appendChild(drawerField('Status', c => statusInto(c, row.Status)));
   if (row.Branch) fields.appendChild(drawerField('Branch', c => { c.textContent = row.Branch; }));
-  if (row.ForkURL) fields.appendChild(drawerField('Fork', c => linkInto(c, row.ForkURL)));
+  if (row.URL) fields.appendChild(drawerField('URL', c => linkInto(c, row.URL)));
   fields.appendChild(drawerField('Statistics', c => renderRepoStats(c, row)));
   if (row.Description) fields.appendChild(drawerField('Description', c => { c.textContent = row.Description; }));
   if (row.Comment) fields.appendChild(drawerField('Comment', c => { c.textContent = row.Comment; }));
@@ -2215,13 +2493,21 @@ function showDrawer() {
 function closeDetailDrawer() {
   if (!drawerEl || drawerEl.hidden) return;
   drawerEl.classList.remove('open');
-  drawerEl.setAttribute('aria-hidden', 'true');
-  drawerOverlay.hidden = true;
-  // Restore focus to the element that opened the drawer.
+  // Restore focus BEFORE aria-hidden goes on. A control inside the drawer can
+  // be the one closing it (the canvas "Show on canvas" button, or Escape while
+  // the drawer's own close button has focus), and hiding a subtree that still
+  // holds the focus trips Chrome's "Blocked aria-hidden" warning.
   if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
     lastFocusedEl.focus();
   }
+  // Restoring can be a no-op (the opener was document.body, or a canvas
+  // re-render dropped it): the focus has to be out before aria-hidden lands.
+  if (drawerEl.contains(document.activeElement)) {
+    document.activeElement.blur();
+  }
   lastFocusedEl = null;
+  drawerEl.setAttribute('aria-hidden', 'true');
+  drawerOverlay.hidden = true;
   // Hide after the drawer's own transform transition finishes. Guard on the
   // target + property: transitionend bubbles, so child transitions must not
   // trigger this, and reopening mid-slide must not hide an open drawer.
@@ -2245,10 +2531,13 @@ function setupDrawer() {
   if (closeBtn) closeBtn.addEventListener('click', closeDetailDrawer);
   if (drawerOverlay) drawerOverlay.addEventListener('click', closeDetailDrawer);
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      if (openPopover) { closePopover(); return; }
-      if (drawerEl && !drawerEl.hidden) closeDetailDrawer();
-    }
+    if (e.key !== 'Escape') return;
+    // The topmost layer closes first: popover, drawer, search, and only then
+    // the Projects canvas selection.
+    if (openPopover) { closePopover(); return; }
+    if (drawerEl && !drawerEl.hidden) { closeDetailDrawer(); return; }
+    if (searchText) { setSearchText(''); return; }
+    if (typeof window.UapCanvas?.clearSelection === 'function') window.UapCanvas.clearSelection();
   });
 }
 
@@ -2433,45 +2722,72 @@ function switchToCatalogue(ipName, projectName) {
     buildFilterBar();
   }
 
-  const searchInput = document.getElementById('search-input');
-
   if (isIpId) {
-    if (searchInput) searchInput.value = '';
-    searchText = '';
+    setSearchText('', { apply: false });
     setFilterState({ Id: [ipName] }, { replace: true });
   } else {
     // Project view filtered by project, searching for the old label.
-    searchText = ipName.toLowerCase();
-    if (searchInput) searchInput.value = ipName;
+    setSearchText(ipName, { apply: false });
     const project = projectName || 'TRISTAN';
     setFilterState({ Project: [project] }, { replace: true });
   }
 
   applyFilters();
+  applyProjectLayout();
+  // A matrix click landing on the Projects canvas should land ON the task and
+  // not merely beside it.
+  if (!isIpId && view === 'project' && projectLayout === 'canvas') revealUniqueSearchHit();
   switchTab('catalogue');
 }
 
+// Reveal the task an incoming needle isolates (compatibility-matrix deep
+// links). With zero or several hits there is nothing sensible to single out —
+// the dimmed canvas already shows where the needle lands.
+function revealUniqueSearchHit() {
+  if (!searchText) return;
+  const hits = computeSearchHits(searchText);
+  if (hits.tasks.size !== 1) return;
+  const [row] = hits.tasks;
+  if (typeof window.UapCanvas?.revealTask === 'function') window.UapCanvas.revealTask(row);
+}
+
 function switchTab(tab) {
-  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
   const catalogueView = document.getElementById('catalogue-view');
   const compatibilityView = document.getElementById('compatibility-view');
+  const isolaView = document.getElementById('isola-view');
 
   tabBtns.forEach(b => b.classList.remove('active'));
   tabBtns.forEach(b => {
     if (b.dataset.tab === tab) b.classList.add('active');
   });
 
-  if (tab === 'catalogue') {
-    catalogueView.hidden = false;
-    compatibilityView.hidden = true;
-  } else {
-    catalogueView.hidden = true;
-    compatibilityView.hidden = false;
+  catalogueView.hidden = tab !== 'catalogue';
+  compatibilityView.hidden = tab !== 'compatibility';
+  if (isolaView) isolaView.hidden = tab !== 'isola';
+  if (tab === 'isola') activateIsolaFrame();
+
+  // The canvas stage measured nothing while the matrix or the ISOLA preview was
+  // on screen, so hand it back when the catalogue returns: it re-measures,
+  // restores its scroll offset and repaints edges.
+  if (typeof window.UapCanvas?.setActive === 'function') {
+    window.UapCanvas.setActive(tab === 'catalogue' && view === 'project' && projectLayout === 'canvas');
+  }
+}
+
+// The ISOLA preview iframe holds its URL in data-src until the tab is first
+// opened, so a plain catalogue page view never contacts the assistant.
+function activateIsolaFrame() {
+  const frame = document.getElementById('isola-frame');
+  if (frame && !frame.getAttribute('src') && frame.dataset.src) {
+    frame.src = frame.dataset.src;
   }
 }
 
 function setupTabNavigation() {
-  const tabBtns = document.querySelectorAll('.tab-btn');
+  // Only the real tab controls ([data-tab]) — the theme switch also borrows the
+  // .tab-btn pill styling and must not push a (undefined) hash of its own.
+  const tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
 
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2487,11 +2803,9 @@ function setupTabNavigation() {
       switchTab(event.state.tab);
       // Restore search if going back to catalogue with a search term
       if (event.state.search) {
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) searchInput.value = event.state.search;
         if (dataLoaded) {
-          searchText = event.state.search.toLowerCase();
-          applyFilters();
+          setSearchText(event.state.search);
+          if (view === 'project' && projectLayout === 'canvas') revealUniqueSearchHit();
         } else {
           // Defer filtering until data finishes loading
           pendingSearch = event.state.search;
@@ -2509,5 +2823,7 @@ function setupTabNavigation() {
     switchTab('compatibility');
   } else if (hash === 'catalogue') {
     switchTab('catalogue');
+  } else if (hash === 'isola') {
+    switchTab('isola');
   }
-}
+  }

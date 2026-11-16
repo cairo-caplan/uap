@@ -26,21 +26,19 @@ import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
-# Task shells may run with an ASCII locale; error output includes file
-# content with Unicode (en-dashes, etc.), so never crash while printing it.
-import io  # noqa: E402
-
-if hasattr(sys.stdout, "buffer"):
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True
-    )
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.buffer, encoding="utf-8", errors="replace", line_buffering=True
-    )
-
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from uap_common import iter_json_files, load_json, partner_lookup, to_list  # noqa: E402
+from uap_common import (  # noqa: E402
+    harden_console,
+    iter_json_files,
+    load_json,
+    partner_lookup,
+    to_list,
+)
+
+# Task shells may run with an ASCII locale; error output includes file
+# content with Unicode (en-dashes, etc.), so never crash while printing it.
+harden_console()
 
 try:
     import jsonschema

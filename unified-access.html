@@ -19,6 +19,17 @@
   <!-- Common stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Optional OpenHW Foundation style theme (scoped under html[data-theme="openhw"]) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="theme-openhw.css" />
+  <!-- Projects canvas stylesheet (last: its own theme overrides must win over
+       the theme file) -->
+  <link rel="stylesheet" href="projects-canvas.css" />
+  <script src="scripts/theme.js"></script>
+
   <!-- Favicon (relative: the site may be served from a /sub-path on Pages) -->
   <link rel="icon" type="image/png" href="images/logo_unified-riscv.png" />
   <link rel="apple-touch-icon" href="images/logo_unified-riscv.png" />
@@ -53,29 +64,65 @@
   <main>
     <!-- Top bar: primary dataset switcher + secondary matrix control -->
     <div class="top-bar">
-      <div class="view-switcher" role="group" aria-label="Switch dataset">
-        <button type="button" class="view-switch-btn active" data-view="ip" aria-pressed="true">
-          <i class="fas fa-microchip" aria-hidden="true"></i><span>IPs</span>
+      <div class="top-bar-switchers">
+        <div class="view-switcher" role="group" aria-label="Switch dataset">
+          <button type="button" class="view-switch-btn active" data-view="ip" aria-pressed="true">
+            <i class="fas fa-microchip" aria-hidden="true"></i><span>IPs</span>
+          </button>
+          <button type="button" class="view-switch-btn" data-view="project" aria-pressed="false">
+            <span class="view-switch-emoji" aria-hidden="true">🇪🇺</span><span>Projects</span>
+          </button>
+        </div>
+        <!-- Projects layout switch: shown only on the Projects dataset. It must
+             NOT use the .tab-btn class or a data-tab attribute: script.js
+             binds every .tab-btn[data-tab] to the tab navigation. -->
+        <div id="layout-switch" class="uap-layout-switch" role="radiogroup"
+             aria-label="Projects layout" hidden>
+          <span class="uap-layout-thumb" aria-hidden="true"></span>
+          <button type="button" class="uap-layout-option is-active" role="radio"
+                  aria-checked="true" data-layout="canvas">
+            <i class="fas fa-diagram-project" aria-hidden="true"></i><span>Canvas</span>
+          </button>
+          <button type="button" class="uap-layout-option" role="radio"
+                  aria-checked="false" tabindex="-1" data-layout="grid">
+            <i class="fas fa-table-cells-large" aria-hidden="true"></i><span>Grid</span>
+          </button>
+        </div>
+      </div>
+      <div class="top-bar-actions">
+        <button type="button" class="tab-btn matrix-toggle" data-tab="compatibility">
+          <i class="fas fa-table" aria-hidden="true"></i><span>Compatibility Matrix</span>
         </button>
-        <button type="button" class="view-switch-btn" data-view="project" aria-pressed="false">
-          <span class="view-switch-emoji" aria-hidden="true">🇪🇺</span><span>Projects</span>
+        <button type="button" class="tab-btn isola-toggle" data-tab="isola">
+          <i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i><span>ISOLA</span><span
+            class="isola-badge">Preview</span>
+        </button>
+        <button type="button" id="theme-toggle" class="tab-btn theme-toggle"
+                aria-pressed="false" title="Switch between the default and the OpenHW Foundation style">
+          <i class="fas fa-palette" aria-hidden="true"></i><span>OpenHW style</span>
         </button>
       </div>
-      <button type="button" class="tab-btn matrix-toggle" data-tab="compatibility">
-        <i class="fas fa-table" aria-hidden="true"></i><span>Compatibility Matrix</span>
-      </button>
     </div>
 
     <!-- Catalogue -->
     <div id="catalogue-view" class="table-viewport">
       <!-- Search / settings toolbar -->
       <div class="search-and-settings-container">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search all fields..."
-        />
+        <div class="uap-search-wrap">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search projects, tasks and IPs..."
+            autocomplete="off"
+          />
+          <button type="button" id="search-clear" class="uap-search-clear"
+                  aria-label="Clear search" hidden><i class="fas fa-xmark" aria-hidden="true"></i></button>
+        </div>
         <button id="settings-toggle-btn" title="Open Settings" aria-label="Open Settings Panel">⚙️</button>
+
+        <!-- Live hit counts of the current search, shared by both layouts. -->
+        <div id="search-status" class="uap-search-status" role="status"
+             aria-live="polite" hidden></div>
 
         <div id="settings-panel" class="floating-panel" hidden>
           <h3>Settings</h3>
@@ -117,7 +164,28 @@
 
       <!-- Card list (populated by script.js) -->
       <div id="card-grid" class="card-grid" role="list" aria-label="Catalogue results"></div>
-    </div>
+
+      <!-- Projects canvas (populated by projects-canvas.js): the same data as
+           floating production cards on a scrollable, pannable stage. Only the
+           Projects dataset offers it, and only the layout switch above toggles
+           it against the card grid. -->
+      <div class="uap-canvas-bar" id="canvas-bar" hidden>
+        <button type="button" id="uap-clear" class="uap-canvas-btn"
+                title="Deselect all tasks and drop unpinned IP cards">
+          <i class="fas fa-xmark" aria-hidden="true"></i><span>Clear selection</span>
+        </button>
+        <button type="button" id="uap-reset" class="uap-canvas-btn"
+                title="Restore the initial card layout, the default card sizes and the top-left scroll position">
+          <i class="fas fa-rotate-left" aria-hidden="true"></i><span>Reset layout</span>
+        </button>
+      </div>
+      <div id="canvas-stage" class="mm-stage" tabindex="0" role="region"
+           aria-label="Projects canvas: focus it and use the arrow keys, or the scrollbars, to move around; Tab reaches the cards and their controls" hidden>
+        <div id="uap-canvas" class="mm-canvas">
+          <svg id="uap-links" class="mm-links" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+        </div>
+      </div>
+      </div>
 
     <!-- Detail drawer (populated by script.js) -->
     <div class="drawer-overlay" id="drawer-overlay" hidden></div>
@@ -149,6 +217,27 @@
       </div>
     </div>
 
+    <!-- ISOLA assistant preview. The iframe keeps its URL in data-src and only
+         reaches the network the first time this tab is opened; see
+         activateIsolaFrame in script.js. A plain catalogue page view must
+         never load the AI assistant. -->
+    <div id="isola-view" class="isola-viewport" hidden>
+      <div class="isola-container">
+        <h2 class="isola-title">ISOLA, the catalogue assistant <span class="isola-badge">Preview</span></h2>
+        <p class="isola-intro"><strong>ISOLA</strong> is an AI assistant with an MCP setup. Ask it about the
+        IPs, projects and tasks in this catalogue and it will point you to the matching entries. It is a
+        prototype for now, and an official integration into the platform will follow.</p>
+        <iframe id="isola-frame" class="isola-frame" loading="lazy" title="UAP catalogue assistant"
+                data-src="https://isola-shared-inference.au7.workers.dev/uap/"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"></iframe>
+        <p class="matrix-disclaimer">This is a preview of a prototype hosted outside this site, so
+        availability and answers may change without notice. If the assistant does not load below, for example
+        because a browser extension or a content policy blocks the frame, <a
+        href="https://isola-shared-inference.au7.workers.dev/uap/"
+        target="_blank" rel="noopener noreferrer">open it in a new tab</a>.</p>
+      </div>
+    </div>
+
 
     <!-- Sponsors -->
     <section id="sponsors" class="sponsors">
@@ -165,6 +254,10 @@
   </main>
 
   <script src="script.js"></script>
+  <!-- Projects canvas module: depends on the script.js globals, so it loads
+       after it and only ever calls into it (never the other way round except
+       through window.UapCanvas? guards). -->
+  <script src="projects-canvas.js"></script>
 
   <!-- Shared footer -->
   <footer>
@@ -208,7 +301,7 @@
         under the European Union’s Horizon Europe Research and Innovation Programme,
         and from the European Union, under Grant Agreements No. 101095947 (TRISTAN), 101112274 (ISOLDE).
       </p>
-      <p>© 2025 Unified RISC-V IP Access Platform — All rights reserved.</p>
+      <p>Copyright © 2025–2026 Contributors to the Eclipse Foundation. Made available under the Eclipse Public License 2.0.</p>
     </div>
   </footer>
 

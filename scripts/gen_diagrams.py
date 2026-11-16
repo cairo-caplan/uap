@@ -300,7 +300,7 @@ DOMAIN_MODEL = {
                                   "IP_CARD_URL / _PDF_URL"]},
         {"id": "task", "kind": "class", "x": 760, "y": 40, "w": 240, "h": 170,
          "title": "Task (\u2261 Work Item)",
-         "attrs": ["TaskId", "WI", "Title", "ForkURL", "Branch", "Status",
+         "attrs": ["TaskId", "WI", "Title", "URL", "Branch", "Status",
                    "Description", "Comment"]},
         {"id": "project", "kind": "class", "x": 760, "y": 280, "w": 240, "h": 110,
          "title": "Project", "attrs": ["Id: slug (file name)", "Name", "url", "logo"]},

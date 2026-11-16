@@ -2,7 +2,10 @@ name: Rebuild catalogue aggregate
 
 on:
   schedule:
-    # Weekly, Monday 03:00 UTC (before the repo-stats job at 07:00)
+    # Weekly, Monday 03:00 UTC (before the repo-stats job at 07:00). GitHub
+    # fires scheduled workflows on the default branch of any repository
+    # where the schedule is enabled — the job below restricts the automatic
+    # rebuild to the upstream repository.
     - cron: '0 3 * * 1'
   # Manual trigger; also run after merging data changes so GitHub Pages (which
   # runs no build and serves the committed cfg/catalog.json) stays current.
@@ -13,6 +16,12 @@ permissions:
 
 jobs:
   rebuild-catalog:
+    # Scheduled rebuilds only run in the upstream repository on main (forks
+    # must not commit their own aggregate copies); manual
+    # workflow_dispatch runs stay available in any repository.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.repository == 'openhwfoundation/uap' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

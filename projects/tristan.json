@@ -17,7 +17,7 @@
       "Description": "Development of light-weight RISC-V Instruction Set Architecture (ISA) extensions to improve the energy efficiency of low-bit-width mixed-precision integer arithmetic",
       "IPs": ["cv32e40p"],
       "Partners": ["CEA"],
-      "ForkURL": "https://github.com/MPEZZIN/cv32e40p"
+      "URL": "https://github.com/MPEZZIN/cv32e40p"
     },
     {
       "TaskId": "tristan-wi2.3.3",
@@ -60,7 +60,7 @@
       "Description": "Increasing the security features of CVA6. In particular, it provides support for timing channel protection in CVA6",
       "IPs": ["cva6-timing-channel"],
       "Partners": ["ETH Zürich"],
-      "ForkURL": "https://github.com/pulp-platform/cva6",
+      "URL": "https://github.com/pulp-platform/cva6",
       "Comment": "Development work lives in the pulp-platform CVA6 fork, not the canonical OpenHW repository."
     },
     {
@@ -70,7 +70,7 @@
       "Description": "UVM environment for the verification of RISC-V cores, supporting a thorough verification of the CVA6 (and other) cores to reach TRL-5",
       "IPs": ["core-v-verif"],
       "Partners": ["Thales", "ETH Zürich"],
-      "ForkURL": "https://github.com/openhwfoundation/core-v-verif/tree/60e57248c48b0f8f90cf52af20aecc5c16e9d6d8",
+      "URL": "https://github.com/openhwfoundation/core-v-verif/tree/60e57248c48b0f8f90cf52af20aecc5c16e9d6d8",
       "Comment": "Finished as the CV32A60X configuration of the CVA6 has reached TRL-5, completing the objective of the WI"
     },
     {
@@ -80,7 +80,7 @@
       "Description": "Custom instructions for CV32E40X / CV32A60X cores to improve the performance of real-time compression and decompression of digital waveforms.",
       "IPs": ["tristan-waveform-compression"],
       "Partners": ["Semify"],
-      "ForkURL": "https://github.com/semify-eda/tristan/tree/main",
+      "URL": "https://github.com/semify-eda/tristan/tree/main",
       "Branch": "main"
     },
     {
@@ -107,7 +107,7 @@
       "Description": "CV-X-IF compliant RISC-V Co-processor for a NFC Receiver decoder custom DSP acceleration",
       "IPs": ["riviera"],
       "Partners": ["NXP Austria", "Politecnico di Torino", "Technical University of Graz"],
-      "ForkURL": "https://github.com/NXP-AT-RIVIERA/Riviera_core/tree/main",
+      "URL": "https://github.com/NXP-AT-RIVIERA/Riviera_core/tree/main",
       "Branch": "main",
       "Status": "Design and Verification completed"
     },
@@ -286,7 +286,7 @@
       "Description": "Support of the VPFloat ISA into GCC/Binutils",
       "IPs": ["pulp-riscv-gnu-toolchain"],
       "Partners": ["University of Bologna"],
-      "ForkURL": "https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/tree/float8-support",
+      "URL": "https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/tree/float8-support",
       "Branch": "float8-support"
     },
     {
@@ -296,7 +296,7 @@
       "Description": "The CORE-V GCC repository provides a fork of the GNU Compiler Collection (GCC) tailored for the CORE-V family of open-source RISC-V processor cores. It includes custom enhancements and optimizations to support CORE-V-specific architectural features and instructions. The fork provides the compiler backend support for the low-precision and mixed-precision extensions designed in TRISTAN.",
       "IPs": ["corev-gcc"],
       "Partners": ["University of Bologna"],
-      "ForkURL": "https://github.com/EEESlab/corev-gcc/tree/tristan-dev",
+      "URL": "https://github.com/EEESlab/corev-gcc/tree/tristan-dev",
       "Branch": "tristan-dev"
     },
     {
@@ -306,7 +306,7 @@
       "Description": "The CORE-V binutils repository contains a customized version of the GNU binutils suite designed for the CORE-V family of RISC-V processor cores. It includes tools like the assembler, linker, and related utilities, enhanced to support CORE-V-specific instruction sets and architectural extensions. The fork adds the binary support required to assemble the low-precision and mixed-precision instructions in the TRISTAN extensions.",
       "IPs": ["corev-binutils-gdb"],
       "Partners": ["University of Bologna"],
-      "ForkURL": "https://github.com/EEESlab/corev-binutils-gdb/tree/tristan-dev",
+      "URL": "https://github.com/EEESlab/corev-binutils-gdb/tree/tristan-dev",
       "Branch": "tristan-dev"
     },
     {
@@ -597,7 +597,7 @@
       "Description": "RISC-V Platform Simulator",
       "IPs": ["gvsoc"],
       "Partners": ["University of Bologna"],
-      "ForkURL": "https://github.com/EEESlab/gvsoc/tree/tristan-dev",
+      "URL": "https://github.com/EEESlab/gvsoc/tree/tristan-dev",
       "Branch": "tristan-dev",
       "Comment": "Used by: Politecnico di Torino"
     },
@@ -626,7 +626,7 @@
       "Description": "Graphical editor of a Design Verification Plan",
       "IPs": ["vptool"],
       "Partners": ["OpenHW Foundation"],
-      "ForkURL": "https://github.com/openhwfoundation/core-v-verif/tree/master/tools/vptool",
+      "URL": "https://github.com/openhwfoundation/core-v-verif/tree/master/tools/vptool",
       "Branch": "master",
       "Comment": "Used by: Thales, Siemens-AT"
     },
@@ -700,7 +700,7 @@
       "Description": "UVM SystemVerilog RISC-V CPU model for functional verification of custom ISA (support for CV-X-IF)",
       "IPs": ["cv-verigen"],
       "Partners": ["Synthara"],
-      "ForkURL": "https://github.com/synthara/core-v-verif-v2",
+      "URL": "https://github.com/synthara/core-v-verif-v2",
       "Comment": "Used by: Synthara"
     }
   ]

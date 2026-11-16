@@ -11,7 +11,7 @@ This guide covers:
 1. [GitHub Pages](#github-pages) (current / primary host)
 <!-- 2. [GitLab Pages on the Eclipse Foundation GitLab](#gitlab-pages-eclipse-foundation) (`gitlab.eclipse.org`) -->
 3. [Self-hosted static servers](#self-hosted)
-4. [CI/CD Variables](# cicd-variables) required by the scheduled repository-stats job
+4. [CI/CD Variables](# cicd-variables) required by the scheduled repository-stats and catalogue-build jobs
 
 ---
 
@@ -34,9 +34,11 @@ Because there is no build step, GitHub Pages serves the files exactly as committ
 The runtime data is the committed **`cfg/catalog.json`** aggregate (plus the `cfg/`
 registries and `cfg/repo-stats.json`), loaded by the browser at runtime from the same
 origin. The editable sources (`ips/*.json`, `projects/*.json`) are never fetched by
-the site — after data changes, regenerate the aggregate (`python3
-scripts/build_catalog.py`, done automatically by the `build-catalog.yml` workflow /
-the `build_catalog` GitLab job) and commit it, ideally in the same PR.
+the site. After data changes, regenerate the aggregate (`python3
+scripts/build_catalog.py`) and commit it, ideally in the same PR. The
+`build-catalog.yml` workflow can also rebuild it on `workflow_dispatch`, but its
+scheduled runs are currently inert in this repository lineage (see **CI/CD
+Variables**).
 
 ---
 
@@ -109,7 +111,7 @@ repository root. There is nothing to build or compile. Two things to confirm:
   Apache's `AddType application/json .json`). The catalogue and config files are fetched
   as JSON at runtime.
 - Serve the directory **listings** if you want humans to browse `ips/` and
-  `projects/` conveniently — the application itself no longer needs them: it loads
+  `projects/` conveniently. The application itself no longer needs them: it loads
   only `cfg/catalog.json`, which is a committed file served like any other.
 <!-- - Serve the directory **listings** for `ips/` if you want the platform to auto-discover
   the IP data files via a same-origin directory listing. If directory listings are
@@ -121,15 +123,24 @@ repository root. There is nothing to build or compile. Two things to confirm:
 
 ## CI/CD Variables
 
-Two scheduled jobs commit generated files back to the repository:
+Two scheduled jobs commit generated files back to the repository. Both GitHub
+scheduled runs are guarded to fire only in `openhwfoundation/uap` on `main`, so
+forks never auto-commit; they can still trigger the jobs manually via
+`workflow_dispatch`. Note: that guard names the public repository, which does
+not host these workflow files today (`origin` is
+`openhwgroup/tristan-isolde-unified-access-page`). Until they are ported
+there, the GitHub schedules are inert everywhere and the files refresh via
+`workflow_dispatch`, which works in any repository, or by running the
+generator scripts locally:
 
 - **repository statistics** (`repo_stats` / `repo-stats.yml`) refreshes
   `cfg/repo-stats.json`;
 - **catalogue build** (`build_catalog` / `build-catalog.yml`) regenerates
   `cfg/catalog.json` from `ips/` + `projects/`.
 
-Both read public GitHub/GitLab APIs (tokens raise rate limits) and then push the
-updated file, so a write-capable token is required for the commit-back.
+The stats job reads public GitHub/GitLab APIs (tokens raise rate limits); both
+push the updated file back, so a write-capable token is required for the
+commit-back.
 
 | Variable | Platform | Required? | Purpose |
 |----------|----------|-----------|---------|

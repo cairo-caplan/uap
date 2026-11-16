@@ -2,7 +2,9 @@ name: Refresh repository stats
 
 on:
   schedule:
-    # Weekly, Monday 03:00 UTC
+    # Weekly, Monday 07:00 UTC. GitHub fires scheduled workflows on the
+    # default branch of any repository where the schedule is enabled — the
+    # job below restricts the automatic refresh to the upstream repository.
     - cron: '0 7 * * 1'
   workflow_dispatch:
     inputs:
@@ -17,6 +19,12 @@ permissions:
 
 jobs:
   refresh-stats:
+    # Scheduled refreshes only run in the upstream repository on main
+    # (forks must not commit their own cache copies); manual
+    # workflow_dispatch runs stay available in any repository.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.repository == 'openhwfoundation/uap' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

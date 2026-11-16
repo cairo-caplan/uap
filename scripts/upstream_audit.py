@@ -59,26 +59,19 @@ the data changed. Standard library only.
 """
 
 import argparse
-import io
 import json
 import re
 import subprocess
 import sys
 from pathlib import Path
 
-# Task shells may run with an ASCII locale; the report contains Unicode
-# (en-dashes, checkmarks), so never crash while printing it.
-if hasattr(sys.stdout, "buffer"):
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True
-    )
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.buffer, encoding="utf-8", errors="replace", line_buffering=True
-    )
-
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from uap_common import load_json, to_list  # noqa: E402
+from uap_common import harden_console, load_json, to_list  # noqa: E402
+
+# Task shells may run with an ASCII locale; the report contains Unicode
+# (en-dashes, checkmarks), so never crash while printing it.
+harden_console()
 
 ROOT = Path(__file__).resolve().parents[1]
 

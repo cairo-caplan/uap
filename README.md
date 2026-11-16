@@ -16,7 +16,7 @@
 
 <h1 align="center">Unified RISC-V IP Access Platform (UAP)</h1>
 
-Welcome to the European **Unified RISC-V IP Access Platform (UAP)** a structured and expandable entry point designed to catalogue, document, and promote the IP assets initially developed in various European research projects such as <strong><a href="https://tristan-project.eu/">TRISTAN</a></strong>, <strong><a href="https://isolde-project.eu/">ISOLDE</a></strong>, and many others, with a specific focus on **RISC-V**.
+Welcome to the European **Unified RISC-V IP Access Platform (UAP)**, a structured and expandable entry point designed to catalogue, document, and promote the IP assets initially developed in various European research projects such as <strong><a href="https://tristan-project.eu/">TRISTAN</a></strong>, <strong><a href="https://isolde-project.eu/">ISOLDE</a></strong>, and many others, with a specific focus on **RISC-V**.
 
 This platform consolidates hardware and software components and offers a coherent view of their maturity, usability, licensing, and integration workflows.
 
@@ -39,10 +39,10 @@ The repository includes a dedicated `/ip_cards` directory intended to host optio
 
 The catalogue is organised around two kinds of documents, both plain JSON:
 
-- **IPs** (`ips/<id>.json`, one file per IP) — independent assets with an `Id`, `Name`, `Owners`, canonical `URL`, `License`, `Status`, `Category` and `Description`. An IP outlives the projects that touched it and may legitimately have no project work attached.
-- **Tasks** (`projects/<project>.json`, one file per research project) — each Task (≡ Work Item) carries a `WI`, `Title`, `Partners`, optional fork/branch URL, and references one or more IPs. Tasks live only in their project file.
+- **IPs** (`ips/<id>.json`, one file per IP) are independent assets with an `Id`, `Name`, `Owners`, canonical `URL`, `License`, `Status`, `Category` and `Description`. An IP outlives the projects that touched it and may legitimately have no project work attached.
+- **Tasks** (`projects/<project>.json`, one file per research project). Each Task (≡ Work Item) carries a `WI`, `Title`, `Partners`, optional fork/branch URL, and references one or more IPs. Tasks live only in their project file.
 
-The website loads a single generated aggregate, [`cfg/catalog.json`](./cfg/catalog.json) (built by `scripts/build_catalog.py` and committed by CI — GitHub Pages runs no build), so the page makes one data request instead of one per IP. See [`docs/migration-map.md`](./docs/migration-map.md) for the entry-by-entry migration record and open review items, and the diagrams under [`docs/diagrams/`](./docs/diagrams) (domain model, architecture, contribution workflow).
+The website loads a single generated aggregate, [`cfg/catalog.json`](./cfg/catalog.json) (built by `scripts/build_catalog.py` and committed to the repository, because GitHub Pages runs no build), so the page makes one data request instead of one per IP. See [`docs/migration-map.md`](./docs/migration-map.md) for the entry-by-entry migration record and open review items, and the diagrams under [`docs/diagrams/`](./docs/diagrams) (domain model, architecture, contribution workflow).
 
 Our ambition is to progressively transform this platform into a sustainable, interoperable, and community-oriented resource for the broader **RISC-V ecosystem**, while transparently reflecting the incremental progress being made.
 
@@ -90,5 +90,5 @@ and from the European Union, under Grant Agreements No. 101095947 (TRISTAN),
 </p>
 
 <p align="center">
-© 2025 Eclipse Foundation - All rights reserved.
+Copyright © 2025–2026 Contributors to the Eclipse Foundation. Made available under the Eclipse Public License 2.0.
 </p>

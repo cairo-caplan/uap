@@ -1,0 +1,1461 @@
+/*
+ *-------------------------------------------------------------------------------
+ * Copyright (C) 2026 Eclipse Foundation
+ *
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *-------------------------------------------------------------------------------
+*/
+
+/* =========================================================
+   Projects view PREVIEW (prototype) — prototype-mindmap.html
+
+   Standalone, non-production preview of a redesigned Projects view: one
+   unified floating-grid canvas. The cards reuse the production .entity-card
+   / .card-head / .card-meta chrome of style.css (same padding, radius,
+   shadow, meta rows) and are colour-coded by type on top of it: a light
+   --mm-bg-project / --mm-bg-task / --mm-bg-ip tint (Project blue, Task
+   green, IP red; the openhw section re-tunes the hues). Cards have no
+   per-type accent border — they keep the uniform 1px .entity-card border;
+   the --mm-edge-task / --mm-edge-ip rails survive only on the small toggle
+   surfaces (task-row IP chips, drawer rows).
+   This file adds what a canvas needs: absolute positioning, native
+   scrollbars + drag-pan, the resize grip, the Task→IP connectors, the
+   search dimming (.mm-dim / .mm-row-hidden), the solver glide (cards move
+   to their free spot with a 160 ms left/top transition — scripts/
+   prototype-mindmap.js places them with least displacement, IP cards
+   stacking downward) and the prototype additions to the production drawer.
+   Loads on top of style.css / theme-openhw.css; the final section restyles
+   everything for html[data-theme="openhw"].
+   ========================================================= */
+
+:root {
+  --mm-ip:        #b45309;   /* pin accent (the only card-local colour left) */
+  --mm-line-ip:   #d9a441;
+  --mm-highlight: #f59e0b;
+  --mm-project-w: 320px;     /* overwritten by scripts/prototype-mindmap.js */
+  --mm-ip-w:      320px;     /* the production card width, not the old 240px */
+  --mm-line:      #e6e7eb;   /* == style.css .entity-card border */
+  --mm-accent:    #1565c0;
+  --mm-accent-soft: #eef6ff;
+  --mm-accent-line: #bcd8f5;
+  --mm-track:     #eef3f8;
+  --mm-thumb:     #c3ccd6;
+  /* Card-type colour language (7-ish % tints; the matching 3px left
+     accents were dropped from the cards — only the small toggle surfaces
+     still use --mm-edge-task / --mm-edge-ip rails). Kept as tokens so the
+     openhw theme below can re-tune the hues without touching the rules. */
+  --mm-bg-project: #eef4fc;
+  --mm-bg-task:    #eef8ef;
+  --mm-bg-ip:      #fcefef;
+  --mm-edge-task:    #93c79c;
+  --mm-edge-ip:      #dd9a9a;
+  }
+
+/* --- Top bar bits ---------------------------------------------------------- */
+
+/* A canvas needs room: this preview page widens the production reading column
+   (main is capped at 1100px site-wide) so the card grid gets real columns. */
+body.proto-page main {
+  max-width: 1600px;
+}
+
+.proto-top-bar {
+  align-items: flex-start;
+}
+
+.proto-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.proto-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #5b7083;
+  text-decoration: none;
+}
+
+.proto-back:hover {
+  color: var(--mm-accent);
+  text-decoration: underline;
+}
+
+.proto-title {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #1b2b3a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.proto-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fff4e0;
+  border: 1px solid #f0c987;
+  color: #9a6b1f;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.proto-status {
+  margin: 4px 0 16px;
+  font-size: 0.9rem;
+  color: #5b7083;
+}
+
+.proto-status.error {
+  color: #b3261e;
+}
+
+/* Toolbar (deliberately NOT .tab-btn / data-tab — see the prototype gotcha
+   in AGENTS.md: script.js couples .tab-btn[data-tab] to tab navigation). */
+.proto-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proto-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #cdd8e3;
+  background: #ffffff;
+  color: #374a5e;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.proto-tool-btn:hover {
+  background: var(--mm-accent-soft);
+  border-color: var(--mm-accent-line);
+  color: var(--mm-accent);
+}
+
+.proto-tool-btn:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+/* --- Canvas search ----------------------------------------------------------
+   The #search-input recipe of style.css (same padding, radius, focus ring),
+   plus the clear × production lacks (its search box sits in its own grid). */
+.mm-search-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+#mm-search {
+  width: min(320px, 46vw);
+  padding: 10px 38px 10px 16px;
+  font-size: 0.92rem;
+  border: 1px solid #d6d9de;
+  border-radius: 10px;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+#mm-search:focus {
+  outline: none;
+  border-color: var(--mm-accent);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+.mm-search-clear {
+  position: absolute;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #9aa4b0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mm-search-clear:hover {
+  background: var(--mm-accent-soft);
+  color: var(--mm-accent);
+}
+
+.mm-search-clear:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 1px;
+}
+
+.mm-search-count {
+  font-size: 0.78rem;
+  color: #5b7083;
+  white-space: nowrap;
+}
+
+/* Table mode hides the legend and "Clear selection" with the hidden
+   attribute; style.css's global `[hidden] { display: none !important }`
+   (its own comment explains the same display-declaration trap) already
+   enforces that for every element on this page — nothing to restate here. */
+
+/* Search misses stay on the canvas (layout must not shift): whole cards fade
+   to a grey ghost, task rows collapse away inside their project card. */
+.mm-dim {
+  opacity: 0.32;
+  filter: grayscale(1);
+}
+
+.mm-row-hidden {
+  display: none;
+}
+
+/* --- Legend ----------------------------------------------------------------- */
+
+.mm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-bottom: 10px;
+  font-size: 0.84rem;
+  color: #374a5e;
+}
+
+.mm-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mm-legend-swatch {
+  display: inline-block;
+  width: 28px;
+  height: 0;
+}
+
+.mm-legend-swatch--ip {
+  border-top: 2px dashed var(--mm-line-ip);
+}
+
+/* Card-type chips — mirror the card backgrounds (flat 1px border, as on
+   the cards themselves). */
+.mm-card-swatch {
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--mm-line);
+}
+
+.mm-card-swatch--project {
+  background: var(--mm-bg-project);
+}
+
+.mm-card-swatch--task {
+  background: var(--mm-bg-task);
+}
+
+.mm-card-swatch--ip {
+  background: var(--mm-bg-ip);
+}
+
+.mm-legend-hint {
+  color: #9aa4b0;
+  font-size: 0.78rem;
+}
+
+/* --- Stage & canvas --------------------------------------------------------- */
+
+/* Scrollable viewport: the canvas inside it is as large as the cards need,
+   so the content is reachable both by dragging it and by the native
+   scrollbars. touch-action keeps one-finger panning native on touch devices
+   (cards opt out with touch-action:none so dragging a card never scrolls). */
+.mm-stage {
+  position: relative;
+  overflow: auto;
+  height: 72vh;
+  min-height: 480px;
+  border: 1px solid var(--mm-line);
+  border-radius: 16px;
+  background-color: #f8fafc;
+  background-image: radial-gradient(#dde5ee 1px, transparent 1px);
+  background-size: 22px 22px;
+  /* local, not scroll: the dots move with the cards and cover the whole
+     scrollable canvas, so the grid never ends in a blank strip. */
+  background-attachment: local;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mm-thumb) var(--mm-track);
+}
+
+.mm-stage.mm-panning {
+  cursor: grabbing;
+}
+
+.mm-stage::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.mm-stage::-webkit-scrollbar-track {
+  background: var(--mm-track);
+  border-radius: 0 0 16px 16px;
+}
+
+.mm-stage::-webkit-scrollbar-thumb {
+  background: var(--mm-thumb);
+  border: 3px solid var(--mm-track);
+  border-radius: 8px;
+}
+
+.mm-stage::-webkit-scrollbar-thumb:hover {
+  background: #a9b4c0;
+}
+
+.mm-stage::-webkit-scrollbar-corner {
+  background: var(--mm-track);
+}
+
+.mm-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Cards are created and measured while hidden, then the whole layout appears
+   at once (no flash of cards stacked at the canvas origin). */
+.mm-canvas.mm-building {
+  visibility: hidden;
+}
+
+.mm-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Rounded orthogonal Task→IP connectors (drawn as <path>). */
+.mm-line--ip {
+  fill: none;
+  stroke: var(--mm-line-ip);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+
+.mm-edge--ghost {
+  opacity: 0.35;
+}
+
+/* Row scrolled out of its card's task list — no visible anchor to draw from. */
+.mm-edge--hidden {
+  display: none;
+}
+
+.proto-empty {
+  padding: 24px;
+  border: 1px dashed #d6d9de;
+  border-radius: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* --- Floating cards (all chrome comes from .entity-card) --------------------- */
+
+/* Chrome (radius, padding, shadow, 1px border) comes from .entity-card in
+   style.css; only the type tint is added per card type below — the cards
+   deliberately have no per-type accent border. No positioning properties
+   beyond the canvas need. */
+.mm-node {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  cursor: grab;
+  touch-action: none;
+  overflow: hidden;   /* a resized card clips/scrolls instead of spilling over */
+  /* The collision solver glides displaced cards to their free spot on
+     pointer-up / spawn; the dragged card itself opts out (.mm-dragging). */
+  transition: left 160ms ease-out, top 160ms ease-out;
+}
+
+.mm-node.mm-dragging {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-node {
+    transition: none;
+  }
+}
+
+/* Search miss: a grey ghost of the card — position untouched, still draggable. */
+.mm-node.mm-dim {
+  opacity: 0.32;
+  filter: grayscale(1);
+}
+
+.mm-node:active {
+  cursor: grabbing;
+}
+
+/* The float is the interaction — no production hover lift (it would jitter
+   during drags and break the grid illusion). */
+.mm-node.entity-card {
+  cursor: grab;
+}
+
+.mm-node.entity-card:hover {
+  transform: none;
+}
+
+.mm-node--project {
+  width: var(--mm-project-w);
+  background: var(--mm-bg-project);
+}
+
+.mm-node--ip {
+  width: var(--mm-ip-w);
+  background: var(--mm-bg-ip);
+}
+
+/* A shrunk IP card scrolls its own meta rows instead of clipping mid-row. */
+.mm-node--ip .card-meta {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mm-thumb) transparent;
+}
+
+.mm-node--ip .card-meta::-webkit-scrollbar {
+  width: 10px;
+}
+
+.mm-node--ip .card-meta::-webkit-scrollbar-thumb {
+  background: var(--mm-thumb);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+
+/* Off-screen 1-line ruler used to size the project cards to their titles. */
+.mm-measure {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  visibility: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Project head: logo · title (own row, never wraps) · ext link · caret. */
+.mm-project-logo {
+  height: 26px;
+  max-width: 110px;
+  object-fit: contain;
+  flex: none;
+}
+
+.mm-project-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* The task list is the flexible part of a resized project card. Un-resized
+   cards keep it inside the viewport (a 100-task project would otherwise be a
+   15 000 px tall card); the list scrolls instead, and dragging the grip taller
+   removes the cap (mm-sized). */
+.mm-project-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--mm-line);
+  padding-top: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mm-thumb) transparent;
+}
+
+.mm-project-tasks::-webkit-scrollbar {
+  width: 10px;
+}
+
+.mm-project-tasks::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mm-project-tasks::-webkit-scrollbar-thumb {
+  background: var(--mm-thumb);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+
+.mm-node--project.mm-sized .mm-project-tasks {
+  max-height: none;
+}
+
+/* Chevron caret: same aria-expanded rotation semantics as .tree-toggle. */
+.proto-caret {
+  border: none;
+  background: transparent;
+  color: #9aa4b0;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 8px;
+  flex: none;
+  transition: transform 150ms ease, color 120ms ease;
+}
+
+.proto-caret:hover {
+  color: var(--mm-accent);
+  background: var(--mm-accent-soft);
+}
+
+.proto-caret:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.proto-caret[aria-expanded="false"] {
+  transform: rotate(-90deg);
+}
+
+/* Resize grip, pinned to the card's bottom-right corner. */
+.mm-resize {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 0 0 14px 0;
+  background: transparent;
+  color: #b7c2cd;
+  cursor: nwse-resize;
+  touch-action: none;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* Two short strokes parallel to the cut corner — the standard resize mark. */
+.mm-resize::after {
+  content: '';
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin: 0 3px 3px 0;
+  background:
+    linear-gradient(135deg, transparent 0 52%, currentColor 52% 60%, transparent 60%),
+    linear-gradient(135deg, transparent 0 78%, currentColor 78% 86%, transparent 86%);
+}
+
+.mm-resize:hover {
+  color: var(--mm-accent);
+  background: var(--mm-accent-soft);
+}
+
+.mm-resize:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: -3px;
+}
+
+/* --- Task rows (compressed production card meta) ----------------------------- */
+
+.mm-task-row {
+  border: 1px solid var(--mm-line);
+  border-radius: 10px;
+  background: var(--mm-bg-task);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+/* Search miss inside an expanded project card — the row leaves the layout
+   (the card shrinks), unlike the dimmed whole cards around it. */
+.mm-task-row.mm-row-hidden {
+  display: none;
+}
+
+.mm-task-row:hover {
+  border-color: var(--mm-accent-line);
+}
+
+.mm-task-row:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.mm-task-selected {
+  border-color: var(--mm-highlight);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.55);
+}
+
+.mm-task-head {
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.mm-task-row .mm-task-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #1b2b3a;
+  cursor: pointer;
+}
+
+.mm-task-row .mm-task-title:hover {
+  text-decoration: underline;
+}
+
+.mm-task-row .card-ext {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+}
+
+.mm-task-row .card-meta {
+  gap: 4px;
+  font-size: 0.76rem;
+}
+
+.mm-task-row .card-meta-row {
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+}
+
+.mm-task-row .card-meta-label {
+  font-size: 0.7rem;
+}
+
+.mm-task-row .pill {
+  font-size: 0.68rem;
+  padding: 1px 8px;
+}
+
+/* The task row's IPs are little clickable cards — the IP colour language in
+   miniature (tint + 3px accent rail like every other IP surface). Pressed
+   (= card on the canvas) borrows the drawer toggle's accent treatment, so
+   "shown on canvas" reads the same everywhere on the page. */
+.mm-task-ip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  padding: 2px 8px;
+  border: 1px solid var(--mm-edge-ip);
+  border-left: 3px solid var(--mm-edge-ip);
+  border-radius: 7px;
+  background: var(--mm-bg-ip);
+  color: #8a3a3a;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.mm-task-ip:hover {
+  background: #fbe2e2;
+}
+
+.mm-task-ip:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 1px;
+}
+
+.mm-task-ip .mm-task-ip-icon {
+  font-size: 0.6rem;
+  color: var(--mm-edge-ip);
+  flex: none;
+}
+
+.mm-task-ip .mm-task-ip-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mm-task-ip.is-on {
+  border-color: var(--mm-accent-line);
+  border-left-color: var(--mm-accent);
+  background: var(--mm-accent-soft);
+  color: #14497f;
+}
+
+.mm-task-ip.is-on:hover {
+  background: #dcecfb;
+}
+
+.mm-task-ip.is-on .mm-task-ip-icon {
+  color: var(--mm-accent);
+}
+
+/* Shared-IP highlight (IP-card body click) on other selected task rows. */
+.mm-task-row.mm-highlight {
+  border-color: var(--mm-highlight);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.55), 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* --- IP card extras ---------------------------------------------------------- */
+
+/* Pin checkbox in the card head flow (an absolute corner box would sit on top
+   of .card-ext). */
+.mm-pin {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #9aa4b0;
+  cursor: pointer;
+  flex: none;
+  white-space: nowrap;
+}
+
+.mm-pin input {
+  accent-color: var(--mm-ip);
+  cursor: pointer;
+}
+
+.mm-pinned {
+  border-color: var(--mm-ip);
+}
+
+.mm-pinned .mm-pin {
+  color: var(--mm-ip);
+}
+
+.mm-node.mm-highlight {
+  border-color: var(--mm-highlight);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.55), 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* =========================================================
+   OpenHW Foundation theme overrides
+   ========================================================= */
+
+html[data-theme="openhw"] {
+  --mm-ip:        #44661f;
+  --mm-line-ip:   #8fbf5f;
+  --mm-highlight: var(--ohw-teal);
+  --mm-line:      var(--ohw-line);
+  --mm-accent:    var(--ohw-blue);
+  --mm-accent-soft: var(--ohw-soft);
+  --mm-accent-line: var(--ohw-green);
+  --mm-track:     #e4efe7;
+  --mm-thumb:     #b7cdbd;
+}
+
+html[data-theme="openhw"] .proto-title {
+  color: var(--ohw-dark);
+}
+
+html[data-theme="openhw"] .proto-back {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .proto-back:hover {
+  color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .proto-badge {
+  background: var(--ohw-soft);
+  border-color: var(--ohw-green);
+  color: #3f6b1c;
+}
+
+html[data-theme="openhw"] .proto-status {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .proto-tool-btn {
+  background: #ffffff;
+  border-color: var(--ohw-line);
+  color: var(--ohw-dark);
+}
+
+html[data-theme="openhw"] .proto-tool-btn:hover {
+  background: var(--ohw-soft);
+  border-color: var(--ohw-green);
+  color: #3f6b1c;
+}
+
+html[data-theme="openhw"] .proto-tool-btn:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-legend {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .mm-stage {
+  background-color: #eef5f1;
+  background-image: radial-gradient(#d3e4da 1px, transparent 1px);
+  border-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-task-row {
+  /* Background comes from --mm-bg-task (re-tuned above). */
+  border-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-project-tasks {
+  border-top-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .proto-caret:hover {
+  color: var(--ohw-blue);
+  background: var(--ohw-soft);
+}
+
+html[data-theme="openhw"] .proto-caret:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-task-row:focus-visible,
+html[data-theme="openhw"] .mm-resize:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-task-row:hover,
+html[data-theme="openhw"] .mm-resize:hover {
+  border-color: var(--ohw-green);
+}
+
+html[data-theme="openhw"] .mm-resize:hover {
+  background: var(--ohw-soft);
+}
+
+html[data-theme="openhw"] .mm-task-selected,
+html[data-theme="openhw"] .mm-task-row.mm-highlight,
+html[data-theme="openhw"] .mm-node.mm-highlight {
+  border-color: var(--ohw-teal);
+  box-shadow: 0 0 0 2px rgba(0, 163, 161, 0.5), 0 4px 12px rgba(0, 163, 161, 0.25);
+}
+
+html[data-theme="openhw"] .mm-pin {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .mm-pin input {
+  accent-color: var(--ohw-green);
+}
+
+html[data-theme="openhw"] .mm-pinned {
+  border-color: var(--ohw-green);
+}
+
+html[data-theme="openhw"] .mm-pinned .mm-pin {
+  color: #3f6b1c;
+}
+
+/* --- Search, colour coding and drawer (openhw variants) ---------------------- */
+
+html[data-theme="openhw"] {
+  /* Same tint values, hues tuned to the OpenHW palette (green canvas). */
+  --mm-bg-project: #ebf3f2;
+  --mm-bg-task:    #eef8ef;
+  --mm-bg-ip:      #f6f3e9;
+  --mm-edge-task:    #8fbf5f;
+  --mm-edge-ip:      #c9a84c;
+}
+
+html[data-theme="openhw"] #mm-search {
+  border-color: var(--ohw-line);
+}
+
+/* The themed .entity-card rule (theme-openhw.css, specificity 0,2,1) would
+   paint the floating cards plain white and grey — restate the card-type
+   tints at the same specificity; this sheet loads last, so it wins. */
+html[data-theme="openhw"] .mm-node--project {
+  background: var(--mm-bg-project);
+}
+
+html[data-theme="openhw"] .mm-node--ip {
+  background: var(--mm-bg-ip);
+}
+
+html[data-theme="openhw"] #mm-search:focus {
+  border-color: var(--ohw-blue);
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+html[data-theme="openhw"] .mm-search-count {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .mm-search-clear:hover {
+  background: var(--ohw-soft);
+  color: #3f6b1c;
+}
+
+/* The prototype page reuses the production drawer (style.css); these are the
+   only additions it needs: kind micro-labels in the card colours and the
+   actionable IPs section / relationship lists echoing the canvas colours. */
+.drawer-kind--project { color: #1565c0; background: #e7f1fb; }
+.drawer-kind--task    { color: #2e7d32; background: var(--mm-bg-task); }
+.drawer-kind--ip      { color: #b3261e; background: var(--mm-bg-ip); }
+html[data-theme="openhw"] .drawer-kind--project { color: var(--ohw-teal); background: var(--mm-bg-project); }
+html[data-theme="openhw"] .drawer-kind--task    { color: #3f6b1c; }
+html[data-theme="openhw"] .drawer-kind--ip      { color: #7a5a12; }
+
+.mm-drawer-hint {
+  margin: -4px 0 8px;
+  font-size: 0.76rem;
+  color: #6b7280;
+}
+
+/* Actionable "IPs" section of the Task drawer — the drawer surface of the
+   task-row IP-chip toggle. Actionable by looks: pointer, hover fill, accent
+   rail, focus ring. */
+.mm-drawer-ips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.mm-ip-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--mm-line);
+  border-left: 3px solid var(--mm-edge-ip);
+  border-radius: 10px;
+  background: var(--mm-bg-ip);
+  color: #1b2b3a;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.mm-ip-toggle:hover {
+  background: #fbe2e2;
+}
+
+.mm-ip-toggle:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.mm-ip-toggle .mm-ip-toggle-state {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.mm-ip-toggle.is-on {
+  border-left-color: var(--mm-accent);
+  background: var(--mm-accent-soft);
+}
+
+.mm-ip-toggle.is-on:hover {
+  background: #dcecfb;
+}
+
+.mm-ip-toggle.is-on .mm-ip-toggle-state {
+  color: var(--mm-accent);
+}
+
+/* Relationship lists (Project drawer Tasks/IPs, IP drawer Used-by). */
+.mm-drawer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.mm-drawer-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--mm-line);
+  border-radius: 10px;
+  font-size: 0.86rem;
+  text-align: left;
+  color: #1b2b3a;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.mm-drawer-item:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.mm-drawer-item--task {
+  background: var(--mm-bg-task);
+  border-left: 3px solid var(--mm-edge-task);
+}
+
+.mm-drawer-item--task:hover {
+  border-color: var(--mm-accent-line);
+  background: #e0f2e2;
+}
+
+.mm-drawer-item--ip {
+  background: var(--mm-bg-ip);
+  border-left: 3px solid var(--mm-edge-ip);
+}
+
+.mm-drawer-item--ip:hover {
+  border-color: var(--mm-accent-line);
+  background: #fbe2e2;
+}
+
+.mm-drawer-item .mm-drawer-item-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  color: #5b7083;
+  white-space: nowrap;
+}
+
+/* Copy-friendly Project Id pill. */
+.mm-id-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border: 1px solid var(--mm-line);
+  border-radius: 6px;
+  background: #f4f7fa;
+  user-select: all;
+}
+
+.mm-partner-count {
+  font-size: 0.68rem;
+  opacity: 0.75;
+}
+
+html[data-theme="openhw"] .mm-ip-toggle,
+html[data-theme="openhw"] .mm-drawer-item--ip {
+  border-color: var(--ohw-line);
+}
+
+/* Unpressed chips only — at (0,2,1) this rule would out-rank
+   .mm-task-ip.is-on (0,2,0) and leave a pressed chip gold; the pressed
+   state keeps the shared accent rail/ink, the same treatment the drawer
+   toggle gets. */
+html[data-theme="openhw"] .mm-task-ip:not(.is-on) {
+  border-color: var(--ohw-line);
+  border-left-color: var(--mm-edge-ip);
+  color: #7a5a12;
+}
+
+html[data-theme="openhw"] .mm-task-ip:not(.is-on):hover {
+  background: #f0ead6;
+}
+
+html[data-theme="openhw"] .mm-task-ip:focus-visible,
+html[data-theme="openhw"] .mm-ip-toggle:focus-visible,
+html[data-theme="openhw"] .mm-drawer-item:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-id-pill {
+  border-color: var(--ohw-line);
+  background: #f2f7f3;
+}
+
+/* =========================================================
+   View switch & Table view
+   ========================================================= */
+
+/* --- Canvas | Table switch ---------------------------------------------------
+   Two radio buttons styled as one pill switch; the white thumb slides under
+   the active option (the .is-table class on the group moves it — both
+   options are equal-width flex halves). Radiogroup semantics and the
+   arrow-key handling live in scripts/prototype-mindmap.js. */
+.proto-view-switch {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid #cdd8e3;
+  border-radius: 999px;
+  background: #eef3f8;
+}
+
+.proto-view-option {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #5b7083;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.proto-view-option:hover,
+.proto-view-option.is-active {
+  color: var(--mm-accent);
+}
+
+.proto-view-option:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+/* The padding box minus the thumb's own 3px inset: it covers exactly the
+   left flex half, and translateX(100%) moves it exactly onto the right one. */
+.proto-view-thumb {
+  position: absolute;
+  z-index: 0;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(21, 45, 80, 0.18);
+  transition: transform 180ms ease;
+}
+
+.proto-view-switch.is-table .proto-view-thumb {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proto-view-thumb {
+    transition: none;
+  }
+}
+
+/* --- Table view ---------------------------------------------------------------
+   The canvas contents as three sortable tables (Projects / Tasks / IPs) with
+   CSV / ZIP export. Sorting is by column header button (aria-sort lives on
+   the th); the name column opens the same detail drawer as the canvas. */
+.mm-table {
+  border: 1px solid var(--mm-line);
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 14px 16px 16px;
+}
+
+.mm-table-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.mm-table-tabs {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.mm-table-tab {
+  padding: 7px 16px;
+  border: 1px solid #cdd8e3;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #5b7083;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.mm-table-tab:hover,
+.mm-table-tab.is-active {
+  background: var(--mm-accent-soft);
+  border-color: var(--mm-accent-line);
+  color: var(--mm-accent);
+}
+
+.mm-table-tab:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.mm-table-actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.mm-table-panel {
+  max-height: 64vh;
+  overflow: auto;
+  border: 1px solid var(--mm-line);
+  border-radius: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mm-thumb) var(--mm-track);
+}
+
+.mm-table-panel:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: -2px;
+}
+
+.mm-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  color: #1b2b3a;
+}
+
+/* Standard visually-hidden technique — the caption is the table's
+   accessible name (contents + current sort), not a visual element. */
+.mm-data-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.mm-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f4f7fa;
+  border-bottom: 1px solid var(--mm-line);
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.mm-th-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: #374a5e;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mm-th-btn i {
+  color: #9aa4b0;
+  font-size: 0.7rem;
+}
+
+.mm-th-btn:hover,
+.mm-th-btn:hover i {
+  color: var(--mm-accent);
+}
+
+.mm-th-btn:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.mm-data-table tbody td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--mm-line);
+  vertical-align: top;
+}
+
+.mm-data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mm-data-table tbody tr:hover td {
+  background: #f8fafc;
+}
+
+.mm-data-table .mm-table-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The row's clickable name — the table surface of the canvas click contract. */
+.mm-table-name {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--mm-accent);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mm-table-name:hover {
+  text-decoration: underline;
+}
+
+.mm-table-name:focus-visible {
+  outline: 2px solid var(--mm-accent);
+  outline-offset: 2px;
+}
+
+.mm-table-link {
+  display: inline-block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+  color: var(--mm-accent);
+  font-size: 0.8rem;
+}
+
+.mm-data-table .pill {
+  margin: 1px 4px 1px 0;
+}
+
+/* --- openhw variants ---------------------------------------------------------- */
+
+html[data-theme="openhw"] .proto-view-switch {
+  background: var(--ohw-soft);
+  border-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .proto-view-option {
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .proto-view-option:hover,
+html[data-theme="openhw"] .proto-view-option.is-active {
+  color: #3f6b1c;
+}
+
+html[data-theme="openhw"] .proto-view-option:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .proto-view-thumb {
+  box-shadow: 0 1px 4px rgba(28, 56, 22, 0.16);
+}
+
+html[data-theme="openhw"] .mm-table {
+  border-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-table-tab {
+  border-color: var(--ohw-line);
+  color: var(--ohw-muted);
+}
+
+html[data-theme="openhw"] .mm-table-tab:hover,
+html[data-theme="openhw"] .mm-table-tab.is-active {
+  background: var(--ohw-soft);
+  border-color: var(--ohw-green);
+  color: #3f6b1c;
+}
+
+html[data-theme="openhw"] .mm-table-tab:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-table-panel {
+  border-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-table-panel:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-data-table {
+  color: var(--ohw-dark);
+}
+
+html[data-theme="openhw"] .mm-data-table thead th {
+  background: #f2f7f3;
+  border-bottom-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-th-btn {
+  color: var(--ohw-dark);
+}
+
+html[data-theme="openhw"] .mm-th-btn:hover,
+html[data-theme="openhw"] .mm-th-btn:hover i {
+  color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-th-btn:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-data-table tbody td {
+  border-bottom-color: var(--ohw-line);
+}
+
+html[data-theme="openhw"] .mm-data-table tbody tr:hover td {
+  background: #f6faf7;
+}
+
+html[data-theme="openhw"] .mm-table-name {
+  color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-table-name:focus-visible {
+  outline-color: var(--ohw-blue);
+}
+
+html[data-theme="openhw"] .mm-table-link {
+  color: var(--ohw-blue);
+}
